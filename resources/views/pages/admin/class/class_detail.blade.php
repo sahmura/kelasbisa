@@ -35,7 +35,7 @@
                         <div class="card-profile-stats d-flex justify-content-center">
                             <div>
                                 <div class="icon icon-shape bg-success text-white rounded-circle shadow">
-                                    <span class="heading">22</span>
+                                    <span class="heading">{{ $totalChapters }}</span>
                                 </div>
                                 <span class="description" style="font-weight: 600;">Video</span>
                             </div>
@@ -63,10 +63,17 @@
                         <p>{!! $data->terms !!}</p>
                     </div>
                 </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <span style="font-weight: 600;">Harga</span>
+                        <hr style="margin-top: 1em;">
+                        <p>Rp{{ $data->prices }}</p>
+                    </div>
+                </div>
             </div>
             <div class="card-footer bg-primary text-center">
                 <a href="">
-                    <h3 class="display-5 text-white">Ikuti kelas</h3>
+                    <h3 class="display-5 text-white"></h3>
                 </a>
             </div>
         </div>
@@ -170,7 +177,7 @@
                         </form>
                     </div>
                     <div class="tab-pane fade" id="subchaptertab" role="tabpanel" aria-labelledby="subchaptertab-tab">
-                        <form action="" action="post" id="subchapterform">
+                        <form action="" method="POST" id="subchapterform">
                             @csrf
                             <input type="hidden" value="{{ $data->id }}" name="class_id">
                             <input type="hidden" value="" name="id" id="subchapter_id">
@@ -179,9 +186,14 @@
                                 <input type="text" name="name" id="subname" class="form-control"
                                     placeholder="Sub chapter" required>
                             </div>
-                            <button class="btn btn-md btn-success" id="add-sub-chapter">Tambah</button>
-                            <button class="btn btn-md btn-warning" id="edit-sub-chapter">Sunting</button>
-                            <button class="btn btn-md btn-danger" id="batal-sub-chapter">Batal</button>
+                            <div class="form-group">
+                                <label for="subdescription">Deskripsi</label>
+                                <textarea name="description" id="subdescription" class="form-control" required
+                                    placeholder="Deskripsi sub chapter"></textarea>
+                            </div>
+                            <button class="btn btn-md btn-success" id="add-sub-chapter" type="button">Tambah</button>
+                            <button class="btn btn-md btn-warning" id="edit-sub-chapter" type="button">Sunting</button>
+                            <button class="btn btn-md btn-danger" id="batal-sub-chapter" type="button">Batal</button>
                         </form>
                     </div>
                 </div>
@@ -307,7 +319,7 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            method: 'post',
+            method: 'POST',
             data: data,
             success: function (response) {
                 if (response.status) {

@@ -22,7 +22,7 @@
                 <div class="row mt-3">
                     <div class="col">
                         <h5 class="card-title text-uppercase text-muted mb-0">Kelas diikuti</h5>
-                        <span class="h2 font-weight-bold mb-0">350,897</span>
+                        <span class="h2 font-weight-bold mb-0">{{ $totalClass }}</span>
                     </div>
                     <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
@@ -39,10 +39,11 @@
                 <div class="row mt-3">
                     <div class="col">
                         <h5 class="card-title text-uppercase text-muted mb-0">Terakhir diakses</h5>
-                        <span class="h2 font-weight-bold mb-0">Nama kelas</span>
+                        <span class="h2 font-weight-bold mb-0">{{ $lastClass->class->name }} -
+                            {{ $lastClass->chapter->title }}</span>
                     </div>
                     <div class="col-auto">
-                        <a href="">
+                        <a href="{{ url('user/roll/' . $lastClass->class_id . '/' . $lastClass->chapter_id) }}">
                             <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
                                 <i class="ni ni-button-play"></i>
                             </div>

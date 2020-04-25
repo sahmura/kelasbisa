@@ -138,7 +138,8 @@ class ClassController extends Controller
         $data = Classes::where('id', '=', $id)->with('category')->with('chapters')->first();
         $listSubChapters = $subChapterRepository->getWhere('class_id', '=', $id)->get();
         $listChapters = $chapterRepository->getWhere('class_id', '=', $id)->get();
-        return view('pages.admin.class.class_detail', compact('data', 'listSubChapters', 'listChapters'));
+        $totalChapters = $chapterRepository->getWhere('class_id', '=', $id)->count();
+        return view('pages.admin.class.class_detail', compact('data', 'listSubChapters', 'listChapters', 'totalChapters'));
     }
 
 
@@ -287,7 +288,9 @@ class ClassController extends Controller
         $data = Classes::where('id', '=', $id)->with('category')->with('chapters')->first();
         $listSubChapters = $subChapterRepository->getWhere('class_id', '=', $id)->get();
         $listChapters = $chapterRepository->getWhere('class_id', '=', $id)->get();
-        return view('pages.user.class.class_detail', compact('data', 'listSubChapters', 'listChapters'));
+        $totalChapters = $chapterRepository->getWhere('class_id', '=', $id)->count();
+        $isOnList = LogClasses::where('class_id', '=', $id)->where('user_id', '=', Auth()->user()->id)->count();
+        return view('pages.user.class.class_detail', compact('data', 'listSubChapters', 'listChapters', 'totalChapters', 'isOnList'));
     }
 
     /**

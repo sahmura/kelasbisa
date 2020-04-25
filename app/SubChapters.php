@@ -12,7 +12,8 @@ class SubChapters extends Model
     protected $table = 'sub_chapters';
     protected $fillable = [
         'class_id',
-        'name'
+        'name',
+        'description'
     ];
 
     public function chapter()

@@ -49,8 +49,8 @@
                         <h3 class="btn btn-md btn-warning">{{ ucfirst($class->type) }}</h3>
                     </div>
                     <div class="col-8">
-                        <a href="{{ url('user/class/' . $class->id . '/detail') }}"
-                            class="btn btn-md btn-primary float-right"><i class="fas fa-search"></i> Detail</a>
+                        <a href="{{ url('user/roll/' . $class->id) }}" class="btn btn-md btn-primary float-right"><i
+                                class="ni ni-button-play"></i> Play</a>
                     </div>
                 </div>
             </div>

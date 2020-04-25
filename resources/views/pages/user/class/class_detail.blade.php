@@ -31,7 +31,7 @@
                         <div class="card-profile-stats d-flex justify-content-center">
                             <div>
                                 <div class="icon icon-shape bg-success text-white rounded-circle shadow">
-                                    <span class="heading">22</span>
+                                    <span class="heading">{{ $totalChapters }}</span>
                                 </div>
                                 <span class="description" style="font-weight: 600;">Video</span>
                             </div>
@@ -68,12 +68,16 @@
                 </div>
             </div>
             <div class="card-footer bg-primary text-center">
+                @if($isOnList == 0)
                 @if($data->type == 'free')
                 <button class="btn btn-primary text-white" id="addClassBtn" style="box-shadow: none;">Ikuti
                     kelas</button>
                 @else
                 <button class="btn btn-primary text-white" id="buyClassBtn" style="box-shadow: none;">Beli
                     kelas</button>
+                @endif
+                @else
+                <button class="btn btn-primary text-white" id="playClassBtn" style="box-shadow: none;">Play</button>
                 @endif
             </div>
         </div>
@@ -87,28 +91,12 @@
             </div>
             <div class="card-body">
                 @foreach($listSubChapters as $subchapter)
-                <h3 class="mt-5">{{ $subchapter->name }} <button data-id="{{ $subchapter->id }}"
-                        data-name="{{ $subchapter->name }}"
-                        class="btn btn-sm btn-danger float-right mx-1 btn-delete-subchapter"><i
-                            class="fas fa-trash-alt"></i></button>
-                    <button class="btn btn-sm btn-warning float-right btn-edit-subchapter"
-                        data-id="{{ $subchapter->id }}" data-name="{{ $subchapter->name }}"><i
-                            class="fas fa-pencil-alt"></i></button></h3>
+                <h3 class="mt-5">{{ $subchapter->name }}</h3>
                 <hr style="margin: 1em 0;">
                 <ul class="list-group">
                     @foreach($listChapters as $chapter)
                     @if($chapter->sub_chapter_id == $subchapter->id)
                     <li class="list-group-item">{{$chapter->title}}
-                        <button data-id="{{ $chapter->id }}" data-title="{{ $chapter->title }}"
-                            class="btn btn-sm btn-danger float-right btn-delete-chapter"><i
-                                class="fas fa-trash-alt"></i></button>
-                        <button class="btn btn-sm btn-warning float-right btn-edit-chapter mx-1"
-                            data-id="{{ $chapter->id }}" data-title="{{ $chapter->title }}"
-                            data-video="{{ $chapter->video_url }}" data-desc="{{ $chapter->description }}"
-                            data-subchapter="{{ $chapter->sub_chapter_id }}"> <i class="fas fa-pencil-alt"></i></button>
-                        <button class="btn btn-sm btn-primary float-right btn-detail-chapter"
-                            data-title="{{ $chapter->title }}" data-video="{{ $chapter->video_url }}"
-                            data-desc="{{ $chapter->description }}"> <i class="fas fa-search"></i></button>
                     </li>
                     @endif
                     @endforeach
@@ -183,6 +171,10 @@
         $('#buyClassModal').modal('show');
     });
 
+    $('#playClassBtn').on('click', function () {
+        window.location.href = "{{ url('user/roll/' . $data->id) }}";
+    });
+
     $('#addClassBtn').on('click', function () {
         $.ajax({
             url: "{{ url('user/joinclass') }}",
@@ -202,6 +194,10 @@
                         title: response.message,
                         text: response.notes,
                         icon: "success"
+                    }).then((Confirm) => {
+                        if (Confirm.value) {
+                            window.location.href = '{{ url("user/myclass") }}';
+                        }
                     });
                 } else {
                     Swal.fire({

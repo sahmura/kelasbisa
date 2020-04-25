@@ -91,5 +91,7 @@ Route::group(
         Route::post('joinclass', 'ClassController@joinClass');
 
         Route::get('/', 'DashboardController@indexuser');
+
+        Route::get('roll/{classid}/{chid?}', 'RollController@index');
     }
 );
