@@ -95,3 +95,13 @@ Route::group(
         Route::get('roll/{classid}/{chid?}', 'RollController@index');
     }
 );
+
+Route::group(
+    ['prefix' => 'setting', 'middleware' => 'App\Http\Middleware\Authenticate'],
+    function () {
+        Route::get('/', 'DashboardController@settingindex');
+        Route::post('update', 'DashboardController@updateProfile');
+        Route::post('updatepassword', 'DashboardController@updatePassword');
+        Route::post('updatepic', 'DashboardController@updateProfilPic');
+    }
+);

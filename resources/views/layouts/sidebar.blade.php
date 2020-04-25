@@ -65,13 +65,13 @@
                             <span class="nav-link-text">Users</span>
                         </a>
                     </li>
+                    @endif
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/setting') }}">
+                        <a class="nav-link" href="{{ url('setting') }}">
                             <i class="ni ni-settings-gear-65 text-default"></i>
                             <span class="nav-link-text">Settings</span>
                         </a>
                     </li>
-                    @endif
                 </ul>
             </div>
         </div>

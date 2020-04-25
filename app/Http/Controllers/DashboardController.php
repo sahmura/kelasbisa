@@ -7,6 +7,8 @@ use App\User;
 use App\Classes;
 use App\LogRoll;
 use App\LogClasses;
+use Illuminate\Support\Facades\Hash;
+use File;
 
 class DashboardController extends Controller
 {
@@ -20,5 +22,155 @@ class DashboardController extends Controller
         $lastClass = LogRoll::where('user_id', '=', Auth()->user()->id)->with('class')->orderBy('updated_at', 'desc')->first();
         $totalClass = LogClasses::where('user_id', '=', Auth()->user()->id)->count();
         return view('pages.user.user_dashboard', compact('lastClass', 'totalClass'));
+    }
+
+    /**
+     * Halaman setting
+     * 
+     * @return view
+     */
+    public function settingindex()
+    {
+        $data = User::where('id', '=', Auth()->user()->id)->first();
+        return view('pages.dashboard.settingindex', compact('data'));
+    }
+
+    /**
+     * Update profil
+     * 
+     * @param $request menerima data
+     * 
+     * @return json
+     */
+    public function updateProfile(Request $request)
+    {
+        if (User::where('email', '=', $request->email)->whereNotIn('id', [Auth()->user()->id])->count() == 0) {
+            $update = User::where('id', '=', Auth()->user()->id)->update(
+                [
+                    'name' => $request->name,
+                    'email' => $request->email,
+                ]
+            );
+            if ($update) {
+                $response = [
+                    'status' => true,
+                    'message' => 'Data diri berhasil disunting',
+                    'notes' => ''
+                ];
+            } else {
+                $response = [
+                    'status' => false,
+                    'message' => 'Data diri gagal disunting',
+                    'notes' => ''
+                ];
+            }
+        } else {
+            $response = [
+                'status' => false,
+                'message' => 'Email tidak tersedia',
+                'notes' => 'Gunakan email yang belum terdaftar'
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * Update password
+     * 
+     * @param $request menerima data
+     * 
+     * @return json
+     */
+    public function updatePassword(Request $request)
+    {
+        $oldPassword = User::where('id', '=', Auth()->user()->id)->first();
+        if (Hash::check($request->oldpassword, $oldPassword->password)) {
+            if ($request->newpassword == $request->confirmpassword) {
+                $update = User::where('id', '=', Auth()->user()->id)->update(
+                    [
+                        'password' => Hash::make($request->newpassword)
+                    ]
+                );
+                if ($update) {
+                    $response = [
+                        'status' => true,
+                        'message' => 'Password berhasil disunting',
+                        'notes' => ''
+                    ];
+                } else {
+                    $response = [
+                        'status' => false,
+                        'message' => 'Password gagal disunting',
+                        'notes' => ''
+                    ];
+                }
+            } else {
+                $response = [
+                    'status' => false,
+                    'message' => 'Konfirmasi password tidak sesuai',
+                    'notes' => 'Pastikan memasukan konfirmasi password baru dengan benar'
+                ];
+            }
+        } else {
+            $response = [
+                'status' => false,
+                'message' => 'Password lama tidak sesuai',
+                'notes' => 'Pastikan memasukan password lama dengan benar'
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * Update profil
+     * 
+     * @param $request menerima data
+     * 
+     * @return json
+     */
+    public function updateProfilPic(Request $request)
+    {
+        $data = User::where('id', '=', Auth()->user()->id)->first();
+        $pic = $request->file('profil');
+        $file_name = md5($data->name . $data->id) . $pic->getClientOriginalExtension();
+        if ($data->profilpic != '') {
+            File::delete('assets/profilpic/' . $data->profilpic);
+        }
+        try {
+            $pic->move('assets/profilpic', $file_name);
+            $update = User::where('id', '=', Auth()->user()->id)->update(
+                [
+                    'profilpic' => $file_name,
+                ]
+            );
+            if ($update) {
+                $response = [
+                    'status' => true,
+                    'message' => 'Profil picture berhasil disunting',
+                    'notes' => ''
+                ];
+            } else {
+                $response = [
+                    'status' => false,
+                    'message' => 'Profil picture gagal disunting',
+                    'notes' => ''
+                ];
+            }
+        } catch (\Exception $e) {
+            throw $e;
+            $response = [
+                'status' => false,
+                'message' => 'Profil picture gagal disunting',
+                'notes' => ''
+            ];
+        }
+
+        if ($response['status']) {
+            return redirect('setting')->with('success', $response['message']);
+        } else {
+            return redirect('setting')->with('error', $response['message']);
+        }
     }
 }
