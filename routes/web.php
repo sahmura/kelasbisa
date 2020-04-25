@@ -89,5 +89,7 @@ Route::group(
         Route::get('myclass/{category?}', 'ClassController@listMyClassUser');
         Route::get('class/{id}/detail', 'ClassController@detailClassUser');
         Route::post('joinclass', 'ClassController@joinClass');
+
+        Route::get('/', 'DashboardController@indexuser');
     }
 );
