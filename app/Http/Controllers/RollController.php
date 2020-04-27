@@ -39,6 +39,6 @@ class RollController extends Controller
             $initialState = false;
             $rollChapter = Chapters::where('id', '=', $chid)->where('class_id', '=', $classid)->first();
         }
-        return view('pages.user.roll.roll_class', compact('class', 'listChapters', 'listSubChapters', 'initialState', 'rollChapter'));
+        return view('pages.user.roll.roll_class', compact('class', 'listChapters', 'listSubChapters', 'initialState', 'rollChapter', 'chid'));
     }
 }

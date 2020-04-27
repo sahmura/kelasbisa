@@ -32,6 +32,7 @@
                             <th style="width: 30px;">No</th>
                             <th>Kelas</th>
                             <th>Kode</th>
+                            <th>Discount</th>
                             <th style="width: 50px;"><i class="ni ni-ungroup"></i></th>
                         </thead>
                         <tbody class="list"></tbody>
@@ -70,6 +71,11 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="discount">Discount</label>
+                        <input type="number" name="discount" id="discount" class="form-control"
+                            placeholder="Potongan harga" required>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -106,6 +112,10 @@
                 {
                     data: 'coupon',
                     orderable: true,
+                },
+                {
+                    data: 'discount',
+                    orderable: false,
                 },
                 {
                     data: 'action',
@@ -172,11 +182,12 @@
         var id = $(this).data('id');
         var coupon = $(this).data('coupon');
         var classid = $(this).data('classid');
-        console.log(classid);
+        var disc = $(this).data('disc');
         $('#dataForm')[0].reset();
         $('#id').val(id);
         $('#coupon').val(coupon);
         $('#classid').val(classid);
+        $('#discount').val(disc);
 
         $('.modal-title').html('Sunting data')
         $('#save-btn').addClass('btn-warning');

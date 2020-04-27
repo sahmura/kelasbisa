@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Auth::routes();
@@ -69,6 +69,8 @@ Route::group(
             }
         );
 
+        Route::post('asignclass', 'ClassController@joinClass');
+
         Route::group(
             ['prefix' => 'coupon'],
             function () {
@@ -79,6 +81,12 @@ Route::group(
                 Route::delete('delete', 'CouponController@deleteCoupon');
             }
         );
+
+        Route::group(['prefix' => 'user'], function () {
+
+            Route::get('/', 'AdminController@listUser');
+            Route::post('getListUser', 'AdminController@getListUser');
+        });
     }
 );
 
@@ -93,6 +101,10 @@ Route::group(
         Route::get('/', 'DashboardController@indexuser');
 
         Route::get('roll/{classid}/{chid?}', 'RollController@index');
+
+        Route::get('confirm-email', 'DashboardController@sendConfirmMail');
+
+        Route::get('activate/{email}/{token}', 'DashboardController@activateUser');
     }
 );
 

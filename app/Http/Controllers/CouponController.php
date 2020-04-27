@@ -29,23 +29,32 @@ class CouponController extends Controller
      */
     public function createCoupon(Request $request)
     {
-        $create = Coupons::create(
-            [
-                'class_id' => $request->class_id,
-                'coupon' => $request->coupon
-            ]
-        );
+        if (Coupons::where('coupon', '=', $request->coupon)->count() == 0) {
+            $create = Coupons::create(
+                [
+                    'class_id' => $request->class_id,
+                    'coupon' => $request->coupon,
+                    'discount' => $request->discount,
+                ]
+            );
 
-        if ($create) {
-            $response = [
-                'status' => true,
-                'message' => 'Kode promo berhasil dibuat',
-                'notes' => ''
-            ];
+            if ($create) {
+                $response = [
+                    'status' => true,
+                    'message' => 'Kode promo berhasil dibuat',
+                    'notes' => ''
+                ];
+            } else {
+                $response = [
+                    'status' => false,
+                    'message' => 'Kode promo gagal dibuat',
+                    'notes' => ''
+                ];
+            }
         } else {
             $response = [
                 'status' => false,
-                'message' => 'Kode promo gagal dibuat',
+                'message' => 'Kode promo sudah ada',
                 'notes' => ''
             ];
         }
@@ -62,23 +71,32 @@ class CouponController extends Controller
      */
     public function updateCoupon(Request $request)
     {
-        $update = Coupons::where('id', '=', $request->id)->update(
-            [
-                'class_id' => $request->class_id,
-                'coupon' => $request->coupon
-            ]
-        );
+        if (Coupons::where('coupon', '=', $request->coupon)->whereNotIn('id', [$request->id])->count() == 0) {
+            $update = Coupons::where('id', '=', $request->id)->update(
+                [
+                    'class_id' => $request->class_id,
+                    'coupon' => $request->coupon,
+                    'discount' => $request->discount,
+                ]
+            );
 
-        if ($update) {
-            $response = [
-                'status' => true,
-                'message' => 'Kode promo berhasil disunting',
-                'notes' => ''
-            ];
+            if ($update) {
+                $response = [
+                    'status' => true,
+                    'message' => 'Kode promo berhasil disunting',
+                    'notes' => ''
+                ];
+            } else {
+                $response = [
+                    'status' => false,
+                    'message' => 'Kode promo gagal disunting',
+                    'notes' => ''
+                ];
+            }
         } else {
             $response = [
                 'status' => false,
-                'message' => 'Kode promo gagal disunting',
+                'message' => 'Kode promo sudah ada',
                 'notes' => ''
             ];
         }
@@ -127,6 +145,7 @@ class CouponController extends Controller
                                     data-id='" . $listData->id . "'
                                     data-classid='" . $listData->class_id . "'
                                     data-coupon='" . $listData->coupon . "'
+                                    data-dics='" . $listData->dicsount . "'
                                     ><i class='fas fa-pencil-alt'></i></button>
                                     <button class='btn btn-sm btn-danger btn-delete' data-id='" . $listData->id . "'><i class='fas fa-trash-alt'></i></button>
                                 </div>";

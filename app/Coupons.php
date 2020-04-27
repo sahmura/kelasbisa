@@ -10,7 +10,8 @@ class Coupons extends Model
     protected $table = 'coupons';
     protected $fillable = [
         'class_id',
-        'coupon'
+        'coupon',
+        'discount'
     ];
 
     public function class()

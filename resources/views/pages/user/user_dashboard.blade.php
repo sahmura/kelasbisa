@@ -15,6 +15,19 @@
 </div>
 @endsection
 @section('content')
+@if($dataEmail->email_verified_at == null)
+<div class="row">
+    <div class="col-md-12">
+        <div class="card shadow">
+            <div class="card-body">
+                <h3 class="text-danger">Konfirmasi email!</h3>
+                <p>Email belum dikonfirmasi, harap konfirmasi email terlebih dahulu</p>
+                <a href="{{ url('user/confirm-email') }}" class="btn btn-success">Kirim email verifikasi</a>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 <div class="row">
     <div class="col-md-3">
         <div class="card crad-stats shadow">
@@ -39,6 +52,7 @@
                 <div class="row mt-3">
                     <div class="col">
                         <h5 class="card-title text-uppercase text-muted mb-0">Terakhir diakses</h5>
+                        @if(!empty($lastClass))
                         <span class="h2 font-weight-bold mb-0">{{ $lastClass->class->name }} -
                             {{ $lastClass->chapter->title }}</span>
                     </div>
@@ -48,6 +62,9 @@
                                 <i class="ni ni-button-play"></i>
                             </div>
                         </a>
+                        @else
+                        <span class="h2 font-weight-bold mb-0">Belum mengambil kelas</span>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -57,6 +74,19 @@
 @endsection
 @push('js')
 <script>
+    @if(session('success'))
+    Swal.fire({
+        title: "{{ session('success') }}",
+        icon: 'success'
+    });
+    @endif
+
+    @if(session('error'))
+    Swal.fire({
+        title: "{{ session('error') }}",
+        icon: 'error'
+    });
+    @endif
 
 </script>
 @endpush

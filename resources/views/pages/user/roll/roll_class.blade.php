@@ -23,8 +23,9 @@
                 <ul class="navbar-nav mb-3">
                     @foreach($listChapters as $chapter)
                     @if($chapter->sub_chapter_id == $subchapter->id)
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('user/roll/' . $class->id . '/' . $chapter->id) }}">
+                    <li class="nav-item ">
+                        <a class="nav-link @if($chid == $chapter->id) active @endif"
+                            href="{{ url('user/roll/' . $class->id . '/' . $chapter->id) }}">
                             <i class="ni ni-bold-right text-primary"></i>
                             <span class="nav-link-text">{{ $chapter->title }}</span>
                         </a>
