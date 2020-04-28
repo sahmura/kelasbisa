@@ -20,7 +20,7 @@
             <div class="card-body">
                 <div class="row mt-3">
                     <div class="col">
-                        <h5 class="card-title text-uppercase text-muted mb-0">Total kelas</h5>
+                        <h5 class="card-title text-uppercase text-muted mb-0">Total<br>kelas</h5>
                         <span class="h2 font-weight-bold mb-0">{{ $data['totalClasses'] }}</span>
                     </div>
                     <div class="col-auto">
@@ -71,8 +71,8 @@
             <div class="card-body">
                 <div class="row mt-3">
                     <div class="col">
-                        <h5 class="card-title text-uppercase text-muted mb-0">Total chapter</h5>
-                        <span class="h2 font-weight-bold mb-0">{{ $data['totalChapters'] }}</span>
+                        <h5 class="card-title text-uppercase text-muted mb-0">Transaksi pending</h5>
+                        <span class="h2 font-weight-bold mb-0">{{ $data['pendingTransaction'] }}</span>
                     </div>
                     <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-yellow text-white rounded-circle shadow">
@@ -128,7 +128,7 @@
                                 class="rounded-circle" width="40" height="auto">
                             @endif
                         </div>
-                        {{ $transaction->user->name }} - {{ $transaction->class->name }}
+                        {{ $transaction->user->name }} - {{ $transaction->class->name }} ({{$transaction->status}})
                     </li>
                     @endforeach
                 </ul>

@@ -31,19 +31,36 @@
                         <span class="nav-link-inner--text">Kelas</span>
                     </a>
                 </li>
+                @if(Auth()->user())
                 <li class="nav-item dropdown d-lg-none">
-                    <a href="#" class="nav-link">
+                    <a href="{{ url('user') }}" class="nav-link">
+                        <i class="ni ni-bold-right d-lg-none"></i>
+                        <span class="nav-link-inner--text">Dashboard</span>
+                    </a>
+                </li>
+                @else
+                <li class="nav-item dropdown d-lg-none">
+                    <a href="{{ url('register') }}" class="nav-link">
                         <i class="ni ni-send d-lg-none"></i>
                         <span class="nav-link-inner--text">Daftar</span>
                     </a>
                 </li>
                 <li class="nav-item dropdown d-lg-none">
-                    <a href="#" class="nav-link">
+                    <a href="{{ url('login') }}" class="nav-link">
                         <i class="ni ni-bold-right d-lg-none"></i>
                         <span class="nav-link-inner--text">Masuk</span>
                     </a>
                 </li>
+                @endif
                 <li class="nav-item d-none d-lg-block ml-lg-4">
+                    @if(Auth()->user())
+                    <a href="{{ url('user') }}" target="_blank" class="btn btn-neutral btn-icon">
+                        <span class="btn-inner--icon">
+                            <i class="ni ni-bold-right mr-2"></i>
+                        </span>
+                        <span class="nav-link-inner--text">Dashboard</span>
+                    </a>
+                    @else
                     <a href="{{ url('register') }}" target="_blank" class="btn btn-outline-neutral btn-icon">
                         <span class="btn-inner--icon">
                             <i class="ni ni-bold-right mr-2"></i>
@@ -56,6 +73,7 @@
                         </span>
                         <span class="nav-link-inner--text">Masuk</span>
                     </a>
+                    @endif
                 </li>
             </ul>
         </div>

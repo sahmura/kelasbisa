@@ -24,12 +24,11 @@ class AdminController extends Controller
         $classes = Classes::where('deleted_at', '=', null);
         $users = User::where('role', '=', 'user');
         $transactions = Transactions::where('deleted_at', '=', null);
-        $chapters = Chapters::where('deleted_at', '=', null);
 
         $data['totalClasses'] = $classes->count();
         $data['totalUsers'] = $users->count();
         $data['totalTransactions'] = $transactions->count();
-        $data['totalChapters'] = $chapters->count();
+        $data['pendingTransaction'] = Transactions::where('deleted_at', '=', null)->where('status', '=', 'Pending')->count();
         $data['newUsers'] = $users->orderBy('id', 'desc')->limit(10)->get();
         $data['newTransactions'] = $transactions->with('user')->with('class')->orderBy('id', 'desc')->limit(10)->get();
         $data['bestClasses'] = $transactions->select(DB::raw('count(*) as total, class_id'))->with('class')->groupBy('class_id')->orderBy('total')->get();

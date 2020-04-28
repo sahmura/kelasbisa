@@ -63,9 +63,21 @@
                     <div class="col">
                         <span style="font-weight: 600;">Harga</span>
                         <hr style="margin-top: 1em;">
-                        <p>Rp{{ $data->prices }}</p>
+                        <p id="hargaAwal">Rp{{ $data->prices }}</p>
+                        <p id="hargaDiskon"></p>
                     </div>
                 </div>
+                @if($isOnList == 0)
+                @if($data->type == 'premium')
+                <div class="row">
+                    <div class="col">
+                        <label for="coupon">Kupon</label>
+                        <input type="text" name="coupon" id="coupon" class="form-control" placeholder="Kode kupon">
+                        <p id="errorCode" class="text-danger"></p>
+                    </div>
+                </div>
+                @endif
+                @endif
             </div>
             <div class="card-footer bg-primary text-center">
                 @if($isOnList == 0)
@@ -122,15 +134,16 @@
                 <h3>Panduan pembelian kelas</h3>
                 <hr>
                 <ul class="list-group">
-                    <li class="list-group-item">Anda akan membeli kelas {{ $data->name }} seharga Rp{{ $data->prices}}
+                    <li class="list-group-item">Selamat, kamu berhasil membeli kelas, namun masih belum bisa diakses
                     </li>
-                    <li class="list-group-item">Silahkan transfer sebesar nominal tersebut ke <br>No rekening</li>
+                    <li class="list-group-item">Silahkan transfer sebesar nominal akhir ke <br>No rekening</li>
                     <li class="list-group-item">Setelah itu kirim bukti transfer ke No 085156257710 melalui Whatsapp
                         disertai dengan data
                         berikut<br><br>
                         Nama : {{ Auth()->user()->name }}<br>
                         Email : {{ Auth()->user()->email }}
                     </li>
+                    <li class="list-group-item">Setelah konfirmasi, kelas akan otomatis ada di menu kelas ku</li>
                 </ul>
             </div>
             <div class="modal-footer">
@@ -168,7 +181,37 @@
     });
 
     $('#buyClassBtn').on('click', function () {
-        $('#buyClassModal').modal('show');
+        $.ajax({
+            url: "{{ url('user/buyclass') }}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'POST',
+            data: {
+                class_id: "{{ $data->id }}",
+                user_id: "{{ Auth()->user()->id }}",
+                code: $('#coupon').val()
+            },
+            success: function (response) {
+                if (response.status) {
+                    Swal.fire({
+                        title: response.message,
+                        text: response.notes,
+                        icon: "success"
+                    }).then((Confirm) => {
+                        if (Confirm.value) {
+                            $('#buyClassModal').modal('show');
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: response.message,
+                        text: response.notes,
+                        icon: "error"
+                    });
+                }
+            }
+        });
     });
 
     $('#playClassBtn').on('click', function () {
@@ -209,6 +252,40 @@
             }
         })
     });
+
+    $('#coupon').on('keyup', function () {
+        $.ajax({
+            url: "{{ url('user/checkCoupon')}}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'POST',
+            data: {
+                code: $(this).val(),
+                idclass: "{{ $data->id }}"
+            },
+            success: function (response) {
+                if (response.status) {
+                    $('#hargaAwal').css('text-decoration', 'line-through');
+                    $('#hargaAwal').css('color', '#FA441B');
+                    $('#hargaDiskon').css('font-weight', '600');
+                    $('#hargaDiskon').show();
+                    $('#hargaDiskon').html(response.newPrices);
+                    $('#errorCode').html(response.message);
+                    $('#errorCode').removeClass('text-danger');
+                    $('#errorCode').addClass('text-success');
+                } else {
+                    $('#hargaAwal').css('text-decoration', 'none');
+                    $('#hargaAwal').css('color', '#757F99');
+                    $('#errorCode').html(response.message);
+                    $('#errorCode').removeClass('text-success');
+                    $('#errorCode').addClass('text-danger');
+                    $('#hargaDiskon').hide();
+
+                }
+            }
+        })
+    })
 
 </script>
 @endpush

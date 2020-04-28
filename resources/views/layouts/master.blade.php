@@ -23,7 +23,7 @@
     @include('layouts.sidebar')
     <div class="main-content" id="panel">
         @include('layouts.topnav')
-        <div class="header @yield('bg-header') pb-6" @yield('style-header')>
+        <div class="header @yield('bg-header') pb-6" @stack('style-header')>
             <div class="container-fluid">
                 <div class="header-body">
                     @yield('header-body')

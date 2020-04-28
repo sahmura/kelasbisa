@@ -156,4 +156,33 @@ class CouponController extends Controller
                 ->make(true);
         }
     }
+
+    /**
+     * Check Coupon
+     * 
+     * @param $request menerima data
+     * 
+     * @return mixed
+     */
+    public function checkCoupon(Request $request)
+    {
+        $dataClass = Classes::where('id', '=', $request->idclass)->where('deleted_at', '=', null)->first();
+        $checkCoupon = Coupons::where('class_id', '=', $dataClass->id)->where('coupon', '=', $request->code);
+        if ($checkCoupon->count() == 0) {
+            $response = [
+                'status' => false,
+                'message' => 'Kode kupon tidak ditemukan',
+                'notes' => ''
+            ];
+        } else {
+            $response = [
+                'status' => true,
+                'message' => 'Kode kupon berhasil digunakan',
+                'notes' => '',
+                'newPrices' => 'Rp' . ($dataClass->prices - $checkCoupon->first()->discount)
+            ];
+        }
+
+        return response()->json($response);
+    }
 }

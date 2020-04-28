@@ -10,6 +10,7 @@ use App\Chapters;
 use App\LogClasses;
 use App\SubChapters;
 use App\Transactions;
+use App\Coupons;
 use App\Repositories\SubChapterRepository;
 use App\Repositories\ChapterRepository;
 use App\Repositories\ClassRepository;
@@ -240,38 +241,41 @@ class ClassController extends Controller
      * List all class in user mode
      * 
      * @param $category menerima data kategori
+     * @param $type     menerima data kategori
      * 
      * @return view
      */
-    public function listClassUser($category = null)
+    public function listClassUser($category = null, $type = null)
     {
         $listCategories = Categories::where('deleted_at', '=', null)->get();
-
-        if ($category != null) {
-            $listClasses = Classes::where('deleted_at', '=', null)->where('category_id', '=', $category)->with('category')->orderBy('id', 'desc')->paginate(12);
+        if ($category == 'search') {
+            $listClasses = Classes::where('name', 'like', '%' . $type . '%')->where('deleted_at', '=', null)->paginate(12);
+        } else if ($category == null || $type == null) {
+            $listClasses = Classes::where('deleted_at', '=', null)->paginate(12);
         } else {
-            $listClasses = Classes::where('deleted_at', '=', null)->with('category')->orderBy('id', 'desc')->paginate(12);
+            if ($category == 'all' && $type != null) {
+                $listClasses = Classes::where('type', '=', $type)->where('deleted_at', '=', null)->paginate(12);
+            } else if ($type == 'all' && $category != null) {
+                $listClasses = Classes::where('category_id', '=', $category)->where('deleted_at', '=', null)->paginate(12);
+            } else if ($category == 'all' && $type == 'all') {
+                $listClasses = Classes::where('deleted_at', '=', null)->paginate(12);
+            } else {
+                $listClasses = Classes::where('category_id', '=', $category)->where('type', '=', $type)->where('deleted_at', '=', null)->paginate(12);
+            }
         }
-        return view('pages.user.class.index_class', ['listClasses' => $listClasses, 'listCategories' => $listCategories, 'category_id' => $category]);
+
+        return view('pages.user.class.index_class', ['listClasses' => $listClasses, 'listCategories' => $listCategories, 'category_id' => $category, 'type' => $type]);
     }
 
     /**
      * List all class in user mode
      * 
-     * @param $category menerima data kategori
-     * 
      * @return view
      */
-    public function listMyClassUser($category = null)
+    public function listMyClassUser()
     {
-        $listCategories = Categories::where('deleted_at', '=', null)->get();
-        $ownClasses = LogClasses::where('user_id', '=', Auth()->user()->id)->where('deleted_at', '=', null)->get('class_id');
-        if ($category != null) {
-            $listClasses = Classes::whereIn('id', $ownClasses)->where('deleted_at', '=', null)->where('category_id', '=', $category)->with('category')->orderBy('id', 'desc')->paginate(12);
-        } else {
-            $listClasses = Classes::whereIn('id', $ownClasses)->where('deleted_at', '=', null)->with('category')->orderBy('id', 'desc')->paginate(12);
-        }
-        return view('pages.user.class.myclass', ['listClasses' => $listClasses, 'listCategories' => $listCategories, 'category_id' => $category]);
+        $listClasses = LogClasses::where('user_id', '=', Auth()->user()->id)->where('deleted_at', '=', null)->with('class.category')->orderBy('created_at', 'desc')->paginate(12);
+        return view('pages.user.class.myclass', ['listClasses' => $listClasses]);
     }
 
     /**
@@ -312,7 +316,7 @@ class ClassController extends Controller
                     'user_id' => $dataUser->id,
                     'class_id' => $dataClass->id,
                     'transaction_code' => md5($dataClass->name . $dataUser->name),
-                    'status' => $request->status,
+                    'status' => 'Done',
                     'total_prices' => $dataClass->prices
                 ]
             );
@@ -338,6 +342,70 @@ class ClassController extends Controller
                 'message' => 'Gagal masuk kelas',
                 'notes' => ''
             ];
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * Proses pembelian kelas
+     * 
+     * @param $request menerima data
+     * 
+     * @return mixed
+     */
+    public function buyClass(Request $request)
+    {
+        $dataClass = Classes::where('id', '=', $request->class_id)->where('deleted_at', '=', null)->first();
+        $dataUser = User::where('id', '=', $request->user_id)->first();
+        $code = Coupons::where('coupon', '=', $request->code)->where('class_id', '=', $dataClass->id);
+
+        if ($dataClass->prices - $code->first()->discount == 0) {
+            $this->joinClass($request);
+            $response = [
+                'status' => true,
+                'message' => 'Berhasil masuk kelas',
+                'notes' => ''
+            ];
+        } else {
+            try {
+                DB::beginTransaction();
+                if ($code->count() == 0) {
+                    $newTransaction = Transactions::create(
+                        [
+                            'user_id' => $dataUser->id,
+                            'class_id' => $dataClass->id,
+                            'transaction_code' => md5($dataClass->name . $dataUser->name),
+                            'status' => 'pending',
+                            'total_prices' => $dataClass->prices
+                        ]
+                    );
+                } else {
+                    $newTransaction = Transactions::create(
+                        [
+                            'user_id' => $dataUser->id,
+                            'class_id' => $dataClass->id,
+                            'transaction_code' => md5($dataClass->name . $dataUser->name),
+                            'status' => 'pending',
+                            'total_prices' => $dataClass->prices - $code->first()->discount
+                        ]
+                    );
+                }
+                DB::commit();
+                $response = [
+                    'status' => true,
+                    'message' => 'Berhasil membeli kelas',
+                    'notes' => 'Kelas masih pending, selesaikan pembayaran'
+                ];
+            } catch (\Exception $e) {
+                throw $e;
+                DB::rollback();
+                $response = [
+                    'status' => false,
+                    'message' => 'Gagal membeli kelas',
+                    'notes' => ''
+                ];
+            }
         }
 
         return response()->json($response);

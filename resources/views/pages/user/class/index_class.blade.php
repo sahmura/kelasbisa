@@ -3,7 +3,7 @@
 @section('bg-header', 'bg-primary')
 @section('header-body')
 <div class="row align-items-center py-4">
-    <div class="col-lg-6 col-7">
+    <div class="col-lg-4 col-7">
         <h6 class="h2 text-white d-inline-block mb-0">Class</h6>
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -13,19 +13,34 @@
             </ol>
         </nav>
     </div>
-    <div class="col-lg-6 col-5 text-right">
+</div>
+<div class="row">
+    <div class="col-md-6">
         <select name="" id="category_id" class="custom-select">
-            <option value="0">Semua kategori</option>
+            <option value="all" @if($category_id=='all' ) selected='selected' @endif>Semua kategori</option>
             @foreach($listCategories as $category)
             <option value="{{ $category->id }}" @if($category_id==$category->id) selected='selected'
                 @endif>{{ $category->name }}</option>
             @endforeach
         </select>
     </div>
+    <div class="col-md-6">
+        <select name="" id="type" class="custom-select">
+            <option value="all" @if($type=='all' ) selected='selected' @endif>Semua tipe</option>
+            <option value="free" @if($type=='free' ) selected='selected' @endif>Kelas Gratis</option>
+            <option value="premium" @if($type=='premium' ) selected='selected' @endif>Kelas Premium</option>
+        </select>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-md-12">
+        <input type="text" name="classname" id="classname" class="form-control" placeholder="Cari kelas">
+    </div>
 </div>
 @endsection
 @section('content')
-<div class="row">
+<div class="row mt-5">
+    @if($listClasses->total() != 0)
     @foreach($listClasses as $class)
     <div class="col-md-4">
         <div class="card shadow">
@@ -40,7 +55,7 @@
                         <h3 class="btn btn-md btn-warning">{{ ucfirst($class->type) }}</h3>
                     </div>
                     <div class="col-8">
-                        <a href="{{ url('user/class/' . $class->id . '/detail') }}"
+                        <a href="{{ url('user/detail/' . $class->id . '/class') }}"
                             class="btn btn-md btn-primary float-right"><i class="fas fa-search"></i> Detail</a>
                     </div>
                 </div>
@@ -48,6 +63,15 @@
         </div>
     </div>
     @endforeach
+    @else
+    <div class="col-md-12">
+        <div class="card shadow">
+            <div class="card-body text-center">
+                <h3 class="card-title" style="margin-bottom: 10px;">Kelas tidak ditemukan</h3>
+            </div>
+        </div>
+    </div>
+    @endif
 </div>
 <div class="row ">
     <div class="col-md-12 d-flex align-items-center justify-content-center">
@@ -58,12 +82,26 @@
 @push('js')
 <script>
     $('#category_id').on('change', function () {
-        var cat_id = $(this).val();
-        if (cat_id != 0) {
-            window.location.href = "{{ url('user/class') }}" + '/' + cat_id;
+        var category = $('#category_id').val();
+        var type = $('#type').val();
+        if (category == 'all' && type == 'all') {
+            window.location.href = "{{ url('user/class')}}";
         } else {
-            window.location.href = "{{ url('user/class') }}";
+            window.location.href = "{{ url('user/class')}}" + '/' + category + '/' + type;
         }
+    });
+    $('#type').on('change', function () {
+        var category = $('#category_id').val();
+        var type = $('#type').val();
+        if (category == 'all' && type == 'all') {
+            window.location.href = "{{ url('user/class')}}";
+        } else {
+            window.location.href = "{{ url('user/class')}}" + '/' + category + '/' + type;
+        }
+    });
+    $('#classname').on('change', function () {
+        var name = $('#classname').val();
+        window.location.href = "{{ url('user/class')}}" + '/search/' + name;
     });
 
 </script>

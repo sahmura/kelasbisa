@@ -13,7 +13,7 @@
                         <span class="btn-inner--icon"><i class="ni ni-bold-right"></i></span>
                         <span class="btn-inner--text">Masuk Kelas</span>
                     </a>
-                    <a href="{{ url('login') }}" class="btn btn-outline-secondary text-white btn-icon mt-3 mb-sm-0">
+                    <a href="{{ url('class') }}" class="btn btn-outline-secondary text-white btn-icon mt-3 mb-sm-0">
                         <span class="btn-inner--icon"><i class="ni ni-single-copy-04"></i></span>
                         <span class="btn-inner--text">Lihat Kelas</span>
                     </a>

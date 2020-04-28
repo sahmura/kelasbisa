@@ -17,6 +17,9 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('class/{category?}/{type?}', 'IndexController@class');
+Route::get('detail/{id?}', 'IndexController@detailClass');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -87,15 +90,21 @@ Route::group(
             Route::get('/', 'AdminController@listUser');
             Route::post('getListUser', 'AdminController@getListUser');
         });
+
+        Route::group(['prefix' => 'transaction'], function () {
+            Route::get('/', 'TransactionsController@index');
+            Route::post('getListData', 'TransactionsController@getListTransaction');
+            Route::post('asignuser', 'TransactionsController@asignUser');
+        });
     }
 );
 
 Route::group(
     ['prefix' => 'user', 'middleware' => 'App\Http\Middleware\User'],
     function () {
-        Route::get('class/{category?}', 'ClassController@listClassUser');
-        Route::get('myclass/{category?}', 'ClassController@listMyClassUser');
-        Route::get('class/{id}/detail', 'ClassController@detailClassUser');
+        Route::get('class/{category?}/{type?}', 'ClassController@listClassUser');
+        Route::get('myclass', 'ClassController@listMyClassUser');
+        Route::get('detail/{id}/class', 'ClassController@detailClassUser');
         Route::post('joinclass', 'ClassController@joinClass');
 
         Route::get('/', 'DashboardController@indexuser');
@@ -105,6 +114,9 @@ Route::group(
         Route::get('confirm-email', 'DashboardController@sendConfirmMail');
 
         Route::get('activate/{email}/{token}', 'DashboardController@activateUser');
+
+        Route::post('checkCoupon', 'CouponController@checkCoupon');
+        Route::post('buyclass', 'ClassController@buyClass');
     }
 );
 

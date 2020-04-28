@@ -13,15 +13,6 @@
             </ol>
         </nav>
     </div>
-    <div class="col-lg-6 col-5 text-right">
-        <select name="" id="category_id" class="custom-select">
-            <option value="0">Semua kategori</option>
-            @foreach($listCategories as $category)
-            <option value="{{ $category->id }}" @if($category_id==$category->id) selected='selected'
-                @endif>{{ $category->name }}</option>
-            @endforeach
-        </select>
-    </div>
 </div>
 @endsection
 @section('content')
@@ -38,19 +29,19 @@
     @foreach($listClasses as $class)
     <div class="col-md-4">
         <div class="card shadow">
-            <img class="card-img-top" src="{{ url('cover/' . $class->cover) }}" alt="{{ $class->name }}">
+            <img class="card-img-top" src="{{ url('cover/' . $class->class->cover) }}" alt="{{ $class->class->name }}">
             <div class="card-body">
-                <h3 class="card-title" style="margin-bottom: 10px;">{{ $class->name }}</h3>
-                {{ $class->category->name }}
+                <h3 class="card-title" style="margin-bottom: 10px;">{{ $class->class->name }}</h3>
+                {{ $class->class->category->name }}
             </div>
             <div class="card-footer">
                 <div class="row">
                     <div class="col-4">
-                        <h3 class="btn btn-md btn-warning">{{ ucfirst($class->type) }}</h3>
+                        <h3 class="btn btn-md btn-warning">{{ ucfirst($class->class->type) }}</h3>
                     </div>
                     <div class="col-8">
-                        <a href="{{ url('user/roll/' . $class->id) }}" class="btn btn-md btn-primary float-right"><i
-                                class="ni ni-button-play"></i> Play</a>
+                        <a href="{{ url('user/roll/' . $class->class->id) }}"
+                            class="btn btn-md btn-primary float-right"><i class="ni ni-button-play"></i> Play</a>
                     </div>
                 </div>
             </div>

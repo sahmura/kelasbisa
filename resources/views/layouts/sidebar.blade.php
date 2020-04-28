@@ -23,7 +23,7 @@
                     <li class="nav-item">
                         <a class="nav-link" id="sidebar-myclass" href="{{ url('user/myclass') }}">
                             <i class="ni ni-single-copy-04 text-success"></i>
-                            <span class="nav-link-text">Kelas ku</span>
+                            <span class="nav-link-text">My Class</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -51,6 +51,12 @@
                         <a class="nav-link" id="sidebar-coupon" href="{{ url('admin/coupon') }}">
                             <i class="ni ni-key-25 text-primary"></i>
                             <span class="nav-link-text">Promo Code</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="sidebar-coupon" href="{{ url('admin/transaction') }}">
+                            <i class="ni ni-cart text-primary"></i>
+                            <span class="nav-link-text">Transaction</span>
                         </a>
                     </li>
                     <li class="nav-item">

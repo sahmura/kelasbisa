@@ -1,6 +1,22 @@
 @extends('layouts.master')
 @section('title', '- Dashboard')
 @section('bg-header', 'bg-primary')
+@push('css')
+<style>
+    .main-content {
+        min-height: 100vh;
+    }
+
+    .footer {
+        position: absolute;
+        width: 95%;
+        bottom: 0;
+        height: 0%;
+        margin-bottom: 20px;
+    }
+
+</style>
+@endpush
 @section('header-body')
 <div class="row align-items-center py-4">
     <div class="col-lg-6 col-7">
@@ -13,10 +29,8 @@
         </nav>
     </div>
 </div>
-@endsection
-@section('content')
 @if($dataEmail->email_verified_at == null)
-<div class="row">
+<div class="row mt-3">
     <div class="col-md-12">
         <div class="card shadow">
             <div class="card-body">
@@ -28,7 +42,7 @@
     </div>
 </div>
 @endif
-<div class="row">
+<div class="row mt-3">
     <div class="col-md-3">
         <div class="card crad-stats shadow">
             <div class="card-body">
@@ -52,7 +66,7 @@
                 <div class="row mt-3">
                     <div class="col">
                         <h5 class="card-title text-uppercase text-muted mb-0">Terakhir diakses</h5>
-                        @if(!empty($lastClass))
+                        @if(!empty($lastClass) && $lastClass->chapter_id != 0)
                         <span class="h2 font-weight-bold mb-0">{{ $lastClass->class->name }} -
                             {{ $lastClass->chapter->title }}</span>
                     </div>
