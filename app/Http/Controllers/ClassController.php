@@ -11,6 +11,8 @@ use App\LogClasses;
 use App\SubChapters;
 use App\Transactions;
 use App\Coupons;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ConfirmTransaction;
 use App\Repositories\SubChapterRepository;
 use App\Repositories\ChapterRepository;
 use App\Repositories\ClassRepository;
@@ -249,18 +251,18 @@ class ClassController extends Controller
     {
         $listCategories = Categories::where('deleted_at', '=', null)->get();
         if ($category == 'search') {
-            $listClasses = Classes::where('name', 'like', '%' . $type . '%')->where('deleted_at', '=', null)->paginate(12);
+            $listClasses = Classes::where('name', 'like', '%' . $type . '%')->where('deleted_at', '=', null)->orderBy('id', 'desc')->paginate(12);
         } else if ($category == null || $type == null) {
-            $listClasses = Classes::where('deleted_at', '=', null)->paginate(12);
+            $listClasses = Classes::where('deleted_at', '=', null)->orderBy('id', 'desc')->paginate(12);
         } else {
             if ($category == 'all' && $type != null) {
-                $listClasses = Classes::where('type', '=', $type)->where('deleted_at', '=', null)->paginate(12);
+                $listClasses = Classes::where('type', '=', $type)->where('deleted_at', '=', null)->orderBy('id', 'desc')->paginate(12);
             } else if ($type == 'all' && $category != null) {
-                $listClasses = Classes::where('category_id', '=', $category)->where('deleted_at', '=', null)->paginate(12);
+                $listClasses = Classes::where('category_id', '=', $category)->where('deleted_at', '=', null)->orderBy('id', 'desc')->paginate(12);
             } else if ($category == 'all' && $type == 'all') {
-                $listClasses = Classes::where('deleted_at', '=', null)->paginate(12);
+                $listClasses = Classes::where('deleted_at', '=', null)->orderBy('id', 'desc')->paginate(12);
             } else {
-                $listClasses = Classes::where('category_id', '=', $category)->where('type', '=', $type)->where('deleted_at', '=', null)->paginate(12);
+                $listClasses = Classes::where('category_id', '=', $category)->where('type', '=', $type)->where('deleted_at', '=', null)->orderBy('id', 'desc')->paginate(12);
             }
         }
 
@@ -360,13 +362,15 @@ class ClassController extends Controller
         $dataUser = User::where('id', '=', $request->user_id)->first();
         $code = Coupons::where('coupon', '=', $request->code)->where('class_id', '=', $dataClass->id);
 
-        if ($dataClass->prices - $code->first()->discount == 0) {
-            $this->joinClass($request);
-            $response = [
-                'status' => true,
-                'message' => 'Berhasil masuk kelas',
-                'notes' => ''
-            ];
+        if ($request->code != '') {
+            if ($dataClass->prices - $code->first()->discount == 0) {
+                $this->joinClass($request);
+                $response = [
+                    'status' => true,
+                    'message' => 'Berhasil masuk kelas',
+                    'notes' => ''
+                ];
+            }
         } else {
             try {
                 DB::beginTransaction();
@@ -391,7 +395,14 @@ class ClassController extends Controller
                         ]
                     );
                 }
+
+
                 DB::commit();
+
+                $sendMail = Mail::to($dataUser->email)->send(
+                    new ConfirmTransaction($dataUser, $dataClass, $newTransaction->total_prices)
+                );
+
                 $response = [
                     'status' => true,
                     'message' => 'Berhasil membeli kelas',

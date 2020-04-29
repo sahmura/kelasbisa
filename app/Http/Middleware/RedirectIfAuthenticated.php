@@ -18,12 +18,6 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        // if ($request->segment(1) == 'user') {
-        //     $guard = 'user';
-        // } else if ($request->segment(1) == 'admin') {
-        //     $guard = 'admin';
-        // }
-
         if (Auth::guard($guard)->check()) {
             return redirect('/' . Auth::user()->role);
         }

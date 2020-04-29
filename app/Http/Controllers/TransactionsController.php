@@ -21,7 +21,7 @@ class TransactionsController extends Controller
         $pendingTransactions = Transactions::where('deleted_at', '=', null)->where('status', '=', 'Pending')->count();
         $doneTransactions = Transactions::where('deleted_at', '=', null)->where('status', '=', 'Done')->count();
         $totalTransactions = Transactions::where('deleted_at', '=', null)->count();
-        $totalPrices = Transactions::where('deleted_at', '=', null)->sum('total_prices');
+        $totalPrices = Transactions::where('deleted_at', '=', null)->where('status', '=', 'Done')->sum('total_prices');
         return view('pages.admin.transaction.transaction_view', compact('listStatus', 'pendingTransactions', 'doneTransactions', 'totalTransactions', 'totalPrices'));
     }
 

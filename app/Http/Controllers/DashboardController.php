@@ -260,6 +260,16 @@ class DashboardController extends Controller
 
         if ($checkValidation->count() == 0) {
             abort('404');
+        } else if ($checkValidation->first()->status == 'Done') {
+            $response = [
+                'status' => true,
+                'message' => 'Email sudah dikonfirmasi'
+            ];
+            if ($response['status']) {
+                return redirect('user')->with('success', $response['message']);
+            } else {
+                return redirect('user')->with('error', $response['message']);
+            }
         } else {
             try {
                 User::where('id', '=', $datauser->id)->update(

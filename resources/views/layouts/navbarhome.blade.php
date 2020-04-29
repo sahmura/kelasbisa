@@ -54,20 +54,20 @@
                 @endif
                 <li class="nav-item d-none d-lg-block ml-lg-4">
                     @if(Auth()->user())
-                    <a href="{{ url('user') }}" target="_blank" class="btn btn-neutral btn-icon">
+                    <a href="{{ url('user') }}" class="btn btn-neutral btn-icon">
                         <span class="btn-inner--icon">
                             <i class="ni ni-bold-right mr-2"></i>
                         </span>
                         <span class="nav-link-inner--text">Dashboard</span>
                     </a>
                     @else
-                    <a href="{{ url('register') }}" target="_blank" class="btn btn-outline-neutral btn-icon">
+                    <a href="{{ url('register') }}" class="btn btn-outline-neutral btn-icon">
                         <span class="btn-inner--icon">
                             <i class="ni ni-bold-right mr-2"></i>
                         </span>
                         <span class="nav-link-inner--text">Daftar</span>
                     </a>
-                    <a href="{{ url('login') }}" target="_blank" class="btn btn-neutral btn-icon">
+                    <a href="{{ url('login') }}" class="btn btn-neutral btn-icon">
                         <span class="btn-inner--icon">
                             <i class="ni ni-bold-right mr-2"></i>
                         </span>

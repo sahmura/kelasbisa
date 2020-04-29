@@ -26,6 +26,20 @@
         <div class="header @yield('bg-header') pb-6" @stack('style-header')>
             <div class="container-fluid">
                 <div class="header-body">
+                    @if(Auth()->user()->email_verified_at == null)
+                    <div class="row pt-3">
+                        <div class="col-md-12">
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <h3 class="text-danger">Konfirmasi email!</h3>
+                                    <p>Email belum dikonfirmasi, harap konfirmasi email terlebih dahulu</p>
+                                    <a href="{{ url('user/confirm-email') }}" class="btn btn-success">Kirim email
+                                        verifikasi</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                     @yield('header-body')
                 </div>
             </div>
