@@ -83,11 +83,11 @@
             <div class="col-md-8">
                 <div class="card shadow">
                     <div class="card-header">
-                        <h3>Materi</h3>
+                        <h6>Materi</h6>
                     </div>
                     <div class="card-body">
                         @foreach($listSubChapters as $subchapter)
-                        <h3 class="mt-5">{{ $subchapter->name }}</h3>
+                        <h3 class="">{{ $subchapter->name }}</h3>
                         <hr style="margin: 1em 0;">
                         <ul class="list-group">
                             @foreach($listChapters as $chapter)

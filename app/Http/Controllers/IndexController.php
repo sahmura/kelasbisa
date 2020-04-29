@@ -60,4 +60,34 @@ class IndexController extends Controller
 
         return view('pages.index.class_detail', compact('data', 'listSubChapters', 'listChapters', 'totalChapters'));
     }
+
+    /**
+     * Halaman privasi policy
+     * 
+     * @return view
+     */
+    public function privacy()
+    {
+        return view('privacy');
+    }
+
+    /**
+     * Halaman how to
+     * 
+     * @return view
+     */
+    public function howto()
+    {
+        return view('howto');
+    }
+
+    /**
+     * Halaman about
+     * 
+     * @return view
+     */
+    public function about()
+    {
+        return view('about');
+    }
 }

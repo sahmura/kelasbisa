@@ -19,6 +19,9 @@ Route::get('/', function () {
 
 Route::get('class/{category?}/{type?}', 'IndexController@class');
 Route::get('detail/{id?}', 'IndexController@detailClass');
+Route::get('privacy', 'IndexController@privacy');
+Route::get('howto', 'IndexController@howto');
+Route::get('about', 'IndexController@about');
 
 Auth::routes();
 

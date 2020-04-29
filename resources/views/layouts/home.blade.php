@@ -60,10 +60,10 @@
                         <div class="row">
                             <div class="col">
                                 <h5>Bantuan</h5>
-                                <a href="">Tentang kami</a><br>
-                                <a href="">Cara pembayaran</a><br>
-                                <a href="">Daftar kelas</a><br>
-                                <a href="">Kebijakan privasi</a><br>
+                                <a href="{{ url('about') }}">Tentang kami</a><br>
+                                <a href="{{ url('howto') }}">Cara pembayaran</a><br>
+                                <a href="{{ url('class') }}">Daftar kelas</a><br>
+                                <a href="{{ url('privacy') }}">Kebijakan privasi</a><br>
                             </div>
                             <div class="col">
                                 <h5>Hubungi kami</h5>
