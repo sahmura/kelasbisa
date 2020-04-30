@@ -138,38 +138,57 @@ class DashboardController extends Controller
     public function updateProfilPic(Request $request)
     {
         $data = User::where('id', '=', Auth()->user()->id)->first();
+        $extension = ['jpg', 'png', 'jpeg'];
         $pic = $request->file('profil');
-        $file_name = md5($data->name . $data->id) . $pic->getClientOriginalExtension();
-        if ($data->profilpic != '') {
-            File::delete('assets/profilpic/' . $data->profilpic);
-        }
-        try {
-            $pic->move('assets/profilpic', $file_name);
-            $update = User::where('id', '=', Auth()->user()->id)->update(
-                [
-                    'profilpic' => $file_name,
-                ]
-            );
-            if ($update) {
-                $response = [
-                    'status' => true,
-                    'message' => 'Profil picture berhasil disunting',
-                    'notes' => ''
-                ];
-            } else {
+
+        if (!in_array($pic->getClientOriginalExtension(), $extension)) {
+            $response = [
+                'status' => false,
+                'message' => 'Format yang diperbolehkan jpg, png, jpeg',
+                'notes' => ''
+            ];
+            return redirect('setting')->with('error', $response['message']);
+        } else if ($pic->getSize() >= 500048) {
+            $response = [
+                'status' => false,
+                'message' => $pic->getSize(),
+                'notes' => ''
+            ];
+            return redirect('setting')->with('error', $response['message']);
+        } else {
+
+            $file_name = md5($data->name . $data->id) . '.' . $pic->getClientOriginalExtension();
+            if ($data->profilpic != '') {
+                File::delete('assets/profilpic/' . $data->profilpic);
+            }
+            try {
+                $pic->move('assets/profilpic', $file_name);
+                $update = User::where('id', '=', Auth()->user()->id)->update(
+                    [
+                        'profilpic' => $file_name,
+                    ]
+                );
+                if ($update) {
+                    $response = [
+                        'status' => true,
+                        'message' => 'Profil picture berhasil disunting',
+                        'notes' => ''
+                    ];
+                } else {
+                    $response = [
+                        'status' => false,
+                        'message' => 'Profil picture gagal disunting',
+                        'notes' => ''
+                    ];
+                }
+            } catch (\Exception $e) {
+                throw $e;
                 $response = [
                     'status' => false,
                     'message' => 'Profil picture gagal disunting',
                     'notes' => ''
                 ];
             }
-        } catch (\Exception $e) {
-            throw $e;
-            $response = [
-                'status' => false,
-                'message' => 'Profil picture gagal disunting',
-                'notes' => ''
-            ];
         }
 
         if ($response['status']) {
