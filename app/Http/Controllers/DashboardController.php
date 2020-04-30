@@ -242,13 +242,20 @@ class DashboardController extends Controller
             }
         } else if ($checkValidation->first('status')->status == 'Ready') {
             $validation = $checkValidation->first();
-            $sendMail = Mail::to($datauser->email)->send(
-                new ConfirmRegistration($datauser, $validation)
-            );
-            $response = [
-                'status' => true,
-                'message' => 'Email konfirmasi telah di kirim ke ' . $datauser->email
-            ];
+            try {
+                $sendMail = Mail::to($datauser->email)->send(
+                    new ConfirmRegistration($datauser, $validation)
+                );
+                $response = [
+                    'status' => true,
+                    'message' => 'Email konfirmasi telah di kirim ke ' . $datauser->email
+                ];
+            } catch (\Exception $e) {
+                $response = [
+                    'status' => true,
+                    'message' => 'Email sudah dikonfirmasi'
+                ];
+            }
         } else {
             $response = [
                 'status' => true,

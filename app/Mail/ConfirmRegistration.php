@@ -34,7 +34,7 @@ class ConfirmRegistration extends Mailable
         $user = $this->datauser;
         $validation = $this->datavalidation;
 
-        return $this->from('id.khoerulumam@gmail.com', 'Kelas Bisa')
+        return $this->from('admin@kelasbisa.my.id', 'Kelasbisa')
             ->subject('Konfirmasi Email')
             ->view('mail.confirm_registration', compact('user', 'validation'));
     }
