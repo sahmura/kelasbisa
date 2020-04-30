@@ -4,10 +4,11 @@
     <div class="col px-0">
         <div class="row align-items-center justify-content-center">
             <div class="col-lg-6 text-center">
-                <h1 class="text-white display-1">Kelas Bisa</h1>
+                <img src="{{ url('logo/logowhite.svg') }}" alt="Logo kelasbisa" height="100" width="auto" class="mb-3">
+                <h1 class="text-white display-1">Kelasbisa</h1>
                 <p class="text-white" style="margin-top: -15px; font-size: 18px; font-weight: 600;">Siapapun Bisa!</p>
-                <p class="lead font-weight-thin text-white">Tempat pengembangan skill dan ilmu baru. Kelas
-                    terstruktur untuk berbagai kalangan. Tersedia beragam tingkat mulai dari pemula hingga mahir.</p>
+                <p class="lead font-weight-thin text-white">Kembangkan skill, kembangan diri, untuk masa depan lebih
+                    baik.</p>
                 <div class="btn-wrapper mt-4">
                     <a href="{{ url('login') }}" class="btn btn-warning btn-icon mt-3 mb-sm-0">
                         <span class="btn-inner--icon"><i class="ni ni-bold-right"></i></span>

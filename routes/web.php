@@ -22,6 +22,7 @@ Route::get('detail/{id?}', 'IndexController@detailClass');
 Route::get('privacy', 'IndexController@privacy');
 Route::get('howto', 'IndexController@howto');
 Route::get('about', 'IndexController@about');
+Route::get('contact', 'IndexController@contact');
 
 Auth::routes();
 

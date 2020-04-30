@@ -90,4 +90,14 @@ class IndexController extends Controller
     {
         return view('about');
     }
+
+    /**
+     * Halaman contact
+     * 
+     * @return view
+     */
+    public function contact()
+    {
+        return view('contact');
+    }
 }
