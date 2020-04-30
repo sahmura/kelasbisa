@@ -13,6 +13,7 @@
         </nav>
     </div>
 </div>
+@section('content')
 <div class="row mt-3">
     <div class="col-md-3">
         <div class="card crad-stats shadow">
@@ -56,6 +57,7 @@
         </div>
     </div>
 </div>
+@endsection
 @endsection
 @push('js')
 <script>
