@@ -1,22 +1,6 @@
 @extends('layouts.master')
 @section('title', '- Dashboard')
 @section('bg-header', 'bg-primary')
-@push('css')
-<style>
-    .main-content {
-        min-height: 100vh;
-    }
-
-    .footer {
-        position: absolute;
-        width: 95%;
-        bottom: 0;
-        height: 0%;
-        margin-bottom: 20px;
-    }
-
-</style>
-@endpush
 @section('header-body')
 <div class="row align-items-center py-4">
     <div class="col-lg-6 col-7">
