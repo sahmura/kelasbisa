@@ -67,7 +67,7 @@
                             </div>
                             <div class="col">
                                 <h5>Hubungi kami</h5>
-                                <p>id.khoerulumam@gmail.com</p>
+                                <p>admin@kelasbisa.my.id</p>
                             </div>
                         </div>
                     </div>

@@ -281,7 +281,7 @@
                                                                 style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:16px;line-height:1;text-align:left;color:#637381;">
                                                                 <p>Salam hangat,</p>
                                                                 <p>Tim Kelas Bisa</p>
-                                                                <p>id.khoerulumam@gmail.com</p>
+                                                                <p>admin@kelasbisa.my.id</p>
                                                             </div>
                                                         </td>
                                                     </tr>
