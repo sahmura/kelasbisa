@@ -79,14 +79,17 @@
                         <div class="row">
                             <div class="col">
                                 <h5>Bantuan</h5>
-                                <a href="{{ url('about') }}">Tentang kami</a><br>
-                                <a href="{{ url('howto') }}">Cara pembayaran</a><br>
-                                <a href="{{ url('class') }}">Daftar kelas</a><br>
-                                <a href="{{ url('privacy') }}">Kebijakan privasi</a><br>
+                                <p><i class="ni ni-bold-right"></i> <a href="{{ url('about') }}">Tentang kami</a></p>
+                                <p><i class="ni ni-bold-right"></i> <a href="{{ url('howto') }}">Cara pembayaran</a></p>
+                                <p><i class="ni ni-bold-right"></i> <a href="{{ url('class') }}">Daftar kelas</a></p>
+                                <p><i class="ni ni-bold-right"></i> <a href="{{ url('privacy') }}">Kebijakan privasi</a>
+                                </p>
                             </div>
                             <div class="col">
                                 <h5>Hubungi kami</h5>
                                 <p>admin@kelasbisa.my.id</p>
+                                <h5>Icons</h5>
+                                <p><a href="https://www.flaticon.com/authors/itim2101">itim2101</a></p>
                             </div>
                         </div>
                     </div>

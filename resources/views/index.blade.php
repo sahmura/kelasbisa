@@ -38,7 +38,7 @@
             <div class="col-md-4">
                 <div class="info">
                     <div class="icon icon-lg icon-shape icon-shape-primary shadow rounded-circle">
-                        <i class="ni ni-archive-2"></i>
+                        <img src="{{ url('assets/icons/struktur.svg') }}" alt="" width="70">
                     </div>
                     <h6 class="info-title text-uppercase text-primary">Terstruktur</h6>
                     <p class="description opacity-8">Kelas di Kelas Bisa terstruktur dengan baik, sehingga Kamu akan
@@ -48,7 +48,7 @@
             <div class="col-md-4">
                 <div class="info">
                     <div class="icon icon-lg icon-shape icon-shape-danger shadow rounded-circle">
-                        <i class="ni ni-check-bold"></i>
+                        <img src="{{ url('assets/icons/uptodate.svg') }}" alt="" width="70">
                     </div>
                     <h6 class="info-title text-uppercase text-primary">Up-To-Date</h6>
                     <p class="description opacity-8">Kelas Bisa akan selau memberikan kelas yang up-to-date dan dapat
@@ -58,7 +58,7 @@
             <div class="col-md-4">
                 <div class="info">
                     <div class="icon icon-lg icon-shape icon-shape-success shadow rounded-circle">
-                        <i class="ni ni-books"></i>
+                        <img src="{{ url('assets/icons/choices.svg') }}" alt="" width="70">
                     </div>
                     <h6 class="info-title text-uppercase text-primary">Beragam Pilihan</h6>
                     <p class="description opacity-8">Banyak pilihan kelas yang dapat diakses dari berbagai disiplin
@@ -68,7 +68,7 @@
         </div>
     </div>
 </div>
-<div class="section features-2 bg-gradient-red text-white">
+<div class="section features-2 bg-gradient-blue text-white">
     <div class="container">
         <div class="row d-flex align-items-center">
             <div class="col-md-4">
@@ -76,12 +76,12 @@
                 <p>Kelas bisa menyediakan beragam fitur yang menarik</p>
             </div>
             <div class="col-md-8">
-                <div class="row">
+                <div class="row text-center">
                     <div class="col-md-3 mt-4"></div>
                     <div class="col-md-3 mt-4">
                         <div class="card">
                             <div class="card-body justify-content-center text-warning">
-                                <i class="ni ni-paper-diploma"></i>
+                                <img src="{{ url('assets/icons/sertificate.svg') }}" alt="" width="70" class="mb-3">
                                 <h6>Sertifikat</h6>
                             </div>
                         </div>
@@ -89,7 +89,7 @@
                     <div class="col-md-3 mt-4">
                         <div class="card">
                             <div class="card-body justify-content-center text-warning">
-                                <i class="ni ni-button-play"></i>
+                                <img src="{{ url('assets/icons/videohd.svg') }}" alt="" width="70" class="mb-3">
                                 <h6>Video HD</h6>
                             </div>
                         </div>
@@ -97,18 +97,18 @@
                     <div class="col-md-3 mt-4">
                         <div class="card">
                             <div class="card-body justify-content-center text-warning">
-                                <i class="ni ni-check-bold"></i>
+                                <img src="{{ url('assets/icons/uptodate.svg') }}" alt="" width="70" class="mb-3">
                                 <h6>Up-To-Date</h6>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row text-center">
                     <div class="col-md-3 mt-4"></div>
                     <div class="col-md-3 mt-4">
                         <div class="card">
                             <div class="card-body justify-content-center text-warning">
-                                <i class="ni ni-cloud-download-95"></i>
+                                <img src="{{ url('assets/icons/modul.svg') }}" alt="" width="70" class="mb-3">
                                 <h6>Modul</h6>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                     <div class="col-md-3 mt-4">
                         <div class="card">
                             <div class="card-body justify-content-center text-warning">
-                                <i class="ni ni-chat-round"></i>
+                                <img src="{{ url('assets/icons/consul.svg') }}" alt="" width="70" class="mb-3">
                                 <h6>Konsultasi</h6>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                     <div class="col-md-3 mt-4">
                         <div class="card">
                             <div class="card-body justify-content-center text-warning">
-                                <i class="ni ni-satisfied"></i>
+                                <img src="{{ url('assets/icons/lifetime.svg') }}" alt="" width="70" class="mb-3">
                                 <h6>Lifetime</h6>
                             </div>
                         </div>
