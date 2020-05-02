@@ -4,7 +4,7 @@
     <div class="col px-0">
         <div class="row align-items-center justify-content-center">
             <div class="col-lg-6 text-center">
-                <img src="{{ url('logo/logowhite.svg?') }}" alt="Logo kelasbisa" height="100" width="auto" class="mb-3">
+                <img src="{{ url('logo/logowhite.svg?') }}" alt="Logo kelasbisa" height="140" width="auto" class="mb-3">
                 <h1 class="text-white display-1">Kelasbisa</h1>
                 <p class="text-white" style="margin-top: -15px; font-size: 18px; font-weight: 600;">Siapapun Bisa!</p>
                 <p class="lead font-weight-thin text-white">Kembangkan skill, kembangan diri, untuk masa depan lebih
