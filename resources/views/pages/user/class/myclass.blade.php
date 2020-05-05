@@ -31,23 +31,23 @@
         <div class="card shadow">
             <img class="card-img-top" src="{{ url('cover/' . $class->class->cover) }}" alt="{{ $class->class->name }}">
             <div class="card-body">
-                <h3 class="card-title" style="margin-bottom: 10px;">{{ $class->class->name }}</h3>
+                <h3 class="card-title" style="margin-bottom: 10px;">{{ $class->class->name }} <span class="badge badge-warning float-right">{{ ucfirst($class->class->type) }}</span></h3>
                 {{ $class->class->category->name }}
             </div>
             <div class="card-footer">
                 <div class="row">
                     <div class="col-4">
-                        <h3 class="btn btn-md btn-warning">{{ ucfirst($class->class->type) }}</h3>
+                        <span class="badge badge-secondary">{{ ucfirst($class->class->speakers) }}</span>
                     </div>
                     <div class="col-8">
                         <div class="btn-group float-right">
                             @if($class->class->type == 'premium')
                             <button data-classid="{{ $class->class->id }}"
-                                class="btn btn-md btn-success float-right downloadSertificate"><i
+                                class="btn btn-sm btn-success float-right downloadSertificate"><i
                                     class="ni ni-paper-diploma"></i></button>
                             @endif
                             <a href="{{ url('user/roll/' . $class->class->id) }}"
-                                class="btn btn-md btn-primary float-right"><i class="ni ni-button-play"></i></a>
+                                class="btn btn-sm btn-primary float-right"><i class="ni ni-button-play"></i></a>
                         </div>
                     </div>
                 </div>

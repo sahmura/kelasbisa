@@ -68,7 +68,7 @@
         </div>
     </div>
 </div>
-<div class="section features-2 bg-gradient-blue text-white">
+<div class="section features-2 bg-gradient-default text-white">
     <div class="container">
         <div class="row d-flex align-items-center">
             <div class="col-md-4">

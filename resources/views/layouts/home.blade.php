@@ -42,7 +42,7 @@
     @include('layouts.navbarhome')
     <div class="wrapper">
         <div class="section section-hero section-shaped">
-            <div class="shape shape-style-1 shape-primary">
+            <div class="shape shape-style-3 shape-default">
                 <span class="span-150"></span>
                 <span class="span-50"></span>
                 <span class="span-50"></span>
@@ -56,12 +56,6 @@
             </div>
             <div class="page-header">
                 @yield('page-header')
-                <div class="separator separator-bottom separator-skew zindex-100">
-                    <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
-                    </svg>
-                </div>
             </div>
         </div>
         @yield('content')

@@ -18,8 +18,42 @@
 @endsection
 @section('content')
 <div class="row">
-    <x-classdetail class="col-md-8" :cover="$data->cover" :name="$data->name" :speakers="$data->speakers"
-        :description="$data->description" />
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card shadow">
+                    <img class="card-img-top" src="{{ url('cover/' . $data->cover) }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h2>{{ $data->name }}</h2>
+                        <p>{{ $data->speakers }}</p>
+                        <p>{!! $data->description !!}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Materi</h3>
+                    </div>
+                    <div class="card-body">
+                        @foreach($listSubChapters as $subchapter)
+                        <h3 class="mt-3">{{ $subchapter->name }}</h3>
+                        <hr style="margin: 1em 0;">
+                        <ul class="list-group">
+                            @foreach($listChapters as $chapter)
+                            @if($chapter->sub_chapter_id == $subchapter->id)
+                            <li class="list-group-item">{{$chapter->title}}
+                            </li>
+                            @endif
+                            @endforeach
+                        </ul>
+
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-md-4 sticky-top">
         <div class="card card-profile">
             <div class="card-header">
@@ -91,30 +125,6 @@
                 @else
                 <button class="btn btn-primary text-white" id="playClassBtn" style="box-shadow: none;">Play</button>
                 @endif
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">
-                <h3>Materi</h3>
-            </div>
-            <div class="card-body">
-                @foreach($listSubChapters as $subchapter)
-                <h3 class="mt-5">{{ $subchapter->name }}</h3>
-                <hr style="margin: 1em 0;">
-                <ul class="list-group">
-                    @foreach($listChapters as $chapter)
-                    @if($chapter->sub_chapter_id == $subchapter->id)
-                    <li class="list-group-item">{{$chapter->title}}
-                    </li>
-                    @endif
-                    @endforeach
-                </ul>
-
-                @endforeach
             </div>
         </div>
     </div>

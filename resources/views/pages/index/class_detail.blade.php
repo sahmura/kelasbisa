@@ -18,12 +18,45 @@
 <div class="section">
     <div class="container">
         <div class="row">
-            <x-classdetail class="col-md-8" :cover="$data->cover" :name="$data->name" :speakers="$data->speakers"
-                :description="$data->description" />
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card shadow">
+                            <img class="card-img-top" src="{{ url('cover/' . $data->cover) }}" alt="Card image cap">
+                            <div class="card-body">
+                                <h5>{{ $data->name }}</h5>
+                                <p>{{ $data->speakers }}</p>
+                                <p>{!! $data->description !!}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-5">
+                        <div class="card shadow">
+                            <div class="card-header">
+                                <h6>Materi</h6>
+                            </div>
+                            <div class="card-body">
+                                @foreach($listSubChapters as $subchapter)
+                                <h3 class="">{{ $subchapter->name }}</h3>
+                                <hr style="margin: 1em 0;">
+                                <ul class="list-group">
+                                    @foreach($listChapters as $chapter)
+                                    @if($chapter->sub_chapter_id == $subchapter->id)
+                                    <li class="list-group-item">{{$chapter->title}}
+                                    </li>
+                                    @endif
+                                    @endforeach
+                                </ul>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-4 sticky-top">
                 <div class="card card-profile shadow">
                     <div class="card-header">
-                        <h3 class="display-4 text-center">Kelas {{ ucfirst($data->type) }}</h3>
+                        <h5 class="display-6 text-center">Kelas {{ ucfirst($data->type) }}</h5>
                     </div>
                     <div class="card-body pt-0">
                         <div class="row">
@@ -75,29 +108,6 @@
                         <button class="btn btn-primary text-white" id="buyClassBtn" style="box-shadow: none;">Beli
                             kelas</button>
                         @endif
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-md-8">
-                <div class="card shadow">
-                    <div class="card-header">
-                        <h6>Materi</h6>
-                    </div>
-                    <div class="card-body">
-                        @foreach($listSubChapters as $subchapter)
-                        <h3 class="">{{ $subchapter->name }}</h3>
-                        <hr style="margin: 1em 0;">
-                        <ul class="list-group">
-                            @foreach($listChapters as $chapter)
-                            @if($chapter->sub_chapter_id == $subchapter->id)
-                            <li class="list-group-item">{{$chapter->title}}
-                            </li>
-                            @endif
-                            @endforeach
-                        </ul>
-                        @endforeach
                     </div>
                 </div>
             </div>

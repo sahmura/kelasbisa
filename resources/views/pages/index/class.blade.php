@@ -51,17 +51,17 @@
                 <div class="card shadow">
                     <img class="card-img-top" src="{{ url('cover/' . $class->cover) }}" alt="{{ $class->name }}">
                     <div class="card-body">
-                        <h3 class="card-title" style="margin-bottom: 10px;">{{ $class->name }}</h3>
+                        <h6 class="card-title" style="margin-bottom: 10px;">{{ $class->name }} <span class="badge badge-warning float-right">{{ ucfirst($class->type) }}</span></h6>
                         {{ $class->category->name }}
                     </div>
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-4">
-                                <h3 class="btn btn-md btn-warning">{{ ucfirst($class->type) }}</h3>
+                                <span class="badge badge-default">{{ ucfirst($class->speakers) }}</span>
                             </div>
                             <div class="col-8">
                                 <a href="{{ url('detail/' . $class->id) }}"
-                                    class="btn btn-md btn-primary float-right"><i class="fas fa-search"></i>
+                                    class="btn btn-sm btn-primary float-right"><i class="fas fa-search"></i>
                                     Detail</a>
                             </div>
                         </div>
