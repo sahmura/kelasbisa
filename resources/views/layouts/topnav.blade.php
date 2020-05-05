@@ -56,13 +56,13 @@
                     </a>
                     <div class="dropdown-menu  dropdown-menu-right ">
                         <div class="dropdown-header noti-title">
-                            <h6 class="text-overflow m-0">Welcome!</h6>
+                            <h6 class="text-overflow m-0">Hi!</h6>
                         </div>
                         <div class="dropdown-divider"></div>
                         <a href="{{ route('logout') }}" class="dropdown-item"
                             onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i
                                 class=" ni ni-user-run"></i>
-                            <span>Logout</span>
+                            <span>Keluar</span>
                         </a>
                     </div>
                 </li>

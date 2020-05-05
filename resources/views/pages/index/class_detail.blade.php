@@ -101,12 +101,16 @@
                         </div>
                     </div>
                     <div class="card-footer bg-primary text-center">
+                        @if($data->is_draft == 0)
                         @if($data->type == 'free')
                         <button class="btn btn-primary text-white" id="addClassBtn" style="box-shadow: none;">Ikuti
                             kelas</button>
                         @else
                         <button class="btn btn-primary text-white" id="buyClassBtn" style="box-shadow: none;">Beli
                             kelas</button>
+                        @endif
+                        @else
+                        <span class="btn btn-danger disabled">Diarsipkan</span>
                         @endif
                     </div>
                 </div>

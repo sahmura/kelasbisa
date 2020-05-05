@@ -23,18 +23,18 @@ class IndexController extends Controller
     {
         $categories = Categories::where('deleted_at', '=', null)->get();
         if ($category == 'search') {
-            $classes = Classes::where('name', 'like', '%' . $type . '%')->where('deleted_at', '=', null)->paginate(12);
+            $classes = Classes::where('name', 'like', '%' . $type . '%')->where('is_draft', '=', 0)->where('deleted_at', '=', null)->paginate(12);
         } else if ($category == null || $type == null) {
-            $classes = Classes::where('deleted_at', '=', null)->paginate(12);
+            $classes = Classes::where('deleted_at', '=', null)->where('is_draft', '=', 0)->paginate(12);
         } else {
             if ($category == 'all' && $type != null) {
-                $classes = Classes::where('type', '=', $type)->where('deleted_at', '=', null)->paginate(12);
+                $classes = Classes::where('type', '=', $type)->where('is_draft', '=', 0)->where('deleted_at', '=', null)->paginate(12);
             } else if ($type == 'all' && $category != null) {
-                $classes = Classes::where('category_id', '=', $category)->where('deleted_at', '=', null)->paginate(12);
+                $classes = Classes::where('category_id', '=', $category)->where('is_draft', '=', 0)->where('deleted_at', '=', null)->paginate(12);
             } else if ($category == 'all' && $type == 'all') {
-                $classes = Classes::where('deleted_at', '=', null)->paginate(12);
+                $classes = Classes::where('deleted_at', '=', null)->where('is_draft', '=', 0)->paginate(12);
             } else {
-                $classes = Classes::where('category_id', '=', $category)->where('type', '=', $type)->where('deleted_at', '=', null)->paginate(12);
+                $classes = Classes::where('category_id', '=', $category)->where('is_draft', '=', 0)->where('type', '=', $type)->where('deleted_at', '=', null)->paginate(12);
             }
         }
 
@@ -52,7 +52,7 @@ class IndexController extends Controller
      */
     public function detailClass($id, SubChapterRepository $subChapterRepository, ChapterRepository $chapterRepository)
     {
-        $data = Classes::where('id', '=', $id)->where('deleted_at', '=', null)->first();
+        $data = Classes::where('id', '=', $id)->where('is_draft', '=', 0)->where('deleted_at', '=', null)->first();
         $listSubChapters = $subChapterRepository->getWhere('class_id', '=', $id)->get();
         $listChapters = $chapterRepository->getWhere('class_id', '=', $id)->get();
         $totalChapters = $chapterRepository->getWhere('class_id', '=', $id)->count();

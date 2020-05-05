@@ -4,12 +4,12 @@
 @section('header-body')
 <div class="row align-items-center py-4">
     <div class="col-lg-6 col-7">
-        <h6 class="h2 text-white d-inline-block mb-0">My Class</h6>
+        <h6 class="h2 text-white d-inline-block mb-0">Kelas Saya</h6>
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
-                <li class="breadcrumb-item"><a href="{{ url('user') }}">Dashboards</a></li>
-                <li class="breadcrumb-item active" aria-current="page">My Class</li>
+                <li class="breadcrumb-item"><a href="{{ url('user') }}">Beranda</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Kelas Saya</li>
             </ol>
         </nav>
     </div>
@@ -31,7 +31,8 @@
         <div class="card shadow">
             <img class="card-img-top" src="{{ url('cover/' . $class->class->cover) }}" alt="{{ $class->class->name }}">
             <div class="card-body">
-                <h3 class="card-title" style="margin-bottom: 10px;">{{ $class->class->name }} <span class="badge badge-warning float-right">{{ ucfirst($class->class->type) }}</span></h3>
+                <h3 class="card-title" style="margin-bottom: 10px;">{{ $class->class->name }} <span
+                        class="badge badge-warning float-right">{{ ucfirst($class->class->type) }}</span></h3>
                 {{ $class->class->category->name }}
             </div>
             <div class="card-footer">
@@ -46,8 +47,12 @@
                                 class="btn btn-sm btn-success float-right downloadSertificate"><i
                                     class="ni ni-paper-diploma"></i></button>
                             @endif
+                            @if($class->class->is_draft == 0)
                             <a href="{{ url('user/roll/' . $class->class->id) }}"
                                 class="btn btn-sm btn-primary float-right"><i class="ni ni-button-play"></i></a>
+                            @else
+                            <a href="" class="btn btn-sm btn-danger float-right disabled">Diarsipkan</a>
+                            @endif
                         </div>
                     </div>
                 </div>

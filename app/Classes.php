@@ -18,7 +18,9 @@ class Classes extends Model
         'terms',
         'type',
         'prices',
-        'speakers'
+        'speakers',
+        'modul_url',
+        'is_draft'
     ];
 
     public function category()

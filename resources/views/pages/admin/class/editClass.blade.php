@@ -85,6 +85,19 @@
                                 required>{{ $class->terms }}</textarea>
                         </div>
                         <div class="form-group">
+                            <label for="modul_url">Modul</label>
+                            <input type="text" name="modul_url" id="modul_url" class="form-control"
+                                placeholder="Link modul" required value="{{ $class->modul_url }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="is_draft">Aksi</label>
+                            <select name="is_draft" id="is_draft" class="custom-select">
+                                <option value="1" @if($class->is_draft == 1) selected='selected' @endif>Draft</option>
+                                <option value="0" @if($class->is_draft == 0) selected='selected' @endif>Terbitkan
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="cover">Cover</label><br>
                             <img src="{{ url('cover/' . $class->cover) }}" alt="" class="my-3" height="200px"
                                 width="auto"><br>

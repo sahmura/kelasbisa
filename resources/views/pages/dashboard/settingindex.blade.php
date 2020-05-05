@@ -4,12 +4,12 @@
 @section('header-body')
 <div class="row align-items-center py-4">
     <div class="col-lg-6 col-7">
-        <h6 class="h2 text-white d-inline-block mb-0">Settings</h6>
+        <h6 class="h2 text-white d-inline-block mb-0">Pengaturan</h6>
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
-                <li class="breadcrumb-item"><a href="{{ url('user') }}">Dashboards</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Setting</li>
+                <li class="breadcrumb-item"><a href="{{ url('user') }}">Beranda</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Pengaturan</li>
             </ol>
         </nav>
     </div>
@@ -52,11 +52,11 @@
                     enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="profil">Profil Picture</label>
+                        <label for="profil">Gambar Profil</label>
                         <input type="file" name="profil" id="profil" class="form-control" placeholder="Profil picture">
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-md btn-primary w-100" type="submit">Update</button>
+                        <button class="btn btn-md btn-primary w-100" type="submit">Perbarui</button>
                     </div>
                 </form>
             </div>
@@ -67,11 +67,11 @@
             <div class="card-header">
                 <div class="row align-items-center">
                     <div class="col-8">
-                        <h3 class="mb-0">Sunting profil </h3>
+                        <h3 class="mb-0">Sunting profil</h3>
                     </div>
                     <div class="col-4 text-right">
                         <button class="btn btn-md btn-primary" id="settingformbtn"><i class="ni ni-send"></i>
-                            Update</button>
+                            Perbarui</button>
                     </div>
                 </div>
             </div>
@@ -94,11 +94,11 @@
             <div class="card-header">
                 <div class="row align-items-center">
                     <div class="col-8">
-                        <h3 class="mb-0">Sunting password </h3>
+                        <h3 class="mb-0">Sunting password</h3>
                     </div>
                     <div class="col-4 text-right">
                         <button class="btn btn-md btn-primary" id="passwordformbtn"><i class="ni ni-send"></i>
-                            Update</button>
+                            Perbarui</button>
                     </div>
                 </div>
             </div>

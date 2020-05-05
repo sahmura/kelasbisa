@@ -3,13 +3,13 @@
 @section('bg-header', 'bg-primary')
 @section('header-body')
 <div class="row align-items-center py-4">
-    <div class="col-lg-4 col-7">
-        <h6 class="h2 text-white d-inline-block mb-0">Class</h6>
+    <div class="col-lg-6 col-7">
+        <h6 class="h2 text-white d-inline-block mb-0">Daftar Kelas</h6>
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
-                <li class="breadcrumb-item"><a href="{{ url('user') }}">Dashboards</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Class</li>
+                <li class="breadcrumb-item"><a href="{{ url('user') }}">Beranda</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Kelas</li>
             </ol>
         </nav>
     </div>
@@ -46,7 +46,8 @@
         <div class="card shadow">
             <img class="card-img-top" src="{{ url('cover/' . $class->cover) }}" alt="{{ $class->name }}">
             <div class="card-body">
-                <h3 class="card-title" style="margin-bottom: 10px;">{{ $class->name }} <span class="badge badge-warning float-right">{{ ucfirst($class->type) }}</span></h3>
+                <h3 class="card-title" style="margin-bottom: 10px;">{{ $class->name }} <span
+                        class="badge badge-warning float-right">{{ ucfirst($class->type) }}</span></h3>
                 {{ $class->category->name }}
             </div>
             <div class="card-footer">

@@ -26,8 +26,11 @@
         :description="$data->description" />
     <div class="col-md-4 sticky-top">
         <div class="card card-profile">
-            <div class="card-header">
+            <div class="card-header text-center">
                 <h3 class="display-4 text-center">Kelas {{ ucfirst($data->type) }}</h3>
+                @if($data->is_draft == 1)
+                <span class="btn btn-danger disabled">Diarsipkan</span>
+                @endif
             </div>
             <div class="card-body pt-0">
                 <div class="row">

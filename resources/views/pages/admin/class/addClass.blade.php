@@ -84,6 +84,18 @@
                                 required>
                         </div>
                         <div class="form-group">
+                            <label for="modul_url">Modul</label>
+                            <input type="text" name="modul_url" id="modul_url" class="form-control"
+                                placeholder="Link untuk Modul" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="is_draft">Aksi</label>
+                            <select name="is_draft" id="is_draft" class="custom-select" required>
+                                <option value="1">Draft</option>
+                                <option value="0">Terbitkan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <button class="btn btn-lg btn-success float-right" type="submit" id="save-btn">Simpan
                                 kelas</button>
                         </div>

@@ -14,6 +14,17 @@
         <div class="navbar-inner">
             <!-- Collapse -->
             <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+                @if($class->modul_url != '' || $class->modul_url != '-')
+                <h6 class="navbar-heading p-0 text-muted">
+                    <span class="docs-normal">Modul</span>
+                </h6>
+                <hr class="my-2">
+                <ul class="navbar-nav mb-5">
+                    <li class="nav-item">
+                        <a href="{{ $class->modul_url }}" class="ml-4 btn btn-info btn-sm">Download Modul</a>
+                    </li>
+                </ul>
+                @endif
                 <!-- Nav items -->
                 @foreach($listSubChapters as $subchapter)
                 <h6 class="navbar-heading p-0 text-muted">
@@ -43,12 +54,12 @@
 @section('header-body')
 <div class="row align-items-center py-4">
     <div class="col-lg-6 col-7">
-        <h6 class="h2 text-white d-inline-block mb-0">My Class</h6>
+        <h6 class="h2 text-white d-inline-block mb-0">Kelas Saya</h6>
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
-                <li class="breadcrumb-item"><a href="{{ url('user') }}">Dashboards</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('user/myclass') }}">Kelas Ku</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('user') }}">Beranda</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('user/myclass') }}">Kelas Saya</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ $class->name }}</li>
             </ol>
         </nav>

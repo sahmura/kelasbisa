@@ -4,12 +4,12 @@
 @section('header-body')
 <div class="row align-items-center py-4">
     <div class="col-lg-6 col-7">
-        <h6 class="h2 text-white d-inline-block mb-0">Class</h6>
+        <h6 class="h2 text-white d-inline-block mb-0">Detail Kelas</h6>
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
-                <li class="breadcrumb-item"><a href="{{ url('user') }}">Dashboards</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('user/class') }}">Class</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('user') }}">Beranda</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('user/class') }}">Kelas</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ $data->name }}</li>
             </ol>
         </nav>
@@ -114,6 +114,7 @@
                 @endif
             </div>
             <div class="card-footer bg-primary text-center">
+                @if($data->is_draft == 0)
                 @if($isOnList == 0)
                 @if($data->type == 'free')
                 <button class="btn btn-primary text-white" id="addClassBtn" style="box-shadow: none;">Ikuti
@@ -124,6 +125,9 @@
                 @endif
                 @else
                 <button class="btn btn-primary text-white" id="playClassBtn" style="box-shadow: none;">Play</button>
+                @endif
+                @else
+                <span class="btn btn-danger disabled">Diarsipkan</span>
                 @endif
             </div>
         </div>

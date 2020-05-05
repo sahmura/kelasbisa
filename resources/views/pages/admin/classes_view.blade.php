@@ -33,6 +33,7 @@
                             <th>Nama kelas</th>
                             <th>Kategori</th>
                             <th>Tipe</th>
+                            <th>Status</th>
                             <th style="width: 50px;"><i class="now-ui-icons loader_gear"></i></th>
                         </thead>
                         <tbody></tbody>
@@ -86,6 +87,9 @@
                 },
                 {
                     data: 'type_class',
+                },
+                {
+                    data: 'status',
                 },
                 {
                     data: 'action',
@@ -146,7 +150,7 @@
 
     $(document).on('click', '.btn-edit', function () {
         var id = $(this).data('id');
-        window.location.href = "{{ url('admin/class/') }}" + '/' + id + '/detail';
+        window.location.href = "{{ url('admin/class/') }}" + '/' + id + '/edit';
     });
 
     $(document).on('click', '.btn-delete', function () {

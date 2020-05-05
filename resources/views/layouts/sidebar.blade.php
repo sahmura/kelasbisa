@@ -17,19 +17,19 @@
                     <li class="nav-item">
                         <a class="nav-link" id="sidebar-user" href="{{ url('user') }}">
                             <i class="ni ni-app text-primary"></i>
-                            <span class="nav-link-text">Dashboard</span>
+                            <span class="nav-link-text">Beranda</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="sidebar-myclass" href="{{ url('user/myclass') }}">
                             <i class="ni ni-single-copy-04 text-success"></i>
-                            <span class="nav-link-text">My Class</span>
+                            <span class="nav-link-text">Kelas Saya</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="sidebar-class" href="{{ url('user/class') }}">
                             <i class="ni ni-hat-3 text-danger"></i>
-                            <span class="nav-link-text">List kelas</span>
+                            <span class="nav-link-text">Daftar Kelas</span>
                         </a>
                     </li>
                     @endif
@@ -75,7 +75,7 @@
                     <li class="nav-item">
                         <a class="nav-link" id="sidebar-setting" href="{{ url('setting') }}">
                             <i class="ni ni-settings-gear-65 text-default"></i>
-                            <span class="nav-link-text">Settings</span>
+                            <span class="nav-link-text">Pengaturan</span>
                         </a>
                     </li>
                 </ul>

@@ -64,6 +64,16 @@ class ClassController extends Controller
                     }
                 )
                 ->addColumn(
+                    'status',
+                    function ($listClass) {
+                        if ($listClass->is_draft == 0) {
+                            return 'Terbit';
+                        } else {
+                            return 'Arsip';
+                        }
+                    }
+                )
+                ->addColumn(
                     'action',
                     function ($listClass) {
                         return '<div class="btn-group">
@@ -251,18 +261,18 @@ class ClassController extends Controller
     {
         $listCategories = Categories::where('deleted_at', '=', null)->get();
         if ($category == 'search') {
-            $listClasses = Classes::where('name', 'like', '%' . $type . '%')->where('deleted_at', '=', null)->orderBy('id', 'desc')->paginate(12);
+            $listClasses = Classes::where('name', 'like', '%' . $type . '%')->where('is_draft', '=', 0)->where('deleted_at', '=', null)->orderBy('id', 'desc')->paginate(12);
         } else if ($category == null || $type == null) {
-            $listClasses = Classes::where('deleted_at', '=', null)->orderBy('id', 'desc')->paginate(12);
+            $listClasses = Classes::where('deleted_at', '=', null)->where('is_draft', '=', 0)->orderBy('id', 'desc')->paginate(12);
         } else {
             if ($category == 'all' && $type != null) {
-                $listClasses = Classes::where('type', '=', $type)->where('deleted_at', '=', null)->orderBy('id', 'desc')->paginate(12);
+                $listClasses = Classes::where('type', '=', $type)->where('is_draft', '=', 0)->where('deleted_at', '=', null)->orderBy('id', 'desc')->paginate(12);
             } else if ($type == 'all' && $category != null) {
-                $listClasses = Classes::where('category_id', '=', $category)->where('deleted_at', '=', null)->orderBy('id', 'desc')->paginate(12);
+                $listClasses = Classes::where('category_id', '=', $category)->where('is_draft', '=', 0)->where('deleted_at', '=', null)->orderBy('id', 'desc')->paginate(12);
             } else if ($category == 'all' && $type == 'all') {
-                $listClasses = Classes::where('deleted_at', '=', null)->orderBy('id', 'desc')->paginate(12);
+                $listClasses = Classes::where('deleted_at', '=', null)->where('is_draft', '=', 0)->orderBy('id', 'desc')->paginate(12);
             } else {
-                $listClasses = Classes::where('category_id', '=', $category)->where('type', '=', $type)->where('deleted_at', '=', null)->orderBy('id', 'desc')->paginate(12);
+                $listClasses = Classes::where('category_id', '=', $category)->where('is_draft', '=', 0)->where('type', '=', $type)->where('deleted_at', '=', null)->orderBy('id', 'desc')->paginate(12);
             }
         }
 

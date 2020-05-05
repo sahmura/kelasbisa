@@ -40,6 +40,8 @@ class ClassRepository
                 'terms' => $request->terms,
                 'type' => $request->type,
                 'prices' => $request->prices,
+                'modul_url' => $request->modul_url,
+                'is_draft' => $request->is_draft,
             ]
         );
     }
@@ -63,6 +65,8 @@ class ClassRepository
                 'terms' => $request->terms,
                 'type' => $request->type,
                 'prices' => $request->prices,
+                'modul_url' => $request->modul_url,
+                'is_draft' => $request->is_draft,
             ]
         );
     }
