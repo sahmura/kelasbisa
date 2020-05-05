@@ -34,7 +34,7 @@
                             <th>Kategori</th>
                             <th>Tipe</th>
                             <th>Status</th>
-                            <th style="width: 50px;"><i class="now-ui-icons loader_gear"></i></th>
+                            <th style="width: 50px;"><i class="ni ni-settings-gear-65"></i></th>
                         </thead>
                         <tbody></tbody>
                     </table>
