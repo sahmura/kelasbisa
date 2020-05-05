@@ -40,8 +40,15 @@
                         <h3 class="btn btn-md btn-warning">{{ ucfirst($class->class->type) }}</h3>
                     </div>
                     <div class="col-8">
-                        <a href="{{ url('user/roll/' . $class->class->id) }}"
-                            class="btn btn-md btn-primary float-right"><i class="ni ni-button-play"></i> Play</a>
+                        <div class="btn-group float-right">
+                            @if($class->class->type == 'premium')
+                            <button data-classid="{{ $class->class->id }}"
+                                class="btn btn-md btn-success float-right downloadSertificate"><i
+                                    class="ni ni-paper-diploma"></i></button>
+                            @endif
+                            <a href="{{ url('user/roll/' . $class->class->id) }}"
+                                class="btn btn-md btn-primary float-right"><i class="ni ni-button-play"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -65,6 +72,12 @@
         } else {
             window.location.href = "{{ url('user/myclass') }}";
         }
+    });
+
+    $('.downloadSertificate').on('click', function () {
+        var class_id = $(this).data('classid');
+        window.location.href = "{{ url('user/sertificate/get') }}" + "?class_id=" + class_id +
+            '&template=basic_template';
     });
 
 </script>

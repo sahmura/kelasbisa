@@ -121,6 +121,10 @@ Route::group(
 
         Route::post('checkCoupon', 'CouponController@checkCoupon');
         Route::post('buyclass', 'ClassController@buyClass');
+
+        Route::group(['prefix' => 'sertificate'], function () {
+            Route::get('get', 'SertificateController@download');
+        });
     }
 );
 
