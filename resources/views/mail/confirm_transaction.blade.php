@@ -361,7 +361,7 @@
                                                             style="font-size:0px;padding:10px 25px;word-break:break-word;">
                                                             <div
                                                                 style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:20px;line-height:1;text-align:left;color:#637381;">
-                                                                No rek a/n</div>
+                                                                <b>0108901610018527 BTN a/n Khoerul Umam</b></div>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -378,7 +378,7 @@
                                                             style="font-size:0px;padding:10px 25px;word-break:break-word;">
                                                             <div
                                                                 style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:20px;line-height:1;text-align:left;color:#637381;">
-                                                                No Hp (nama)</div>
+                                                                085156257710 (Kelasbisa) via Whatsapp</div>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -387,7 +387,7 @@
                                                             <div
                                                                 style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:16px;line-height:1;text-align:left;color:#637381;">
                                                                 Setelah proses konfirmasi selesai, kelas dapat diakses
-                                                                di dashboard > My class dalam waktu 1x24 jam. Jika belum
+                                                                di menu kelas saya dalam waktu 1x24 jam. Jika belum
                                                                 ada dalam waktu 1x24 jam, silahkan hubungi kami.</div>
                                                         </td>
                                                     </tr>

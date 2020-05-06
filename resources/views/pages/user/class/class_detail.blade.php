@@ -150,14 +150,20 @@
                 <ul class="list-group">
                     <li class="list-group-item">Selamat, kamu berhasil membeli kelas, namun masih belum bisa diakses
                     </li>
-                    <li class="list-group-item">Silahkan transfer sebesar nominal akhir ke <br>No rekening</li>
-                    <li class="list-group-item">Setelah itu kirim bukti transfer ke No 085156257710 melalui Whatsapp
+                    <li class="list-group-item">Silahkan transfer sebesar nominal akhir ke <br>
+                        <b>0108901610018527 BTN a/n Khoerul Umam</b></li>
+                    <li class="list-group-item">Setelah itu kirim bukti transfer ke No <b>085156257710</b> melalui
+                        Whatsapp
                         disertai dengan data
                         berikut<br><br>
                         Nama : {{ Auth()->user()->name }}<br>
                         Email : {{ Auth()->user()->email }}
                     </li>
-                    <li class="list-group-item">Setelah konfirmasi, kelas akan otomatis ada di menu kelas ku</li>
+                    <li class="list-group-item">Setelah konfirmasi, kelas akan otomatis ada di menu kelas saya dalam
+                        waktu 1x24 jam</li>
+                    <li class="list-group-item">Pemberitahuan ini juga dikirimkan ke email {{ Auth()->user()->email }}
+                    </li>
+                    <li class="list-group-item">Terima Kasih :)</li>
                 </ul>
             </div>
             <div class="modal-footer">
