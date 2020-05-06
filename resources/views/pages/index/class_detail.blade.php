@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card shadow">
-                            <img class="card-img-top" src="{{ url('cover/' . $data->cover) }}" alt="Card image cap">
+                            <img class="card-img-top" src="{{ url('cover/' . $data->cover) }}?" alt="Card image cap">
                             <div class="card-body">
                                 <h5>{{ $data->name }}</h5>
                                 <p>{{ $data->speakers }}</p>

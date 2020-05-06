@@ -1,8 +1,8 @@
 <div class="{{ $class }}">
     <div class="card shadow">
-        <img class="card-img-top" src="{{ url('cover/' . $cover) }}" alt="Card image cap">
+        <img class="card-img-top" src="{{ url('cover/' . $cover) }}?" alt="Card image cap">
         <div class="card-body">
-            <h5>{{ $name }}</h5>
+            <h2>{{ $name }}</h2>
             <p>{{ $speakers }}</p>
             <p>{!! $description !!}</p>
         </div>
