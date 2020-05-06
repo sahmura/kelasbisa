@@ -141,7 +141,7 @@
                 <div class="tab-content mt-5" id="myTabContent">
                     <div class="tab-pane fade show active" id="chaptertab" role="tabpanel"
                         aria-labelledby="chaptertab-tab">
-                        <form action="" method="post" id="chapterform">
+                        <form action="" method="POST" id="chapterform">
                             @csrf
                             <input type="hidden" name="class_id" id="" value="{{ $data->id }}">
                             <input type="hidden" name="id" id="chapter_id" value="{{ $data->id }}">
