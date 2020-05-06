@@ -170,12 +170,14 @@
                                     placeholder="Deskripsi chapter" required></textarea>
                             </div>
                             <div class="form-group">
-                                <button id="add-chapter" class="btn btn-success btn-md"><i class="fas fa-plus"></i>
+                                <button id="add-chapter" class="btn btn-success btn-md" type="button"><i
+                                        class="fas fa-plus"></i>
                                     Tambah</button>
-                                <button id="edit-chapter" class="btn btn-warning btn-md"><i
+                                <button id="edit-chapter" class="btn btn-warning btn-md" type="button"><i
                                         class="fas fa-pencil-alt"></i>
                                     Sunting</button>
-                                <button id="batal-edit-chapter" class="btn btn-danger btn-md">Batal</button>
+                                <button id="batal-edit-chapter" class="btn btn-danger btn-md"
+                                    type="button">Batal</button>
                             </div>
                         </form>
                     </div>
