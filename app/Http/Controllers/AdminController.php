@@ -60,6 +60,16 @@ class AdminController extends Controller
             $listUser = User::where('role', '=', 'user')->get();
             return DataTables::of($listUser)
                 ->addColumn(
+                    'status',
+                    function ($listUser) {
+                        if ($listUser->email_verified_at == '' || $listUser->email_verified_at == null) {
+                            return 'Not Verified';
+                        } else {
+                            return 'Verified';
+                        }
+                    }
+                )
+                ->addColumn(
                     'action',
                     function ($listUser) {
                         return '<div class="btn-group">
@@ -70,7 +80,7 @@ class AdminController extends Controller
                                 </div>';
                     }
                 )
-                ->rawColumns(['action'])
+                ->rawColumns(['action', 'status'])
                 ->addIndexColumn()
                 ->make(true);
         }

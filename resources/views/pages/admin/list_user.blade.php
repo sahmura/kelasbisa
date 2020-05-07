@@ -29,6 +29,7 @@
                             <th style="width: 30px;">No</th>
                             <th>Nama</th>
                             <th>Email</th>
+                            <th>Status</th>
                             <th style="width: 50px;"><i class="ni ni-ungroup"></i></th>
                         </thead>
                         <tbody class="list"></tbody>
@@ -112,6 +113,10 @@
                 },
                 {
                     data: 'email',
+                    orderable: true,
+                },
+                {
+                    data: 'status',
                     orderable: true,
                 },
                 {
