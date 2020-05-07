@@ -225,7 +225,7 @@ class DashboardController extends Controller
                 if ($sendMail) {
                     $response = [
                         'status' => true,
-                        'message' => 'Email konfirmasi telah di kirim ke ' . $datauser->email
+                        'message' => 'Email konfirmasi telah di kirim ke ' . $datauser->email . '. Cek folder spam jika tidak ada'
                     ];
                 } else {
                     $response = [

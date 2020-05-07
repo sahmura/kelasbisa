@@ -42,6 +42,7 @@
             display: block;
             margin: 13px 0;
         }
+
     </style>
     <!--[if mso]>
         <xml>
@@ -60,6 +61,7 @@
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet" type="text/css">
     <style type="text/css">
         @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
+
     </style>
     <!--<![endif]-->
     <style type="text/css">
@@ -74,6 +76,7 @@
                 max-width: 50%;
             }
         }
+
     </style>
     <style type="text/css">
         @media only screen and (max-width:480px) {
@@ -85,6 +88,7 @@
                 width: auto !important;
             }
         }
+
     </style>
 </head>
 
@@ -419,7 +423,7 @@
                                             style="font-size:0px;padding:10px 25px;word-break:break-word;">
                                             <div
                                                 style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:14px;font-weight:600;line-height:1;text-align:center;color:#403E3E;">
-                                                0108901610018527 BTN a/n Khoerul Umam</div>
+                                                (Hubungi nomor di bawah)</div>
                                         </td>
                                     </tr>
                                     <tr>
