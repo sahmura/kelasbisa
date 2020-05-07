@@ -54,6 +54,7 @@
                     <div class="form-group">
                         <label for="profil">Gambar Profil</label>
                         <input type="file" name="profil" id="profil" class="form-control" placeholder="Profil picture">
+                        <small class="text-mutted">Ukuran maksimal 500KB</small>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-md btn-primary w-100" type="submit">Perbarui</button>

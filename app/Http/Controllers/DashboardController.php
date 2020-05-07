@@ -151,7 +151,7 @@ class DashboardController extends Controller
         } else if ($pic->getSize() >= 500048) {
             $response = [
                 'status' => false,
-                'message' => $pic->getSize(),
+                'message' => 'Maaf, ukuran maksimal gambar 500KB',
                 'notes' => ''
             ];
             return redirect('setting')->with('error', $response['message']);
