@@ -17,7 +17,7 @@
                 </button>
             </form> -->
             <!-- Navbar links -->
-            <ul class="navbar-nav align-items-center  ml-md-auto ">
+            <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
                 <li class="nav-item d-xl-none">
                     <!-- Sidenav toggler -->
                     <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin"
@@ -29,13 +29,6 @@
                         </div>
                     </div>
                 </li>
-                <!-- <li class="nav-item d-sm-none">
-                    <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
-                        <i class="ni ni-zoom-split-in"></i>
-                    </a>
-                </li> -->
-            </ul>
-            <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
                 <li class="nav-item dropdown">
                     <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">

@@ -2,8 +2,8 @@
     <div class="scrollbar-inner">
         <!-- Brand -->
         <div class="sidenav-header  align-items-center">
-            <a class="navbar-brand" href="javascript:void(0)">
-                <img src="{{ url('logo/fullcolor.svg?') }}" class="navbar-brand-img" alt="...">
+            <a class="navbar-brand" href="#">
+                <img src="{{ url('logo/fullcolor.svg?') }}" class="navbar-brand-img" alt="Logo">
                 <!-- Kelas Bisa -->
             </a>
         </div>
