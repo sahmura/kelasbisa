@@ -186,36 +186,49 @@
     });
 
     $(document).on('click', '.btn-change-permission', function () {
-        var id = $(this).data('id');
-        $.ajax({
-            url: "{{ url('admin/changeUserPermission') }}",
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                id: id
-            },
-            success: function (response) {
-                if (response.status) {
-                    Swal.fire({
-                        title: response.message,
-                        text: response.notes,
-                        icon: 'success'
-                    }).then((Confirm) => {
-                        if (Confirm.value) {
-                            location.reload();
-                        }
-                    })
-                } else {
-                    Swal.fire({
-                        title: response.message,
-                        text: response.notes,
-                        icon: 'error'
-                    });
-                }
-            }
+        Swal.fire({
+            title: 'Apakah anda yakin?',
+            text: 'Pengguna akan dijadikan Admin / User',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#FF3636',
+            cancelButtonColor: '#888888',
+            confirmButtonText: 'Ya, Jadikan Admin / User',
 
+        }).then((Confirm) => {
+            if (Confirm.value) {
+                var id = $(this).data('id');
+                $.ajax({
+                    url: "{{ url('admin/changeUserPermission') }}",
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        id: id
+                    },
+                    success: function (response) {
+                        if (response.status) {
+                            Swal.fire({
+                                title: response.message,
+                                text: response.notes,
+                                icon: 'success'
+                            }).then((Confirm) => {
+                                if (Confirm.value) {
+                                    location.reload();
+                                }
+                            })
+                        } else {
+                            Swal.fire({
+                                title: response.message,
+                                text: response.notes,
+                                icon: 'error'
+                            });
+                        }
+                    }
+
+                })
+            }
         })
     });
 
