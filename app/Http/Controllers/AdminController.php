@@ -57,7 +57,7 @@ class AdminController extends Controller
     public function getListUser(Request $request)
     {
         if ($request->json()) {
-            $listUser = User::where('role', '=', 'user')->get();
+            $listUser = User::get();
             return DataTables::of($listUser)
                 ->addColumn(
                     'status',
@@ -77,6 +77,9 @@ class AdminController extends Controller
                                         data-id="' . $listUser->id . '"
                                         data-name="' . $listUser->name . '"
                                     ><i class="ni ni-bold-right"></i></button>
+                                    <button class="btn btn-sm btn-change-permission btn-danger"
+                                        data-id="' . $listUser->id . '"
+                                    ><i class="ni ni-badge"></i></button>
                                 </div>';
                     }
                 )
@@ -84,5 +87,41 @@ class AdminController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
+    }
+
+    /**
+     * Make admin or peserta
+     * 
+     * @param $request menerima data
+     * 
+     * @return mixed
+     */
+    public function changePermission(Request $request)
+    {
+        $user = User::where('id', '=', $request->id)->first();
+        if ($user->role == 'admin') {
+            $changeTo = 'user';
+        } else if ($user->role == 'user') {
+            $changeTo = 'admin';
+        }
+        $update = User::where('id', '=', $request->id)->update(
+            [
+                'role' => $changeTo
+            ]
+        );
+
+        if ($update) {
+            $response = [
+                'status' => true,
+                'message' => 'Berhasil mengubah permission ke ' . $changeTo
+            ];
+        } else {
+            $response = [
+                'status' => false,
+                'message' => 'Gagal mengubah permission ke ' . $changeTo
+            ];
+        }
+
+        return response()->json($response);
     }
 }

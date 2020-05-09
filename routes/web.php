@@ -32,6 +32,7 @@ Route::group(
     ['prefix' => 'admin', 'middleware' => 'App\Http\Middleware\Admin'],
     function () {
         Route::get('/', 'AdminController@index');
+        Route::post('changeUserPermission', 'AdminController@changePermission');
 
         Route::group(
             ['prefix' => 'category'],

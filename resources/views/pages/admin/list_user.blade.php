@@ -30,6 +30,7 @@
                             <th>Nama</th>
                             <th>Email</th>
                             <th>Status</th>
+                            <th>Role</th>
                             <th style="width: 50px;"><i class="ni ni-ungroup"></i></th>
                         </thead>
                         <tbody class="list"></tbody>
@@ -120,6 +121,10 @@
                     orderable: true,
                 },
                 {
+                    data: 'role',
+                    orderable: true,
+                },
+                {
                     data: 'action',
                     orderable: false,
                     searchable: false,
@@ -179,6 +184,40 @@
         $('#save-btn').addClass('btn-warning');
         $('#save-btn').html('Simpan data');
         $('#asignModal').modal('show');
+    });
+
+    $(document).on('click', '.btn-change-permission', function () {
+        var id = $(this).data('id');
+        $.ajax({
+            url: "{{ url('admin/changeUserPermission') }}",
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                id: id
+            },
+            success: function (response) {
+                if (response.status) {
+                    Swal.fire({
+                        title: response.message,
+                        text: response.notes,
+                        icon: 'success'
+                    }).then((Confirm) => {
+                        if (Confirm.value) {
+                            location.reload();
+                        }
+                    })
+                } else {
+                    Swal.fire({
+                        title: response.message,
+                        text: response.notes,
+                        icon: 'error'
+                    });
+                }
+            }
+
+        })
     });
 
     $(document).on('click', '.btn-delete', function () {
