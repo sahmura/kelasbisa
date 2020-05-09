@@ -116,6 +116,7 @@
                         <thead class="text-center thead-light">
                             <th style="width: 30px;">No</th>
                             <th>Nama</th>
+                            <th>Email</th>
                             <th>Kelas</th>
                             <th>Status</th>
                             <th style="width: 50px;"><i class="ni ni-ungroup"></i></th>
@@ -193,6 +194,10 @@
                 },
                 {
                     data: 'user.name',
+                    orderable: true,
+                },
+                {
+                    data: 'user.email',
                     orderable: true,
                 },
                 {
