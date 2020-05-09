@@ -95,7 +95,6 @@
         $('#userList').DataTable({
             processing: true,
             serverSide: true,
-            order: [1, 'desc'],
             ajax: {
                 url: "{{ url('admin/user/getListUser') }}",
                 headers: {

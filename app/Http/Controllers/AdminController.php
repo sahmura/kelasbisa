@@ -57,7 +57,7 @@ class AdminController extends Controller
     public function getListUser(Request $request)
     {
         if ($request->json()) {
-            $listUser = User::get();
+            $listUser = User::orderBy('created_at', 'desc')->get();
             return DataTables::of($listUser)
                 ->addColumn(
                     'status',
