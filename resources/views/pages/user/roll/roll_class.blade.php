@@ -8,13 +8,22 @@
         <div class="sidenav-header  align-items-center">
             <a class="navbar-brand" href="javascript:void(0)">
                 <!-- <img src="../assets/img/brand/blue.png" class="navbar-brand-img" alt="..."> -->
-                Kelas Bisa
+                Kelasbisa
             </a>
         </div>
         <div class="navbar-inner">
             <!-- Collapse -->
             <div class="collapse navbar-collapse" id="sidenav-collapse-main">
-                @if($class->modul_url != '' || $class->modul_url != '-')
+                <h6 class="navbar-heading p-0 text-muted">
+                    <span class="docs-normal">Beranda</span>
+                </h6>
+                <hr class="my-2">
+                <ul class="navbar-nav mb-5">
+                    <li class="nav-item">
+                        <a href="{{ url('user/myclass') }}" class="ml-4 btn btn-danger btn-sm">Kembali</a>
+                    </li>
+                </ul>
+                @if($class->modul_url != '-')
                 <h6 class="navbar-heading p-0 text-muted">
                     <span class="docs-normal">Modul</span>
                 </h6>
