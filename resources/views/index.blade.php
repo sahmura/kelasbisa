@@ -30,7 +30,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 mx-auto text-center">
-                <h3 class="display-3">Kenapa Memilih Kelas Bisa?</h3>
+                <h3 class="display-3">Kenapa Memilih Kelasbisa?</h3>
                 <p class="lead">Jangan sia-siakan kesempatanmu. Orang-orang sudah bergabung.</p>
             </div>
         </div>
@@ -41,7 +41,7 @@
                         <img src="{{ url('assets/icons/struktur.svg') }}" alt="" width="70">
                     </div>
                     <h6 class="info-title text-uppercase text-primary">Terstruktur</h6>
-                    <p class="description opacity-8">Kelas di Kelas Bisa terstruktur dengan baik, sehingga Kamu akan
+                    <p class="description opacity-8">Kelas di Kelasbisa terstruktur dengan baik, sehingga Kamu akan
                         dibawa ke alur belajar yang tepat</p>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                         <img src="{{ url('assets/icons/uptodate.svg') }}" alt="" width="70">
                     </div>
                     <h6 class="info-title text-uppercase text-primary">Up-To-Date</h6>
-                    <p class="description opacity-8">Kelas Bisa akan selau memberikan kelas yang up-to-date dan dapat
+                    <p class="description opacity-8">Kelasbisa akan selau memberikan kelas yang up-to-date dan dapat
                         diterapkan di dunia kerja</p>
                 </div>
             </div>
@@ -72,8 +72,8 @@
     <div class="container">
         <div class="row d-flex align-items-center">
             <div class="col-md-4">
-                <h3 class="text-white display-3">Apa saja yang ada di Kelas Bisa?</h3>
-                <p>Kelas bisa menyediakan beragam fitur yang menarik</p>
+                <h3 class="text-white display-3">Apa saja yang ada di Kelasbisa?</h3>
+                <p>Kelasbisa menyediakan beragam fitur yang menarik</p>
             </div>
             <div class="col-md-8">
                 <div class="row text-center">
