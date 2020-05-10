@@ -73,7 +73,7 @@ class AdminController extends Controller
                     'action',
                     function ($listUser) {
                         return '<div class="btn-group">
-                                    <button class="btn btn-sm btn-asign btn-warning"
+                                    <button class="btn btn-sm btn-asign btn-success"
                                         data-id="' . $listUser->id . '"
                                         data-name="' . $listUser->name . '"
                                     ><i class="ni ni-bold-right"></i></button>

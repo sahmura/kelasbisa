@@ -26,7 +26,7 @@
             </div>
             <ul class="navbar-nav align-items-lg-center ml-lg-auto">
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link" role="button">
+                    <a href="{{ url('class') }}" class="nav-link" role="button">
                         <i class="ni ni-single-copy-04 d-lg-none"></i>
                         <span class="nav-link-inner--text">Kelas</span>
                     </a>

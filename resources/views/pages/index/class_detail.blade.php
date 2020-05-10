@@ -121,12 +121,22 @@
 @endsection
 @push('js')
 <script>
+
+    @if(Auth()->user())
+    $('#addClassBtn').on('click', function () {
+        window.location.href = "{{ url('user/detail/'. $data->id .'/class') }}";
+    });
+    $('#buyClassBtn').on('click', function () {
+        window.location.href = "{{ url('user/detail/'. $data->id .'/class') }}";
+    });
+    @else
     $('#addClassBtn').on('click', function () {
         window.location.href = "{{ url('login') }}";
     });
     $('#buyClassBtn').on('click', function () {
         window.location.href = "{{ url('login') }}";
     });
+    @endif
 
 </script>
 @endpush
