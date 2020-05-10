@@ -18,7 +18,7 @@ class TransactionsController extends Controller
     public function index()
     {
         $listStatus = Transactions::where('deleted_at', '=', null)->distinct()->get('status');
-        $pendingTransactions = Transactions::where('deleted_at', '=', null)->where('status', '=', 'Pending')->count();
+        $pendingTransactions = Transactions::where('deleted_at', '=', null)->where('status', '=', 'pending')->count();
         $doneTransactions = Transactions::where('deleted_at', '=', null)->where('status', '=', 'Done')->count();
         $totalTransactions = Transactions::where('deleted_at', '=', null)->count();
         $totalPrices = Transactions::where('deleted_at', '=', null)->where('status', '=', 'Done')->sum('total_prices');
@@ -74,7 +74,7 @@ class TransactionsController extends Controller
             DB::beginTransaction();
             Transactions::where('id', '=', $request->id)->update(
                 [
-                    'status' => 'Done',
+                    'status' => 'done',
                 ]
             );
 
@@ -102,6 +102,32 @@ class TransactionsController extends Controller
             ];
         }
 
+        return response()->json($response);
+    }
+
+    /**
+     * Batalkan transaksi
+     * 
+     * @param $request id transaksi
+     * 
+     * @return json
+     */
+    public function deleteTransaction(Request $request)
+    {
+        $delete = Transactions::where('id', '=', $request->id)->where('user_id', '=', Auth()->user()->id)->delete();
+        if ($delete) {
+            $response = [
+                'status' => true,
+                'message' => 'Berhasil membatalkan transaksi',
+                'notes' => ''
+            ];
+        } else {
+            $response = [
+                'status' => true,
+                'message' => 'Berhasil membatalkan transaksi',
+                'notes' => ''
+            ];
+        }
         return response()->json($response);
     }
 }

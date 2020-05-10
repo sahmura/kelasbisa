@@ -8,10 +8,12 @@ use App\Classes;
 use App\LogRoll;
 use App\LogClasses;
 use App\Validations;
+use App\Coupons;
 use Illuminate\Support\Facades\Hash;
 use File;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ConfirmRegistration;
+use App\Transactions;
 use Illuminate\Support\Str;
 
 class DashboardController extends Controller
@@ -305,7 +307,7 @@ class DashboardController extends Controller
                 );
                 $validation = $checkValidation->update(
                     [
-                        'status' => 'Done'
+                        'status' => 'done'
                     ]
                 );
 
@@ -329,6 +331,44 @@ class DashboardController extends Controller
             } catch (\Exception $e) {
                 abort('500');
             }
+        }
+    }
+
+    /**
+     * Halaman pre transaction
+     * 
+     * @param $id     menerima data id kelas
+     * @param $coupon menerima data kode kupon kelas
+     * 
+     * @return mixed
+     */
+    public function preTrasaction($id, $coupon = null)
+    {
+        if (Transactions::where('class_id', '=', $id)->where('user_id', '=', Auth()->user()->id)->where('status', '=', 'pending')->count() != 0) {
+
+            $class = Classes::where('id', '=', $id)->with('category')->first();
+            $transaction_id = Transactions::where('class_id', '=', $id)->where('user_id', '=', Auth()->user()->id)->where('status', '=', 'pending')->first()->id;
+
+            return view('pages.user.class.class_transaction', compact('class', 'transaction_id'));
+        } else if (Transactions::where('class_id', '=', $id)->where('user_id', '=', Auth()->user()->id)->where('status', '=', 'done')->count() != 0) {
+
+            return redirect('user/myclass');
+        } else {
+
+            $class = Classes::where('id', '=', $id)->with('category')->first();
+            if ($coupon != null) {
+                $discount = Coupons::where('class_id', '=', $id)->where('coupon', '=', $coupon)->first();
+                if ($discount) {
+                    $discount = $discount->discount;
+                } else {
+                    $coupon = null;
+                    $discount = 0;
+                }
+            } else {
+                $discount = 0;
+            }
+
+            return view('pages.user.class.class_pre_transaction', compact('class', 'discount', 'coupon'));
         }
     }
 }

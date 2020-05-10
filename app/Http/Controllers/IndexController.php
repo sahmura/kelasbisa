@@ -56,9 +56,13 @@ class IndexController extends Controller
         $listSubChapters = $subChapterRepository->getWhere('class_id', '=', $id)->get();
         $listChapters = $chapterRepository->getWhere('class_id', '=', $id)->get();
         $totalChapters = $chapterRepository->getWhere('class_id', '=', $id)->count();
-        // $isOnList = LogClasses::where('class_id', '=', $id)->where('user_id', '=', Auth()->user()->id)->count();
+        if(Auth()->user()){
+        $isOnList = LogClasses::where('class_id', '=', $id)->where('user_id', '=', Auth()->user()->id)->count();
+        } else {
+            $isOnList = 0;
+        }
 
-        return view('pages.index.class_detail', compact('data', 'listSubChapters', 'listChapters', 'totalChapters'));
+        return view('pages.index.class_detail', compact('data', 'listSubChapters', 'listChapters', 'totalChapters', 'isOnList'));
     }
 
     /**

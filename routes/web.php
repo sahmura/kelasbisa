@@ -123,6 +123,9 @@ Route::group(
         Route::post('checkCoupon', 'CouponController@checkCoupon');
         Route::post('buyclass', 'ClassController@buyClass');
 
+        Route::get('checkout/{id}/{coupon?}', 'DashboardController@preTrasaction');
+        Route::post('batalkanTransaksi', 'TransactionsController@deleteTransaction');
+
         Route::group(['prefix' => 'sertificate'], function () {
             Route::get('get', 'SertificateController@download');
         });
