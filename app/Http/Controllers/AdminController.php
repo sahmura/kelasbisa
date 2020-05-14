@@ -29,8 +29,8 @@ class AdminController extends Controller
         $data['totalUsers'] = $users->count();
         $data['totalTransactions'] = $transactions->count();
         $data['pendingTransaction'] = Transactions::where('deleted_at', '=', null)->where('status', '=', 'Pending')->count();
-        $data['newUsers'] = $users->orderBy('id', 'desc')->limit(10)->get();
-        $data['newTransactions'] = $transactions->with('user')->with('class')->orderBy('id', 'desc')->limit(10)->get();
+        $data['newUsers'] = $users->orderBy('id', 'desc')->limit(5)->get();
+        $data['newTransactions'] = $transactions->with('user')->with('class')->orderBy('id', 'desc')->limit(5)->get();
         $data['bestClasses'] = $transactions->select(DB::raw('count(*) as total, class_id'))->with('class')->groupBy('class_id')->orderBy('total')->get();
 
         return view('pages.admin.admin_area', compact('data'));
