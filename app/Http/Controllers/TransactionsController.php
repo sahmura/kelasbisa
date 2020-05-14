@@ -44,13 +44,22 @@ class TransactionsController extends Controller
                 ->addColumn(
                     'action',
                     function ($transactions) {
-                        return '<div class="btn-group">
-                            <button class="btn btn-sm btn-primary btn-asign"
-                            data-id="' . $transactions->id . '"
-                            data-username="' . $transactions->user->name . '"
-                            data-transaction="' . $transactions->total_prices . '"
-                            data-classname="' . $transactions->class->name . '">Asign</button>
-                        </div>';
+                        if ($transactions->status == 'pending') {
+                            return '<div class="btn-group">
+                                <button class="btn btn-sm btn-primary btn-asign"
+                                data-id="' . $transactions->id . '"
+                                data-username="' . $transactions->user->name . '"
+                                data-transaction="' . $transactions->total_prices . '"
+                                data-classname="' . $transactions->class->name . '">Asign</button>
+                            </div>';
+                        } else {
+                            return '<div class="btn-group">
+                                <button class="btn btn-sm btn-danger btn-unasign"
+                                data-id="' . $transactions->id . '"
+                                data-code="' . $transactions->transaction_code . '"
+                                >Unasign</button>
+                            </div>';
+                        }
                     }
                 )
                 ->rawColumns(['action'])
@@ -99,6 +108,38 @@ class TransactionsController extends Controller
                 'status' => false,
                 'message' => 'Gagal asign user',
                 'notes' => ''
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * Unasign user
+     * 
+     * @param $request menerima data
+     * 
+     * @return mixed
+     */
+    public function unasignUser(Request $request)
+    {
+        $transactions_id = $request->id;
+        $transactions_code = $request->code;
+
+        try {
+            DB::beginTransaction();
+            LogClasses::where('transaction_id', '=', $transactions_id)->where('transaction_code', '=', $transactions_code)->delete();
+            Transactions::where('id', '=', $transactions_id)->where('transaction_code', '=', $transactions_code)->delete();
+            DB::commit();
+            $response = [
+                'status' => true,
+                'message' => 'User berhasil di unasign'
+            ];
+        } catch (\Exception $e) {
+            DB::rollback();
+            $response = [
+                'status' => false,
+                'message' => 'User gagal di unasign'
             ];
         }
 

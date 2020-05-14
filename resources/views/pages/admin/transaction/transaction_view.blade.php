@@ -238,6 +238,39 @@
         $('#asignModal').modal('show');
     });
 
+    $(document).on('click', '.btn-unasign', function () {
+        $.ajax({
+            url: "{{ url('admin/transaction/unasignuser') }}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'POST',
+            data: {
+                id: $(this).data('id'),
+                code: $(this).data('code'),
+            },
+            success: function (response) {
+                if (response.status) {
+                    Swal.fire({
+                        title: response.message,
+                        text: response.notes,
+                        icon: 'success'
+                    }).then((Confirm) => {
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        title: response.message,
+                        text: response.notes,
+                        icon: 'error'
+                    }).then((Confirm) => {
+                        location.reload();
+                    });
+                }
+            }
+        });
+    });
+
     $('#save-btn').on('click', function () {
         var data = $('#asignForm').serialize();
         $.ajax({
@@ -253,17 +286,19 @@
                         title: response.message,
                         text: response.notes,
                         icon: 'success'
+                    }).then((Confirm) => {
+                        $('#categoryModal').modal('hide');
+                        location.reload();
                     });
-                    $('#categoryModal').modal('hide');
-                    location.reload();
                 } else {
                     Swal.fire({
                         title: response.message,
                         text: response.notes,
                         icon: 'error'
+                    }).then((Confirm) => {
+                        $('#categoryModal').modal('hide');
+                        location.reload();
                     });
-                    $('#categoryModal').modal('hide');
-                    location.reload();
                 }
             }
         });

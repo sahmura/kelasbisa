@@ -100,6 +100,7 @@ Route::group(
             Route::get('/', 'TransactionsController@index');
             Route::post('getListData', 'TransactionsController@getListTransaction');
             Route::post('asignuser', 'TransactionsController@asignUser');
+            Route::post('unasignuser', 'TransactionsController@unasignUser');
         });
     }
 );
