@@ -201,37 +201,13 @@
     });
 
     $('#buyClassBtn').on('click', function () {
-        $.ajax({
-            url: "{{ url('user/buyclass') }}",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            method: 'POST',
-            data: {
-                class_id: "{{ $data->id }}",
-                user_id: "{{ Auth()->user()->id }}",
-                code: $('#coupon').val()
-            },
-            success: function (response) {
-                if (response.status) {
-                    Swal.fire({
-                        title: response.message,
-                        text: response.notes,
-                        icon: "success"
-                    }).then((Confirm) => {
-                        if (Confirm.value) {
-                            $('#buyClassModal').modal('show');
-                        }
-                    });
-                } else {
-                    Swal.fire({
-                        title: response.message,
-                        text: response.notes,
-                        icon: "error"
-                    });
-                }
-            }
-        });
+
+        var coupon = $('#coupon').val()
+        if (coupon == '') {
+            window.location.href = "{{ url('user/checkout/' . $data->id) }}"
+        } else {
+            window.location.href = "{{ url('user/checkout/' . $data->id ) }}" + '/' + coupon;
+        }
     });
 
     $('#playClassBtn').on('click', function () {
@@ -239,38 +215,8 @@
     });
 
     $('#addClassBtn').on('click', function () {
-        $.ajax({
-            url: "{{ url('user/joinclass') }}",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            method: 'POST',
-            data: {
-                class_id: "{{ $data->id }}",
-                _token: "{{ csrf_token() }}",
-                user_id: "{{ Auth()->user()->id }}",
-                status: 'Done'
-            },
-            success: function (response) {
-                if (response.status) {
-                    Swal.fire({
-                        title: response.message,
-                        text: response.notes,
-                        icon: "success"
-                    }).then((Confirm) => {
-                        if (Confirm.value) {
-                            window.location.href = '{{ url("user/myclass") }}';
-                        }
-                    });
-                } else {
-                    Swal.fire({
-                        title: response.message,
-                        text: response.notes,
-                        icon: "error"
-                    });
-                }
-            }
-        })
+
+        window.location.href = "{{ url('user/checkout/' . $data->id) }}"
     });
 
     $('#coupon').on('keyup', function () {

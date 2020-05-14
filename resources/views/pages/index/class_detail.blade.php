@@ -96,9 +96,22 @@
                             <div class="col">
                                 <span style="font-weight: 600;">Harga</span>
                                 <hr style="margin-top: 1em;">
-                                <p>Rp{{ $data->prices }}</p>
+                                <p id="hargaAwal">Rp{{ $data->prices }}</p>
+                                <p id="hargaDiskon"></p>
                             </div>
                         </div>
+                        @if($isOnList == 0)
+                        @if($data->type == 'premium')
+                        <div class="row">
+                            <div class="col">
+                                <label for="coupon">Kupon</label>
+                                <input type="text" name="coupon" id="coupon" class="form-control"
+                                    placeholder="Kode kupon">
+                                <p id="errorCode" class="text-danger"></p>
+                            </div>
+                        </div>
+                        @endif
+                        @endif
                     </div>
                     <div class="card-footer bg-primary text-center">
                         @if($data->is_draft == 0)
@@ -121,13 +134,17 @@
 @endsection
 @push('js')
 <script>
-
     @if(Auth()->user())
     $('#addClassBtn').on('click', function () {
-        window.location.href = "{{ url('user/detail/'. $data->id .'/class') }}";
+        window.location.href = "{{ url('user/checkout/' . $data->id) }}"
     });
     $('#buyClassBtn').on('click', function () {
-        window.location.href = "{{ url('user/detail/'. $data->id .'/class') }}";
+        var coupon = $('#coupon').val()
+        if (coupon == '') {
+            window.location.href = "{{ url('user/checkout/' . $data->id) }}"
+        } else {
+            window.location.href = "{{ url('user/checkout/' . $data->id ) }}" + '/' + coupon;
+        }
     });
     @else
     $('#addClassBtn').on('click', function () {
@@ -137,6 +154,40 @@
         window.location.href = "{{ url('login') }}";
     });
     @endif
+
+    $('#coupon').on('keyup', function () {
+        $.ajax({
+            url: "{{ url('user/checkCoupon')}}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'POST',
+            data: {
+                code: $(this).val(),
+                idclass: "{{ $data->id }}"
+            },
+            success: function (response) {
+                if (response.status) {
+                    $('#hargaAwal').css('text-decoration', 'line-through');
+                    $('#hargaAwal').css('color', '#FA441B');
+                    $('#hargaDiskon').css('font-weight', '600');
+                    $('#hargaDiskon').show();
+                    $('#hargaDiskon').html(response.newPrices);
+                    $('#errorCode').html(response.message);
+                    $('#errorCode').removeClass('text-danger');
+                    $('#errorCode').addClass('text-success');
+                } else {
+                    $('#hargaAwal').css('text-decoration', 'none');
+                    $('#hargaAwal').css('color', '#757F99');
+                    $('#errorCode').html(response.message);
+                    $('#errorCode').removeClass('text-success');
+                    $('#errorCode').addClass('text-danger');
+                    $('#hargaDiskon').hide();
+
+                }
+            }
+        })
+    })
 
 </script>
 @endpush

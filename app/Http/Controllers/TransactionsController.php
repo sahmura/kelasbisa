@@ -18,7 +18,7 @@ class TransactionsController extends Controller
     public function index()
     {
         $listStatus = Transactions::where('deleted_at', '=', null)->distinct()->get('status');
-        $pendingTransactions = Transactions::where('deleted_at', '=', null)->where('status', '=', 'Pending')->count();
+        $pendingTransactions = Transactions::where('deleted_at', '=', null)->where('status', '=', 'pending')->count();
         $doneTransactions = Transactions::where('deleted_at', '=', null)->where('status', '=', 'Done')->count();
         $totalTransactions = Transactions::where('deleted_at', '=', null)->count();
         $totalPrices = Transactions::where('deleted_at', '=', null)->where('status', '=', 'Done')->sum('total_prices');
@@ -44,13 +44,22 @@ class TransactionsController extends Controller
                 ->addColumn(
                     'action',
                     function ($transactions) {
-                        return '<div class="btn-group">
-                            <button class="btn btn-sm btn-primary btn-asign"
-                            data-id="' . $transactions->id . '"
-                            data-username="' . $transactions->user->name . '"
-                            data-transaction="' . $transactions->total_prices . '"
-                            data-classname="' . $transactions->class->name . '">Asign</button>
-                        </div>';
+                        if ($transactions->status == 'pending') {
+                            return '<div class="btn-group">
+                                <button class="btn btn-sm btn-primary btn-asign"
+                                data-id="' . $transactions->id . '"
+                                data-username="' . $transactions->user->name . '"
+                                data-transaction="' . $transactions->total_prices . '"
+                                data-classname="' . $transactions->class->name . '">Asign</button>
+                            </div>';
+                        } else {
+                            return '<div class="btn-group">
+                                <button class="btn btn-sm btn-danger btn-unasign"
+                                data-id="' . $transactions->id . '"
+                                data-code="' . $transactions->transaction_code . '"
+                                >Unasign</button>
+                            </div>';
+                        }
                     }
                 )
                 ->rawColumns(['action'])
@@ -74,7 +83,7 @@ class TransactionsController extends Controller
             DB::beginTransaction();
             Transactions::where('id', '=', $request->id)->update(
                 [
-                    'status' => 'Done',
+                    'status' => 'done',
                 ]
             );
 
@@ -102,6 +111,64 @@ class TransactionsController extends Controller
             ];
         }
 
+        return response()->json($response);
+    }
+
+    /**
+     * Unasign user
+     * 
+     * @param $request menerima data
+     * 
+     * @return mixed
+     */
+    public function unasignUser(Request $request)
+    {
+        $transactions_id = $request->id;
+        $transactions_code = $request->code;
+
+        try {
+            DB::beginTransaction();
+            LogClasses::where('transaction_id', '=', $transactions_id)->where('transaction_code', '=', $transactions_code)->delete();
+            Transactions::where('id', '=', $transactions_id)->where('transaction_code', '=', $transactions_code)->delete();
+            DB::commit();
+            $response = [
+                'status' => true,
+                'message' => 'User berhasil di unasign'
+            ];
+        } catch (\Exception $e) {
+            DB::rollback();
+            $response = [
+                'status' => false,
+                'message' => 'User gagal di unasign'
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * Batalkan transaksi
+     * 
+     * @param $request id transaksi
+     * 
+     * @return json
+     */
+    public function deleteTransaction(Request $request)
+    {
+        $delete = Transactions::where('id', '=', $request->id)->where('user_id', '=', Auth()->user()->id)->delete();
+        if ($delete) {
+            $response = [
+                'status' => true,
+                'message' => 'Berhasil membatalkan transaksi',
+                'notes' => ''
+            ];
+        } else {
+            $response = [
+                'status' => true,
+                'message' => 'Berhasil membatalkan transaksi',
+                'notes' => ''
+            ];
+        }
         return response()->json($response);
     }
 }

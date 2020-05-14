@@ -323,12 +323,13 @@ class ClassController extends Controller
 
         try {
             DB::beginTransaction();
+            $datetime = now();
             $newTransaction = Transactions::create(
                 [
                     'user_id' => $dataUser->id,
                     'class_id' => $dataClass->id,
-                    'transaction_code' => md5($dataClass->name . $dataUser->name),
-                    'status' => 'Done',
+                    'transaction_code' => md5($dataClass->name . $dataUser->name . $datetime),
+                    'status' => 'done',
                     'total_prices' => $dataClass->prices
                 ]
             );
@@ -337,7 +338,7 @@ class ClassController extends Controller
                     'transaction_id' => $newTransaction->id,
                     'user_id' => $dataUser->id,
                     'class_id' => $dataClass->id,
-                    'transaction_code' => md5($dataClass->name . $dataUser->name),
+                    'transaction_code' => md5($dataClass->name . $dataUser->name . $datetime),
                 ]
             );
             DB::commit();
@@ -372,60 +373,201 @@ class ClassController extends Controller
         $dataUser = User::where('id', '=', $request->user_id)->first();
         $code = Coupons::where('coupon', '=', $request->code)->where('class_id', '=', $dataClass->id);
 
-        if ($request->code != '') {
-            if ($dataClass->prices - $code->first()->discount == 0) {
-                $this->joinClass($request);
-                $response = [
-                    'status' => true,
-                    'message' => 'Berhasil masuk kelas',
-                    'notes' => ''
-                ];
+        //check user
+        $checkUserTransaction = Transactions::where('class_id', '=', $dataClass->id)->where('user_id', '=', $dataUser->id);
+        if ($checkUserTransaction->count() == 0) {
+            if ($request->code != '') {
+                if ($dataClass->prices - $code->first()->discount == 0) {
+                    $this->joinClass($request);
+                    $response = [
+                        'status' => true,
+                        'message' => 'Berhasil masuk kelas',
+                        'notes' => ''
+                    ];
+                } else {
+                    try {
+                        DB::beginTransaction();
+                        $datetime = now();
+                        if (Coupons::where('coupon', '=', $request->code)->where('class_id', '=', $dataClass->id)->count() == 0) {
+                            $newTransaction = Transactions::create(
+                                [
+                                    'user_id' => $dataUser->id,
+                                    'class_id' => $dataClass->id,
+                                    'transaction_code' => md5($dataClass->name . $dataUser->name . $datetime),
+                                    'status' => 'pending',
+                                    'total_prices' => $dataClass->prices
+                                ]
+                            );
+                        } else {
+                            $newTransaction = Transactions::create(
+                                [
+                                    'user_id' => $dataUser->id,
+                                    'class_id' => $dataClass->id,
+                                    'transaction_code' => md5($dataClass->name . $dataUser->name . $datetime),
+                                    'status' => 'pending',
+                                    'total_prices' => $dataClass->prices - $code->first()->discount
+                                ]
+                            );
+                        }
+
+
+                        DB::commit();
+
+                        $sendMail = Mail::to($dataUser->email)->send(
+                            new ConfirmTransaction($dataUser, $dataClass, $newTransaction->total_prices)
+                        );
+
+                        $response = [
+                            'status' => true,
+                            'message' => 'Berhasil membeli kelas',
+                            'notes' => 'Kelas masih pending, selesaikan pembayaran'
+                        ];
+                    } catch (\Exception $e) {
+                        DB::rollback();
+                        $response = [
+                            'status' => false,
+                            'message' => 'Gagal membeli kelas',
+                            'notes' => ''
+                        ];
+                    }
+                }
+            } else {
+                try {
+                    DB::beginTransaction();
+                    $datetime = now();
+                    if (Coupons::where('coupon', '=', $request->code)->where('class_id', '=', $dataClass->id)->count() == 0) {
+                        $newTransaction = Transactions::create(
+                            [
+                                'user_id' => $dataUser->id,
+                                'class_id' => $dataClass->id,
+                                'transaction_code' => md5($dataClass->name . $dataUser->name . $datetime),
+                                'status' => 'pending',
+                                'total_prices' => $dataClass->prices
+                            ]
+                        );
+                    } else {
+                        $newTransaction = Transactions::create(
+                            [
+                                'user_id' => $dataUser->id,
+                                'class_id' => $dataClass->id,
+                                'transaction_code' => md5($dataClass->name . $dataUser->name . $datetime),
+                                'status' => 'pending',
+                                'total_prices' => $dataClass->prices - $code->first()->discount
+                            ]
+                        );
+                    }
+
+
+                    DB::commit();
+
+                    $sendMail = Mail::to($dataUser->email)->send(
+                        new ConfirmTransaction($dataUser, $dataClass, $newTransaction->total_prices)
+                    );
+
+                    $response = [
+                        'status' => true,
+                        'message' => 'Berhasil membeli kelas',
+                        'notes' => 'Kelas masih pending, selesaikan pembayaran'
+                    ];
+                } catch (\Exception $e) {
+                    DB::rollback();
+                    $response = [
+                        'status' => false,
+                        'message' => 'Gagal membeli kelas',
+                        'notes' => ''
+                    ];
+                }
             }
         } else {
-            try {
-                DB::beginTransaction();
-                if ($code->count() == 0) {
-                    $newTransaction = Transactions::create(
-                        [
-                            'user_id' => $dataUser->id,
-                            'class_id' => $dataClass->id,
-                            'transaction_code' => md5($dataClass->name . $dataUser->name),
-                            'status' => 'pending',
-                            'total_prices' => $dataClass->prices
-                        ]
-                    );
+            if ($request->code != '') {
+                if ($dataClass->prices - $code->first()->discount == 0) {
+                    $this->joinClass($request);
+                    $response = [
+                        'status' => true,
+                        'message' => 'Berhasil masuk kelas',
+                        'notes' => ''
+                    ];
                 } else {
-                    $newTransaction = Transactions::create(
-                        [
-                            'user_id' => $dataUser->id,
-                            'class_id' => $dataClass->id,
-                            'transaction_code' => md5($dataClass->name . $dataUser->name),
-                            'status' => 'pending',
-                            'total_prices' => $dataClass->prices - $code->first()->discount
-                        ]
-                    );
+                    try {
+                        DB::beginTransaction();
+                        if (Coupons::where('coupon', '=', $request->code)->where('class_id', '=', $dataClass->id)->count() == 0) {
+                            Transactions::where('class_id', '=', $dataClass->id)->where('user_id', '=', $dataUser->id)->update(
+                                [
+                                    'status' => 'pending',
+                                    'total_prices' => $dataClass->prices
+                                ]
+                            );
+                        } else {
+                            Transactions::where('class_id', '=', $dataClass->id)->where('user_id', '=', $dataUser->id)->update(
+                                [
+                                    'status' => 'pending',
+                                    'total_prices' => $dataClass->prices - $code->first()->discount
+                                ]
+                            );
+                        }
+
+                        $newTransaction = Transactions::where('class_id', '=', $dataClass->id)->where('user_id', '=', $dataUser->id)->first();
+
+                        DB::commit();
+
+                        $sendMail = Mail::to($dataUser->email)->send(
+                            new ConfirmTransaction($dataUser, $dataClass, $newTransaction->total_prices)
+                        );
+
+                        $response = [
+                            'status' => true,
+                            'message' => 'Berhasil membeli kelas',
+                            'notes' => 'Kelas masih pending, selesaikan pembayaran'
+                        ];
+                    } catch (\Exception $e) {
+                        DB::rollback();
+                        $response = [
+                            'status' => false,
+                            'message' => 'Gagal membeli kelas',
+                            'notes' => ''
+                        ];
+                    }
                 }
+            } else {
+                try {
+                    DB::beginTransaction();
+                    if (Coupons::where('coupon', '=', $request->code)->where('class_id', '=', $dataClass->id)->count() == 0) {
+                        $newTransaction = Transactions::where('class_id', '=', $dataClass->id)->where('user_id', '=', $dataUser->id)->update(
+                            [
+                                'status' => 'pending',
+                                'total_prices' => $dataClass->prices
+                            ]
+                        );
+                    } else {
+                        $newTransaction = Transactions::where('class_id', '=', $dataClass->id)->where('user_id', '=', $dataUser->id)->update(
+                            [
+                                'status' => 'pending',
+                                'total_prices' => $dataClass->prices - $code->first()->discount
+                            ]
+                        );
+                    }
 
+                    $newTransaction = Transactions::where('class_id', '=', $dataClass->id)->where('user_id', '=', $dataUser->id)->first();
 
-                DB::commit();
+                    DB::commit();
 
-                $sendMail = Mail::to($dataUser->email)->send(
-                    new ConfirmTransaction($dataUser, $dataClass, $newTransaction->total_prices)
-                );
+                    $sendMail = Mail::to($dataUser->email)->send(
+                        new ConfirmTransaction($dataUser, $dataClass, $newTransaction->total_prices)
+                    );
 
-                $response = [
-                    'status' => true,
-                    'message' => 'Berhasil membeli kelas',
-                    'notes' => 'Kelas masih pending, selesaikan pembayaran'
-                ];
-            } catch (\Exception $e) {
-                throw $e;
-                DB::rollback();
-                $response = [
-                    'status' => false,
-                    'message' => 'Gagal membeli kelas',
-                    'notes' => ''
-                ];
+                    $response = [
+                        'status' => true,
+                        'message' => 'Berhasil membeli kelas',
+                        'notes' => 'Kelas masih pending, selesaikan pembayaran'
+                    ];
+                } catch (\Exception $e) {
+                    DB::rollback();
+                    $response = [
+                        'status' => false,
+                        'message' => 'Gagal membeli kelas',
+                        'notes' => ''
+                    ];
+                }
             }
         }
 
