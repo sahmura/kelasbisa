@@ -9,7 +9,9 @@ use App\Classes;
 use App\LogClasses;
 use App\Transactions;
 use App\User;
+use App\Agendas;
 use Yajra\DataTables\DataTables;
+use Carbon\Carbon;
 use DB;
 
 class AdminController extends Controller
@@ -90,6 +92,53 @@ class AdminController extends Controller
     }
 
     /**
+     * Get list data agenda
+     * 
+     * @param $request menerima request
+     * 
+     * @return json
+     */
+    public function getListAgenda(Request $request)
+    {
+        if ($request->json()) {
+            $listAgenda = Agendas::orderBy('target', 'asc')->get();
+            return DataTables::of($listAgenda)
+                ->addColumn(
+                    'target',
+                    function ($listAgenda) {
+                        return Carbon::parse($listAgenda->target)->locale('id')->isoFormat('Do MMMM YYYY');
+                    }
+                )
+                ->addColumn(
+                    'action',
+                    function ($listAgenda) {
+                        return '<div class="btn-group">
+                                    <button class="btn btn-sm btn-detail btn-info"
+                                        data-id="' . $listAgenda->id . '"
+                                        data-name="' . $listAgenda->name . '"
+                                        data-description="' . $listAgenda->description . '"
+                                        data-target="' . $listAgenda->target . '"
+                                    ><i class="fas fa-search"></i></button>
+                                    <button class="btn btn-sm btn-edit btn-success"
+                                        data-id="' . $listAgenda->id . '"
+                                        data-name="' . $listAgenda->name . '"
+                                        data-description="' . $listAgenda->description . '"
+                                        data-target="' . $listAgenda->target . '"
+                                    ><i class="fas fa-pencil-alt"></i></button>
+                                    <button class="btn btn-sm btn-delete btn-danger"
+                                        data-id="' . $listAgenda->id . '"
+                                    ><i class="fas fa-trash-alt"></i></button>
+                                </div>';
+                    }
+                )
+                ->rawColumns(['action', 'target'])
+                ->addIndexColumn()
+                ->make(true);
+        }
+    }
+
+
+    /**
      * Make admin or peserta
      * 
      * @param $request menerima data
@@ -123,5 +172,110 @@ class AdminController extends Controller
         }
 
         return response()->json($response);
+    }
+
+    /**
+     * Add agenda
+     * 
+     * @param $request menerima data
+     * 
+     * @return json
+     */
+    public function addAgenda(Request $request)
+    {
+        $add = Agendas::create(
+            [
+                'user_id' => Auth()->user()->id,
+                'name' => $request->name,
+                'description' => $request->description,
+                'target' => $request->target,
+            ]
+        );
+
+        if ($add) {
+            $response = [
+                'status' => true,
+                'message' => 'Agenda berhasil ditambahkan'
+            ];
+        } else {
+            $response = [
+                'status' => false,
+                'message' => 'Agenda gagal ditambahkan'
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * Edit agenda
+     * 
+     * @param $request menerima data
+     * 
+     * @return json
+     */
+    public function updateAgenda(Request $request)
+    {
+        $update = Agendas::where('id', '=', $request->id)->update(
+            [
+                'user_id' => Auth()->user()->id,
+                'name' => $request->name,
+                'description' => $request->description,
+                'target' => $request->target,
+            ]
+        );
+
+        if ($update) {
+            $response = [
+                'status' => true,
+                'message' => 'Agenda berhasil diedit'
+            ];
+        } else {
+            $response = [
+                'status' => false,
+                'message' => 'Agenda gagal diedit'
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * Hapus agenda
+     * 
+     * @param $request menerima data
+     * 
+     * @return json
+     */
+    public function deleteAgenda(Request $request)
+    {
+        $update = Agendas::where('id', '=', $request->id)->delete();
+
+        if ($update) {
+            $response = [
+                'status' => true,
+                'message' => 'Agenda berhasil dihapus'
+            ];
+        } else {
+            $response = [
+                'status' => false,
+                'message' => 'Agenda gagal dihapus'
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * Agenda view
+     * 
+     * @return view
+     */
+    public function agenda()
+    {
+        $now = Carbon::now()->toDateString();
+        $todayAgendas = Agendas::where('target', '=', $now)->get();
+        $nextAgendas = Agendas::where('target', '>', $now)->limit(2)->get();
+        return view('pages.admin.agenda.agenda_view', compact('now', 'todayAgendas', 'nextAgendas'));
     }
 }

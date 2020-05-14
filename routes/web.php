@@ -46,6 +46,17 @@ Route::group(
         );
 
         Route::group(
+            ['prefix' => 'agenda'],
+            function () {
+                Route::get('/', 'AdminController@agenda');
+                Route::post('getListData', 'AdminController@getListAgenda');
+                Route::post('add', 'AdminController@addAgenda');
+                Route::post('edit', 'AdminController@updateAgenda');
+                Route::delete('delete', 'AdminController@deleteAgenda');
+            }
+        );
+
+        Route::group(
             ['prefix' => 'class'],
             function () {
                 Route::get('/', 'ClassController@index');

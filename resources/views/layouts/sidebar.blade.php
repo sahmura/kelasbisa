@@ -60,6 +60,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" id="sidebar-agenda" href="{{ url('admin/agenda') }}">
+                            <i class="ni ni-archive-2 text-success"></i>
+                            <span class="nav-link-text">Agenda</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" id="sidebar-category" href="{{ url('admin/category') }}">
                             <i class="ni ni-bullet-list-67 text-primary"></i>
                             <span class="nav-link-text">Categories</span>
