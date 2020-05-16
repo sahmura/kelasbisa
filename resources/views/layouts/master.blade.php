@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
-    <meta name="author" content="Creative Tim">
+    <meta name="description" content="Kelasbisa merupakan platform pengembangan skill dan ilmu baru kekinian dengan alur belajar yang terarah dan nyaman">
+    <meta name="author" content="Kelasbisa">
     <title>Kelasbisa @yield('title')</title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
