@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Kelasbisa merupakan platform pengembangan skill dan ilmu baru kekinian dengan alur belajar yang terarah dan nyaman">
+    <meta name="description"
+        content="Kelasbisa merupakan platform pengembangan skill dan ilmu baru kekinian dengan alur belajar yang terarah dan nyaman">
     <meta name="author" content="Kelasbisa">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>
@@ -108,15 +109,19 @@
     <script src="{{ url('assets/home/js/plugins/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ url('assets/home/js/argon-design-system.min.js?v=1.2.0') }}" type="text/javascript"></script>
     <script>
-        if ('serviceWorker' in navigator) {
-          console.log("Will the service worker register?");
-          navigator.serviceWorker.register('service-worker.js')
-            .then(function(reg){
-              console.log("Yes, it did.");
-            }).catch(function(err) {
-              console.log("No it didn't. This happened: ", err)
+        if ('serviceWorker' in navigator && 'PushManager' in window) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
+                    // Registration was successful
+                    console.log('ServiceWorker registration successful with scope: ', registration
+                        .scope);
+                }, function (err) {
+                    // registration failed :(
+                    console.log('ServiceWorker registration failed: ', err);
+                });
             });
         }
+
     </script>
     @stack('js')
 </body>
