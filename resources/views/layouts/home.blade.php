@@ -8,7 +8,7 @@
     <meta name="author" content="Kelasbisa">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>
-        Kelas Bisa
+        Kelasbisa
     </title>
 
     <link rel="apple-touch-icon" sizes="57x57" href="{{ url('apple-icon-57x57.png?') }}">
@@ -64,7 +64,7 @@
             <div class="container">
                 <div class="row py-5">
                     <div class="col-md-4">
-                        <h3>Kelas Bisa</h3>
+                        <h3>Kelasbisa</h3>
                         <p>Tempat pengembangan skill dan ilmu baru. Kelas
                             terstruktur untuk berbagai kalangan. Tersedia beragam tingkat mulai dari pemula hingga
                             mahir.</p>
@@ -91,7 +91,7 @@
                 </div>
                 <div class="row text-center py-3">
                     <div class="col-md-12">
-                        &copy;2020 Kelas Bisa. All rights reserved. Giving with love &hearts;
+                        &copy;2020 Kelasbisa. All rights reserved. Giving with love &hearts;
                     </div>
                 </div>
             </div>
