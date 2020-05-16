@@ -23,7 +23,6 @@
     <link rel="icon" type="image/png" sizes="96x96" href="{{ url('favicon-96x96.png?') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url('favicon-16x16.png?') }}">
     <link rel="manifest" href="{{ url('manifest.json?')}}">
-    <link rel="manifest" href="{{ url('manifest.webmanifest')}}">
     <meta name="msapplication-TileColor" content="#5e72e4">
     <meta name="msapplication-TileImage" content="{{ url('ms-icon-144x144.png?') }}">
     <meta name="theme-color" content="#ffffff">
