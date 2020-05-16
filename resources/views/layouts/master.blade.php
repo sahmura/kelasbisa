@@ -26,6 +26,7 @@
     <meta name="msapplication-TileColor" content="#5e72e4">
     <meta name="msapplication-TileImage" content="{{ url('ms-icon-144x144.png?') }}">
     <meta name="theme-color" content="#ffffff">
+    <meta name="mobile-web-app-capable" content="yes">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
     <link rel="stylesheet" href="{{ url('assets/argon/vendor/nucleo/css/nucleo.css') }}" type="text/css">
