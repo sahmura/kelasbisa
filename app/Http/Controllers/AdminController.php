@@ -101,7 +101,8 @@ class AdminController extends Controller
     public function getListAgenda(Request $request)
     {
         if ($request->json()) {
-            $listAgenda = Agendas::orderBy('target', 'asc')->get();
+            $now = Carbon::now()->toDateString();
+            $listAgenda = Agendas::where('target', '>=', $now)->orderBy('target', 'asc')->get();
             return DataTables::of($listAgenda)
                 ->addColumn(
                     'target',
@@ -118,12 +119,14 @@ class AdminController extends Controller
                                         data-name="' . $listAgenda->name . '"
                                         data-description="' . $listAgenda->description . '"
                                         data-target="' . $listAgenda->target . '"
+                                        data-result="' . $listAgenda->result . '"
                                     ><i class="fas fa-search"></i></button>
                                     <button class="btn btn-sm btn-edit btn-success"
                                         data-id="' . $listAgenda->id . '"
                                         data-name="' . $listAgenda->name . '"
                                         data-description="' . $listAgenda->description . '"
                                         data-target="' . $listAgenda->target . '"
+                                        data-result="' . $listAgenda->result . '"
                                     ><i class="fas fa-pencil-alt"></i></button>
                                     <button class="btn btn-sm btn-delete btn-danger"
                                         data-id="' . $listAgenda->id . '"
@@ -189,6 +192,7 @@ class AdminController extends Controller
                 'name' => $request->name,
                 'description' => $request->description,
                 'target' => $request->target,
+                'result' => ''
             ]
         );
 
@@ -222,6 +226,7 @@ class AdminController extends Controller
                 'name' => $request->name,
                 'description' => $request->description,
                 'target' => $request->target,
+                'result' => $request->result
             ]
         );
 

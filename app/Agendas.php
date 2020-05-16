@@ -14,7 +14,8 @@ class Agendas extends Model
         'user_id',
         'name',
         'description',
-        'target'
+        'target',
+        'result'
     ];
 
     public function user()

@@ -97,6 +97,10 @@
                         <label for="target">Target</label>
                         <input type="date" class="form-control" name="target" id="target" placeholder="Target" required>
                     </div>
+                    <div class="form-group" id="resultAgenda">
+                        <label for="result">Hasil</label>
+                        <textarea name="result" id="resut" class="form-control" placeholder="Hasil Agenda"></textarea>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -121,6 +125,9 @@
                 <h1 id="prevNamaAgenda"></h1>
                 <h3 id="prevTargetAgenda"></h3>
                 <p id="prevDescAgenda"></p>
+                <p><b>Hasil Agenda</b></p>
+                <hr>
+                <p id="prevResultAgenda"></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -177,6 +184,7 @@
         $('.modal-title').html('Tambah kategori baru');
         $('#save-btn').addClass('btn-success');
         $('#save-btn').html('Tambah data');
+        $('#resultAgenda').hide();
         $('#agendaModal').modal('show');
     });
 
@@ -223,12 +231,15 @@
         var name = $(this).data('name');
         var description = $(this).data('description');
         var target = $(this).data('target');
+        var result = $(this).data('result');
 
+        $('#resultAgenda').show();
         $('#dataForm')[0].reset();
         $('#id').val(id);
         $('#name').val(name);
         $('#description').val(description);
         $('#target').val(target);
+        $('#result').val(result);
 
         $('.modal-title').html('Sunting data')
         $('#save-btn').addClass('btn-warning');
@@ -240,10 +251,12 @@
         var name = $(this).data('name');
         var description = $(this).data('description');
         var target = $(this).data('target');
+        var result = $(this).data('result');
 
         $('#prevNamaAgenda').text(name);
         $('#prevTargetAgenda').text(target);
         $('#prevDescAgenda').text(description);
+        $('#prevResultAgenda').text(result);
         $('#previewAgendaModal').modal('show');
     });
 
