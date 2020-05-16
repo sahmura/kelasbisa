@@ -107,7 +107,17 @@
     <script src="{{ url('assets/home/js/plugins/datetimepicker.js') }}" type="text/javascript"></script>
     <script src="{{ url('assets/home/js/plugins/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ url('assets/home/js/argon-design-system.min.js?v=1.2.0') }}" type="text/javascript"></script>
-
+    <script>
+        if ('serviceWorker' in navigator) {
+          console.log("Will the service worker register?");
+          navigator.serviceWorker.register('service-worker.js')
+            .then(function(reg){
+              console.log("Yes, it did.");
+            }).catch(function(err) {
+              console.log("No it didn't. This happened: ", err)
+            });
+        }
+    </script>
     @stack('js')
 </body>
 
