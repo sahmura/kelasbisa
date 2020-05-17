@@ -25,7 +25,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url('favicon-32x32.png?') }}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{ url('favicon-96x96.png?') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url('favicon-16x16.png?') }}">
-    <link rel="manifest" href="{{ url('manifest.json?')}}">
+    <link rel="manifest" href="{{ url('manifest.json')}}">
     <meta name="msapplication-TileColor" content="#5e72e4">
     <meta name="msapplication-TileImage" content="{{ url('ms-icon-144x144.png?') }}">
     <meta name="theme-color" content="#ffffff">
@@ -111,8 +111,8 @@
     <script>
         if ('serviceWorker' in navigator && 'PushManager' in window) {
             window.addEventListener('load', function () {
-                navigator.serviceWorker.register("{{ url('/service-worker.js') }}").then(function (
-                registration) {
+                navigator.serviceWorker.register("{{ url('/service-worker.js?') }}").then(function (
+                    registration) {
                     // Registration was successful
                     console.log('ServiceWorker registration successful with scope: ', registration
                         .scope);
