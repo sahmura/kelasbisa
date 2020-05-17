@@ -232,14 +232,16 @@ class DashboardController extends Controller
                 } else {
                     $response = [
                         'status' => false,
-                        'message' => 'Email konfirmasi gagal dikirim'
+                        'message' => 'Email konfirmasi gagal dikirim. Ulangi lagi dalam beberapa menit',
+
                     ];
                 }
             } catch (\Exception $e) {
                 throw $e;
                 $response = [
                     'status' => false,
-                    'message' => 'Email konfirmasi gagal dikirim'
+                    'message' => 'Email konfirmasi gagal dikirim. Ulangi lagi dalam beberapa menit',
+
                 ];
             }
         } else if ($checkValidation->first('status')->status == 'Ready') {
