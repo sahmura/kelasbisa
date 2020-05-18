@@ -37,4 +37,9 @@ class Classes extends Model
     {
         return $this->hasMany('App\Coupons', 'class_id', 'id');
     }
+
+    public function speaker()
+    {
+        return $this->belongsTo('App\Speakers', 'speakers', 'id');
+    }
 }

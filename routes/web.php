@@ -57,6 +57,18 @@ Route::group(
         );
 
         Route::group(
+            ['prefix' => 'speaker'],
+            function () {
+                Route::get('/', 'SpeakerController@index');
+                Route::post('getListData', 'SpeakerController@getListSpeaker');
+                Route::post('add', 'SpeakerController@addSpeaker');
+                Route::post('edit', 'SpeakerController@updateSpeaker');
+                Route::delete('delete', 'SpeakerController@deleteSpeaker');
+                Route::post('addSignature', 'SpeakerController@addSignature');
+            }
+        );
+
+        Route::group(
             ['prefix' => 'class'],
             function () {
                 Route::get('/', 'ClassController@index');

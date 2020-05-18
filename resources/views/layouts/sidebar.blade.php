@@ -48,6 +48,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" id="sidebar-speaker" href="{{ url('admin/speaker') }}">
+                            <i class="ni ni-notification-70 text-danger"></i>
+                            <span class="nav-link-text">Speaker</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" id="sidebar-coupon" href="{{ url('admin/coupon') }}">
                             <i class="ni ni-key-25 text-primary"></i>
                             <span class="nav-link-text">Promo Code</span>
