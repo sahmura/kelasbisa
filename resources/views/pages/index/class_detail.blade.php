@@ -135,7 +135,7 @@
 @endsection
 @push('js')
 <script>
-    @if(Auth() - > user())
+    @if(Auth()->user())
     $('#addClassBtn').on('click', function () {
         window.location.href = "{{ url('user/checkout/' . $data->id) }}"
     });
