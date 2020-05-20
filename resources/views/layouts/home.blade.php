@@ -130,9 +130,9 @@
 
     </script>
     <script>
-        $(document).ready(function () {
+        $(window).on('load', function () {
             $("#loaderSpin").fadeOut("slow");
-        })
+        });
 
     </script>
     @stack('js')
