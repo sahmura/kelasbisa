@@ -25,7 +25,7 @@
                             <img class="card-img-top" src="{{ url('cover/' . $data->cover) }}?" alt="Card image cap">
                             <div class="card-body">
                                 <h5>{{ $data->name }}</h5>
-                                <p>{{ $data->speakers }}</p>
+                                <p>{{ $data->speaker->name }}</p>
                                 <p>{!! $data->description !!}</p>
                             </div>
                         </div>

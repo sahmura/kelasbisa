@@ -348,7 +348,7 @@ class DashboardController extends Controller
     {
         if (Transactions::where('class_id', '=', $id)->where('user_id', '=', Auth()->user()->id)->where('status', '=', 'pending')->count() != 0) {
 
-            $class = Classes::where('id', '=', $id)->with('category')->first();
+            $class = Classes::where('id', '=', $id)->with('category')->with('speaker')->first();
             $transaction_id = Transactions::where('class_id', '=', $id)->where('user_id', '=', Auth()->user()->id)->where('status', '=', 'pending')->first()->id;
 
             return view('pages.user.class.class_transaction', compact('class', 'transaction_id'));
@@ -357,7 +357,7 @@ class DashboardController extends Controller
             return redirect('user/myclass');
         } else {
 
-            $class = Classes::where('id', '=', $id)->with('category')->first();
+            $class = Classes::where('id', '=', $id)->with('category')->with('speaker')->first();
             if ($coupon != null) {
                 $discount = Coupons::where('class_id', '=', $id)->where('coupon', '=', $coupon)->first();
                 if ($discount) {

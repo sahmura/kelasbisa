@@ -41,8 +41,12 @@
                         </div>
                         <div class="form-group">
                             <label for="speakers">Pembawa materi</label>
-                            <input type="text" name="speakers" id="speakers" class="form-control p-2"
-                                placeholder="Pembawa materi" required value="{{ $class->speakers }}">
+                            <select name="speakers" id="speakers" class="custom-select" required>
+                                <option value="0">Pilih pembicara</option>
+                                @foreach($listSpeakers as $speaker)
+                                <option value="{{ $speaker->id }}" @if($class->speaker_id == $speaker->id) selected='seleced' @endif>{{$speaker->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="description">Deskripsi</label>

@@ -18,9 +18,9 @@ class Classes extends Model
         'terms',
         'type',
         'prices',
-        'speakers',
         'modul_url',
-        'is_draft'
+        'is_draft',
+        'speaker_id'
     ];
 
     public function category()
@@ -40,6 +40,6 @@ class Classes extends Model
 
     public function speaker()
     {
-        return $this->belongsTo('App\Speakers', 'speakers', 'id');
+        return $this->belongsTo('App\Speakers', 'speaker_id', 'id');
     }
 }
