@@ -74,6 +74,7 @@
             </div>
             <div class="card-body">
                 <form action="" method="POST" id="settingform">
+                    @csrf
                     <div class="form-group">
                         <label for="name">Nama lengkap</label>
                         <input type="text" name="name" id="name" value="{{ $data->name }}" class="form-control"
@@ -85,7 +86,8 @@
                             placeholder="email@kamu.com" required>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-md btn-primary btn-block" id="settingformbtn"><i class="ni ni-send"></i>
+                        <button class="btn btn-md btn-primary btn-block" id="settingformbtn" type="button"><i
+                                class="ni ni-send"></i>
                             Perbarui</button>
                     </div>
                 </form>
@@ -101,6 +103,7 @@
             </div>
             <div class="card-body">
                 <form action="" method="POST" id="passwordform">
+                    @csrf
                     <div class="form-group">
                         <label for="oldpassword">Password lama</label>
                         <input type="password" name="oldpassword" id="oldpassword" class="form-control" required
@@ -118,7 +121,8 @@
                         <span id="errorpass" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-md btn-primary btn-block" id="passwordformbtn"><i class="ni ni-send"></i>
+                        <button class="btn btn-md btn-primary btn-block" id="passwordformbtn" type="button"><i
+                                class="ni ni-send"></i>
                             Perbarui</button>
                     </div>
                 </form>
