@@ -70,10 +70,6 @@
                     <div class="col-8">
                         <h3 class="mb-0">Sunting profil</h3>
                     </div>
-                    <div class="col-4 text-right">
-                        <button class="btn btn-md btn-primary" id="settingformbtn"><i class="ni ni-send"></i>
-                            Perbarui</button>
-                    </div>
                 </div>
             </div>
             <div class="card-body">
@@ -88,6 +84,10 @@
                         <input type="email" name="email" id="email" value="{{ $data->email }}" class="form-control"
                             placeholder="email@kamu.com" required>
                     </div>
+                    <div class="form-group">
+                        <button class="btn btn-md btn-primary btn-block" id="settingformbtn"><i class="ni ni-send"></i>
+                            Perbarui</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -96,10 +96,6 @@
                 <div class="row align-items-center">
                     <div class="col-8">
                         <h3 class="mb-0">Sunting password</h3>
-                    </div>
-                    <div class="col-4 text-right">
-                        <button class="btn btn-md btn-primary" id="passwordformbtn"><i class="ni ni-send"></i>
-                            Perbarui</button>
                     </div>
                 </div>
             </div>
@@ -120,6 +116,10 @@
                         <input type="password" name="confirmpassword" id="confirmpassword" class="form-control" required
                             placeholder="Konfirmasi password baru">
                         <span id="errorpass" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-md btn-primary btn-block" id="passwordformbtn"><i class="ni ni-send"></i>
+                            Perbarui</button>
                     </div>
                 </form>
             </div>
