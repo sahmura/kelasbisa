@@ -11,6 +11,7 @@ use App\LogClasses;
 use App\SubChapters;
 use App\Transactions;
 use App\Coupons;
+use App\Speakers;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ConfirmTransaction;
 use App\Repositories\SubChapterRepository;
@@ -41,7 +42,8 @@ class ClassController extends Controller
     public function newClass()
     {
         $listCategories = Categories::where('deleted_at', '=', null)->orderBy('name', 'asc')->get();
-        return view('pages.admin.class.addClass', compact('listCategories'));
+        $listSpeakers = Speakers::where('deleted_at', '=', null)->orderBy('name', 'asc')->get();
+        return view('pages.admin.class.addClass', compact('listCategories', 'listSpeakers'));
     }
 
     /**
@@ -148,7 +150,7 @@ class ClassController extends Controller
      */
     public function detailClass($id, SubChapterRepository $subChapterRepository, ChapterRepository $chapterRepository)
     {
-        $data = Classes::where('id', '=', $id)->with('category')->with('chapters')->first();
+        $data = Classes::where('id', '=', $id)->with('category')->with('chapters')->with('speaker')->first();
         $listSubChapters = $subChapterRepository->getWhere('class_id', '=', $id)->get();
         $listChapters = $chapterRepository->getWhere('class_id', '=', $id)->get();
         $totalChapters = $chapterRepository->getWhere('class_id', '=', $id)->count();
@@ -168,7 +170,8 @@ class ClassController extends Controller
     {
         $class = $classRepository->getWhere('id', '=', $id)->first();
         $listCategories = Categories::where('deleted_at', '=', null)->orderBy('name', 'asc')->get();
-        return view('pages.admin.class.editClass', compact('class', 'listCategories'));
+        $listSpeakers = Speakers::where('deleted_at', '=', null)->orderBy('name', 'asc')->get();
+        return view('pages.admin.class.editClass', compact('class', 'listCategories', 'listSpeakers'));
     }
 
     /**
@@ -261,18 +264,47 @@ class ClassController extends Controller
     {
         $listCategories = Categories::where('deleted_at', '=', null)->get();
         if ($category == 'search') {
-            $listClasses = Classes::where('name', 'like', '%' . $type . '%')->where('is_draft', '=', 0)->where('deleted_at', '=', null)->orderBy('id', 'desc')->paginate(12);
+            $listClasses = Classes::where('name', 'like', '%' . $type . '%')
+                ->where('is_draft', '=', 0)
+                ->where('deleted_at', '=', null)
+                ->with('speaker')
+                ->orderBy('id', 'desc')
+                ->paginate(12);
         } else if ($category == null || $type == null) {
-            $listClasses = Classes::where('deleted_at', '=', null)->where('is_draft', '=', 0)->orderBy('id', 'desc')->paginate(12);
+            $listClasses = Classes::where('deleted_at', '=', null)
+                ->where('is_draft', '=', 0)
+                ->with('speaker')
+                ->orderBy('id', 'desc')
+                ->paginate(12);
         } else {
             if ($category == 'all' && $type != null) {
-                $listClasses = Classes::where('type', '=', $type)->where('is_draft', '=', 0)->where('deleted_at', '=', null)->orderBy('id', 'desc')->paginate(12);
+                $listClasses = Classes::where('type', '=', $type)
+                    ->where('is_draft', '=', 0)
+                    ->where('deleted_at', '=', null)
+                    ->with('speaker')
+                    ->orderBy('id', 'desc')
+                    ->paginate(12);
             } else if ($type == 'all' && $category != null) {
-                $listClasses = Classes::where('category_id', '=', $category)->where('is_draft', '=', 0)->where('deleted_at', '=', null)->orderBy('id', 'desc')->paginate(12);
+                $listClasses = Classes::where('category_id', '=', $category)
+                    ->where('is_draft', '=', 0)
+                    ->where('deleted_at', '=', null)
+                    ->with('speaker')
+                    ->orderBy('id', 'desc')
+                    ->paginate(12);
             } else if ($category == 'all' && $type == 'all') {
-                $listClasses = Classes::where('deleted_at', '=', null)->where('is_draft', '=', 0)->orderBy('id', 'desc')->paginate(12);
+                $listClasses = Classes::where('deleted_at', '=', null)
+                    ->where('is_draft', '=', 0)
+                    ->with('speaker')
+                    ->orderBy('id', 'desc')
+                    ->paginate(12);
             } else {
-                $listClasses = Classes::where('category_id', '=', $category)->where('is_draft', '=', 0)->where('type', '=', $type)->where('deleted_at', '=', null)->orderBy('id', 'desc')->paginate(12);
+                $listClasses = Classes::where('category_id', '=', $category)
+                    ->where('is_draft', '=', 0)
+                    ->where('type', '=', $type)
+                    ->where('deleted_at', '=', null)
+                    ->with('speaker')
+                    ->orderBy('id', 'desc')
+                    ->paginate(12);
             }
         }
 
@@ -286,7 +318,11 @@ class ClassController extends Controller
      */
     public function listMyClassUser()
     {
-        $listClasses = LogClasses::where('user_id', '=', Auth()->user()->id)->where('deleted_at', '=', null)->with('class.category')->orderBy('created_at', 'desc')->paginate(12);
+        $listClasses = LogClasses::where('user_id', '=', Auth()->user()->id)
+            ->where('deleted_at', '=', null)
+            ->with(['class.category', 'class.speaker'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(12);
         return view('pages.user.class.myclass', ['listClasses' => $listClasses]);
     }
 
@@ -301,7 +337,7 @@ class ClassController extends Controller
      */
     public function detailClassUser($id, ChapterRepository $chapterRepository, SubChapterRepository $subChapterRepository)
     {
-        $data = Classes::where('id', '=', $id)->with('category')->with('chapters')->first();
+        $data = Classes::where('id', '=', $id)->with('category')->with('chapters')->with('speaker')->first();
         $listSubChapters = $subChapterRepository->getWhere('class_id', '=', $id)->get();
         $listChapters = $chapterRepository->getWhere('class_id', '=', $id)->get();
         $totalChapters = $chapterRepository->getWhere('class_id', '=', $id)->count();

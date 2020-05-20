@@ -39,7 +39,7 @@
             <div class="card-footer">
                 <div class="row">
                     <div class="col-4">
-                        <span class="badge badge-secondary">{{ ucfirst($class->class->speakers) }}</span>
+                        <span class="badge badge-secondary">{{ ucfirst($class->class->speaker->name) }}</span>
                     </div>
                     <div class="col-8">
                         <div class="btn-group float-right">

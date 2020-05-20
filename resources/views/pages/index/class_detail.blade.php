@@ -26,7 +26,7 @@
                                 alt="{{ $data->name }}">
                             <div class="card-body">
                                 <h5>{{ $data->name }}</h5>
-                                <p>{{ $data->speakers }}</p>
+                                <p>{{ $data->speaker->name }}</p>
                                 <p>{!! $data->description !!}</p>
                             </div>
                         </div>

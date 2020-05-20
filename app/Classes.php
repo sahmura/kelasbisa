@@ -18,9 +18,9 @@ class Classes extends Model
         'terms',
         'type',
         'prices',
-        'speakers',
         'modul_url',
-        'is_draft'
+        'is_draft',
+        'speaker_id'
     ];
 
     public function category()
@@ -36,5 +36,10 @@ class Classes extends Model
     public function coupon()
     {
         return $this->hasMany('App\Coupons', 'class_id', 'id');
+    }
+
+    public function speaker()
+    {
+        return $this->belongsTo('App\Speakers', 'speaker_id', 'id');
     }
 }

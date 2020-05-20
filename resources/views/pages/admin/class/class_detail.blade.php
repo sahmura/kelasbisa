@@ -22,7 +22,7 @@
 @endsection
 @section('content')
 <div class="row">
-    <x-classdetail class="col-md-8" :cover="$data->cover" :name="$data->name" :speakers="$data->speakers"
+    <x-classdetail class="col-md-8" :cover="$data->cover" :name="$data->name" :speakers="$data->speaker->name"
         :description="$data->description" />
     <div class="col-md-4 sticky-top">
         <div class="card card-profile">

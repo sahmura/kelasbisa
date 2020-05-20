@@ -59,7 +59,7 @@
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-4">
-                                <span class="badge badge-default">{{ ucfirst($class->speakers) }}</span>
+                                <span class="badge badge-default">{{ ucfirst($class->speaker->name) }}</span>
                             </div>
                             <div class="col-8">
                                 <a href="{{ url('detail/' . $class->id) }}"

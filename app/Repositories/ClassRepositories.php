@@ -34,7 +34,7 @@ class ClassRepository
             [
                 'category_id' => $request->category_id,
                 'name' => $request->name,
-                'speakers' => $request->speakers,
+                'speaker_id' => $request->speakers,
                 'description' => $request->description,
                 'cover' => $request->cover_name,
                 'terms' => $request->terms,
@@ -59,7 +59,7 @@ class ClassRepository
             [
                 'category_id' => $request->category_id,
                 'name' => $request->name,
-                'speakers' => $request->speakers,
+                'speaker_id' => $request->speakers,
                 'description' => $request->description,
                 'cover' => $request->cover_name,
                 'terms' => $request->terms,
