@@ -3,7 +3,7 @@
         <!-- Brand -->
         <div class="sidenav-header  align-items-center">
             <a class="navbar-brand" href="#">
-                <img src="{{ url('logo/fullcolor.svg?') }}" class="navbar-brand-img" alt="Logo">
+                <img src="{{ url('logo/fullcolor.svg?') }}" loading="lazy" class="navbar-brand-img" alt="Logo">
                 <!-- Kelas Bisa -->
             </a>
         </div>

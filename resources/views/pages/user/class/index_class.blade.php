@@ -44,7 +44,7 @@
     @foreach($listClasses as $class)
     <div class="col-md-4">
         <div class="card shadow">
-            <img class="card-img-top" src="{{ url('cover/' . $class->cover) }}" alt="{{ $class->name }}">
+            <img class="card-img-top" src="{{ url('cover/' . $class->cover) }}" loading="lazy" alt="{{ $class->name }}">
             <div class="card-body">
                 <h3 class="card-title" style="margin-bottom: 10px;">{{ $class->name }} <span
                         class="badge badge-warning float-right">{{ ucfirst($class->type) }}</span></h3>

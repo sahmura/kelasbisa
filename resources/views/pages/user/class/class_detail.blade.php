@@ -22,7 +22,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card shadow">
-                    <img class="card-img-top" src="{{ url('cover/' . $data->cover) }}?" alt="Card image cap">
+                    <img class="card-img-top" src="{{ url('cover/' . $data->cover) }}?" loading="lazy"
+                        alt="{{ $data->name }}">
                     <div class="card-body">
                         <h2>{{ $data->name }}</h2>
                         <p>{{ $data->speakers }}</p>

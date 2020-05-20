@@ -4,7 +4,8 @@
     <div class="col px-0">
         <div class="row align-items-center justify-content-center">
             <div class="col-lg-6 text-center">
-                <img src="{{ url('logo/logowhite.svg?') }}" alt="Logo kelasbisa" height="140" width="auto" class="mb-3">
+                <img src="{{ url('logo/logowhite.svg?') }}" loading="lazy" alt="Logo kelasbisa" height="140"
+                    width="auto" class="mb-3">
                 <h1 class="text-white display-1">Kelasbisa</h1>
                 <p class="text-white" style="margin-top: -15px; font-size: 18px; font-weight: 600;">Siapapun Bisa!</p>
                 <p class="lead font-weight-thin text-white">Kembangkan skill, kembangan diri, untuk masa depan lebih
@@ -38,7 +39,7 @@
             <div class="col-md-4">
                 <div class="info">
                     <div class="icon icon-lg icon-shape icon-shape-primary shadow rounded-circle">
-                        <img src="{{ url('assets/icons/struktur.svg') }}" alt="" width="70">
+                        <img src="{{ url('assets/icons/struktur.svg') }}" loading="lazy" alt="" width="70">
                     </div>
                     <h6 class="info-title text-uppercase text-primary">Terstruktur</h6>
                     <p class="description opacity-8">Kelas di Kelasbisa terstruktur dengan baik, sehingga Kamu akan
@@ -48,7 +49,7 @@
             <div class="col-md-4">
                 <div class="info">
                     <div class="icon icon-lg icon-shape icon-shape-danger shadow rounded-circle">
-                        <img src="{{ url('assets/icons/uptodate.svg') }}" alt="" width="70">
+                        <img src="{{ url('assets/icons/uptodate.svg') }}" loading="lazy" alt="" width="70">
                     </div>
                     <h6 class="info-title text-uppercase text-primary">Up-To-Date</h6>
                     <p class="description opacity-8">Kelasbisa akan selau memberikan kelas yang up-to-date dan dapat
@@ -58,7 +59,7 @@
             <div class="col-md-4">
                 <div class="info">
                     <div class="icon icon-lg icon-shape icon-shape-success shadow rounded-circle">
-                        <img src="{{ url('assets/icons/choices.svg') }}" alt="" width="70">
+                        <img src="{{ url('assets/icons/choices.svg') }}" loading="lazy" alt="" width="70">
                     </div>
                     <h6 class="info-title text-uppercase text-primary">Beragam Pilihan</h6>
                     <p class="description opacity-8">Banyak pilihan kelas yang dapat diakses dari berbagai disiplin
@@ -81,7 +82,8 @@
                     <div class="col-md-3 mt-4">
                         <div class="card">
                             <div class="card-body justify-content-center text-warning">
-                                <img src="{{ url('assets/icons/sertificate.svg') }}" alt="" width="70" class="mb-3">
+                                <img src="{{ url('assets/icons/sertificate.svg') }}" loading="lazy" alt="" width="70"
+                                    class="mb-3">
                                 <h6>Sertifikat</h6>
                             </div>
                         </div>
@@ -89,7 +91,8 @@
                     <div class="col-md-3 mt-4">
                         <div class="card">
                             <div class="card-body justify-content-center text-warning">
-                                <img src="{{ url('assets/icons/videohd.svg') }}" alt="" width="70" class="mb-3">
+                                <img src="{{ url('assets/icons/videohd.svg') }}" loading="lazy" alt="" width="70"
+                                    class="mb-3">
                                 <h6>Video HD</h6>
                             </div>
                         </div>
@@ -97,7 +100,8 @@
                     <div class="col-md-3 mt-4">
                         <div class="card">
                             <div class="card-body justify-content-center text-warning">
-                                <img src="{{ url('assets/icons/uptodate.svg') }}" alt="" width="70" class="mb-3">
+                                <img src="{{ url('assets/icons/uptodate.svg') }}" loading="lazy" alt="" width="70"
+                                    class="mb-3">
                                 <h6>Up-To-Date</h6>
                             </div>
                         </div>
@@ -108,7 +112,8 @@
                     <div class="col-md-3 mt-4">
                         <div class="card">
                             <div class="card-body justify-content-center text-warning">
-                                <img src="{{ url('assets/icons/modul.svg') }}" alt="" width="70" class="mb-3">
+                                <img src="{{ url('assets/icons/modul.svg') }}" loading="lazy" alt="" width="70"
+                                    class="mb-3">
                                 <h6>Modul</h6>
                             </div>
                         </div>
@@ -116,7 +121,8 @@
                     <div class="col-md-3 mt-4">
                         <div class="card">
                             <div class="card-body justify-content-center text-warning">
-                                <img src="{{ url('assets/icons/consul.svg') }}" alt="" width="70" class="mb-3">
+                                <img src="{{ url('assets/icons/consul.svg') }}" loading="lazy" alt="" width="70"
+                                    class="mb-3">
                                 <h6>Konsultasi</h6>
                             </div>
                         </div>
@@ -124,7 +130,8 @@
                     <div class="col-md-3 mt-4">
                         <div class="card">
                             <div class="card-body justify-content-center text-warning">
-                                <img src="{{ url('assets/icons/lifetime.svg') }}" alt="" width="70" class="mb-3">
+                                <img src="{{ url('assets/icons/lifetime.svg') }}" loading="lazy" alt="" width="70"
+                                    class="mb-3">
                                 <h6>Lifetime</h6>
                             </div>
                         </div>

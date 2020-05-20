@@ -22,7 +22,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card shadow">
-                            <img class="card-img-top" src="{{ url('cover/' . $data->cover) }}?" alt="Card image cap">
+                            <img class="card-img-top" src="{{ url('cover/' . $data->cover) }}?" loading="lazy"
+                                alt="{{ $data->name }}">
                             <div class="card-body">
                                 <h5>{{ $data->name }}</h5>
                                 <p>{{ $data->speakers }}</p>
@@ -134,7 +135,7 @@
 @endsection
 @push('js')
 <script>
-    @if(Auth()->user())
+    @if(Auth() - > user())
     $('#addClassBtn').on('click', function () {
         window.location.href = "{{ url('user/checkout/' . $data->id) }}"
     });

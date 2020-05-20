@@ -1,11 +1,11 @@
 <div class="{{ $class }}">
     <div class="card card-profile">
-        <img src="{{ $bgimage }}" alt="Image placeholder" class="card-img-top">
+        <img src="{{ $bgimage }}" loading="lazy" alt="Image placeholder" class="card-img-top">
         <div class="row justify-content-center">
             <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
                     <a href="#">
-                        <img src="{{ $userimg }}" class="rounded-circle">
+                        <img src="{{ $userimg }}" loading="lazy" class="rounded-circle">
                     </a>
                 </div>
             </div>

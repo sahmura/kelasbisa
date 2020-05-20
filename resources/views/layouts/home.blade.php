@@ -38,11 +38,11 @@
     <link href="{{ url('assets/home/css/font-awesome.css') }}" rel="stylesheet" />
     <link href="{{ url('assets/home/css/nucleo-svg.css') }}" rel="stylesheet" />
     <link href="{{ url('assets/home/css/argon-design-system.css?v=1.2.0') }}" rel="stylesheet" />
-    <link href="{{ url('assets/css/loader.css') }}" rel="stylesheet" />
+    <link href="{{ url('assets/css/loader.css?') }}" rel="stylesheet" />
 </head>
 
 <body class="landing-page">
-    <div class="lds-ellipsis" id="loaderSpin">
+    <div class="lds-ripple" id="loaderSpin">
         <div></div>
         <div></div>
         <div></div>
