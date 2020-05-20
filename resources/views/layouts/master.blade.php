@@ -35,7 +35,7 @@
         type="text/css">
     <link rel="stylesheet" href="{{ url('assets/argon/css/argon.css?v=1.2.0') }}" type="text/css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" type="text/css">
-    <link href="{{ url('assets/css/loader.css?') }}" rel="stylesheet" />
+    <link href="{{ url('assets/css/loaderNew.css?') }}" rel="stylesheet" />
 
     @stack('css')
 </head>
