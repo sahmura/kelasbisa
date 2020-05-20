@@ -68,7 +68,7 @@
                                 <div class="form-group">
                                     <label for="type">Tipe kelas</label>
                                     <select name="type" id="type" class="custom-select" required>
-                                        <optio value="premium" @if($class->type == 'premium') selected='selected'
+                                        <option value="premium" @if($class->type == 'premium') selected='selected'
                                             @endif>Premium</option>
                                             <option value="free" @if($class->type == 'free') selected='selected'
                                                 @endif>Free</option>

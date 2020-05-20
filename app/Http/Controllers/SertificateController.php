@@ -33,6 +33,7 @@ class SertificateController extends Controller
         $filename = 'Sertificate ' . $data['data']->user->name . ' Kelas ' . $data['data']->class->name . '.pdf';
         $template = $request->template;
 
+        $data['data']->nomor = $data['data']->user_id . '/' . $data['data']->class_id . '/' . Carbon::parse($data['data']->created_at)->format('dmY');
         $data['data']->date = Carbon::parse($data['data']->created_at)->locale('id')->isoFormat('Do MMMM YYYY');
 
         $this->exportPdf(
@@ -58,6 +59,6 @@ class SertificateController extends Controller
         ob_end_clean();
         $pdf->addFont('helvetica', 'BI', '');
         $pdf->writeHTML($content);
-        $pdf->output($filename, 'D');
+        $pdf->output($filename);
     }
 }
