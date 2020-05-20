@@ -239,6 +239,7 @@
     });
 
     $(document).on('click', '.btn-unasign', function () {
+        $('#loaderSpin').fadeIn('slow');
         $.ajax({
             url: "{{ url('admin/transaction/unasignuser') }}",
             headers: {
@@ -250,6 +251,7 @@
                 code: $(this).data('code'),
             },
             success: function (response) {
+                $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
                         title: response.message,
@@ -272,6 +274,7 @@
     });
 
     $('#save-btn').on('click', function () {
+        $('#loaderSpin').fadeIn('slow');
         var data = $('#asignForm').serialize();
         $.ajax({
             url: "{{ url('admin/transaction/asignuser') }}",
@@ -281,6 +284,7 @@
             method: 'POST',
             data: data,
             success: function (response) {
+                $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
                         title: response.message,

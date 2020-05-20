@@ -143,6 +143,7 @@
     });
 
     $('#save-btn').on('click', function () {
+        $('#loaderSpin').fadeIn('slow');
         var data = $('#dataForm').serialize();
         if ($('#id').val() == '') {
             var url = "{{ url('admin/coupon/add') }}";
@@ -157,22 +158,25 @@
             method: 'POST',
             data: data,
             success: function (response) {
+                $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
                         title: response.message,
                         text: response.notes,
                         icon: 'success'
+                    }).then((Confirm) => {
+                        $('#couponModal').modal('hide');
+                        location.reload();
                     });
-                    $('#couponModal').modal('hide');
-                    location.reload();
                 } else {
                     Swal.fire({
                         title: response.message,
                         text: response.notes,
                         icon: 'error'
+                    }).then((Confirm) => {
+                        $('#couponModal').modal('hide');
+                        location.reload();
                     });
-                    $('#couponModal').modal('hide');
-                    location.reload();
                 }
             }
         });
@@ -208,6 +212,7 @@
 
         }).then((Confirm) => {
             if (Confirm.value) {
+                $('#loaderSpin').fadeIn('slow');
                 $.ajax({
                     url: "{{ url('admin/coupon/delete') }}",
                     headers: {
@@ -218,22 +223,25 @@
                         id: id
                     },
                     success: function (response) {
+                        $('#loaderSpin').fadeOut('slow');
                         if (response.status) {
                             Swal.fire({
                                 title: response.message,
                                 text: response.notes,
                                 icon: 'success'
+                            }).then((Confirm) => {
+                                $('#couponModal').modal('hide');
+                                location.reload();
                             });
-                            $('#couponModal').modal('hide');
-                            location.reload();
                         } else {
                             Swal.fire({
                                 title: response.message,
                                 text: response.notes,
                                 icon: 'error'
+                            }).then((Confirm) => {
+                                $('#couponModal').modal('hide');
+                                location.reload();
                             });
-                            $('#couponModal').modal('hide');
-                            location.reload();
                         }
                     }
                 });

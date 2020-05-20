@@ -123,6 +123,7 @@
     });
 
     $('#batalkanTransaksi').on('click', function () {
+        $('#loaderSpin').fadeIn('slow');
         $.ajax({
             url: "{{ url('user/batalkanTransaksi') }}",
             headers: {
@@ -133,6 +134,7 @@
                 id: $('#id').val()
             },
             success: function (response) {
+                $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
                         title: response.message,

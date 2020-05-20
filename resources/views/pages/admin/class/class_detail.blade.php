@@ -290,6 +290,7 @@
     });
 
     $('#add-chapter').on('click', function () {
+        $('#loaderSpin').fadeIn('slow');
         var data = $('#chapterform').serialize();
         $.ajax({
             url: "{{ url('admin/class/chapter/new') }}",
@@ -299,25 +300,30 @@
             method: 'post',
             data: data,
             success: function (response) {
+                $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
                         title: response.message,
                         text: response.notes,
                         icon: 'success'
+                    }).then((Confirm) => {
+                        location.reload();
                     });
                 } else {
                     Swal.fire({
                         title: response.message,
                         text: response.notes,
                         icon: 'error'
+                    }).then((Confirm) => {
+                        location.reload();
                     });
                 }
-                location.reload();
             }
         });
     });
 
     $('#add-sub-chapter').on('click', function () {
+        $('#loaderSpin').fadeIn('slow');
         var data = $('#subchapterform').serialize();
         $.ajax({
             url: "{{ url('admin/class/subchapter/new') }}",
@@ -327,25 +333,30 @@
             method: 'POST',
             data: data,
             success: function (response) {
+                $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
                         title: response.message,
                         text: response.notes,
                         icon: 'success'
+                    }).then((Confirm) => {
+                        location.reload();
                     });
                 } else {
                     Swal.fire({
                         title: response.message,
                         text: response.notes,
                         icon: 'error'
+                    }).then((Confirm) => {
+                        location.reload();
                     });
                 }
-                location.reload();
             }
         });
     });
 
     $('#edit-sub-chapter').on('click', function () {
+        $('#loaderSpin').fadeIn('slow');
         var data = $('#subchapterform').serialize();
         $.ajax({
             url: "{{ url('admin/class/subchapter/edit') }}",
@@ -355,25 +366,30 @@
             method: 'post',
             data: data,
             success: function (response) {
+                $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
                         title: response.message,
                         text: response.notes,
                         icon: 'success'
+                    }).then((Confirm) => {
+                        location.reload();
                     });
                 } else {
                     Swal.fire({
                         title: response.message,
                         text: response.notes,
                         icon: 'error'
+                    }).then((Confirm) => {
+                        location.reload();
                     });
                 }
-                location.reload();
             }
         });
     });
 
     $('#edit-chapter').on('click', function () {
+        $('#loaderSpin').fadeIn('slow');
         var data = $('#chapterform').serialize();
         $.ajax({
             url: "{{ url('admin/class/chapter/edit') }}",
@@ -383,20 +399,24 @@
             method: 'post',
             data: data,
             success: function (response) {
+                $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
                         title: response.message,
                         text: response.notes,
                         icon: 'success'
+                    }).then((Confirm) => {
+                        location.reload();
                     });
                 } else {
                     Swal.fire({
                         title: response.message,
                         text: response.notes,
                         icon: 'error'
+                    }).then((Confirm) => {
+                        location.reload();
                     });
                 }
-                location.reload();
             }
         });
     });
@@ -455,6 +475,7 @@
             confirmButtonText: 'Ya, hapus!'
         }).then((Confirm) => {
             if (Confirm.value) {
+                $('#loaderSpin').fadeIn('slow');
                 $.ajax({
                     url: "{{ url('admin/class/chapter/delete') }}",
                     headers: {
@@ -465,20 +486,24 @@
                         id: $(this).data('id'),
                     },
                     success: function (response) {
+                        $('#loaderSpin').fadeOut('slow');
                         if (response.status) {
                             Swal.fire({
                                 title: response.message,
                                 text: response.notes,
                                 icon: 'success'
+                            }).then((Confirm) => {
+                                location.reload();
                             });
                         } else {
                             Swal.fire({
                                 title: response.message,
                                 text: response.notes,
                                 icon: 'error'
+                            }).then((Confirm) => {
+                                location.reload();
                             });
                         }
-                        location.reload();
                     }
 
                 })
@@ -496,6 +521,7 @@
             confirmButtonText: 'Ya, hapus!'
         }).then((Confirm) => {
             if (Confirm.value) {
+                $('#loaderSpin').fadeIn('slow');
                 $.ajax({
                     url: "{{ url('admin/class/subchapter/delete') }}",
                     headers: {
@@ -506,20 +532,24 @@
                         id: $(this).data('id'),
                     },
                     success: function (response) {
+                        $('#loaderSpin').fadeOut('slow');
                         if (response.status) {
                             Swal.fire({
                                 title: response.message,
                                 text: response.notes,
                                 icon: 'success'
+                            }).then((Confirm) => {
+                                location.reload();
                             });
                         } else {
                             Swal.fire({
                                 title: response.message,
                                 text: response.notes,
                                 icon: 'error'
+                            }).then((Confirm) => {
+                                location.reload();
                             });
                         }
-                        location.reload();
                     }
 
                 })

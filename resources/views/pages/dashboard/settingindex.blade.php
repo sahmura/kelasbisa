@@ -146,6 +146,7 @@
     });
 
     $('#settingformbtn').on('click', function () {
+        $('#loaderSpin').fadeIn('slow');
         var data = $('#settingform').serialize();
         $.ajax({
             url: "{{ url('setting/update') }}",
@@ -155,24 +156,29 @@
             method: 'POST',
             data: data,
             success: function (response) {
+                $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
                         title: response.message,
                         text: response.notes,
                         icon: "success"
+                    }).then((Confirm) => {
+                        location.reload();
                     });
                 } else {
                     Swal.fire({
                         title: response.message,
                         text: response.notes,
                         icon: "error"
+                    }).then((Confirm) => {
+                        location.reload();
                     });
                 }
-                location.reload();
             }
         })
     });
     $('#passwordformbtn').on('click', function () {
+        $('#loaderSpin').fadeIn('slow');
         var data = $('#passwordform').serialize();
         $.ajax({
             url: "{{ url('setting/updatepassword') }}",
@@ -182,24 +188,29 @@
             method: 'POST',
             data: data,
             success: function (response) {
+                $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
                         title: response.message,
                         text: response.notes,
                         icon: "success"
+                    }).then((Confirm) => {
+                        location.reload();
                     });
                 } else {
                     Swal.fire({
                         title: response.message,
                         text: response.notes,
                         icon: "error"
+                    }).then((Confirm) => {
+                        location.reload();
                     });
                 }
-                location.reload();
             }
         })
     });
     $('#profilpicbtn').on('click', function () {
+        $('#loaderSpin').fadeIn('slow');
         var data = $('#profilpicform').serialize();
         $.ajax({
             url: "{{ url('setting/updatepic') }}",
@@ -209,20 +220,24 @@
             method: 'POST',
             data: data,
             success: function (response) {
+                $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
                         title: response.message,
                         text: response.notes,
                         icon: "success"
+                    }).then((Confirm) => {
+                        location.reload();
                     });
                 } else {
                     Swal.fire({
                         title: response.message,
                         text: response.notes,
                         icon: "error"
+                    }).then((Confirm) => {
+                        location.reload();
                     });
                 }
-                location.reload();
             }
         })
     });

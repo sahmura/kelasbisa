@@ -35,11 +35,18 @@
         type="text/css">
     <link rel="stylesheet" href="{{ url('assets/argon/css/argon.css?v=1.2.0') }}" type="text/css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" type="text/css">
+    <link href="{{ url('assets/css/loader.css') }}" rel="stylesheet" />
 
     @stack('css')
 </head>
 
 <body>
+    <div class="lds-ellipsis" id="loaderSpin">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
     @include('layouts.sidebar')
     <div class="main-content" id="panel">
         @include('layouts.topnav')
@@ -91,14 +98,18 @@
                 navigator.serviceWorker.register("{{ url('sw.js') }}").then(function (
                     registration) {
                     // Registration was successful
-                    console.log('ServiceWorker registration successful with scope: ', registration
-                        .scope);
                 }, function (err) {
                     // registration failed :(
                     console.log('ServiceWorker registration failed: ', err);
                 });
             });
         }
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#loaderSpin").fadeOut("slow");
+        })
 
     </script>
     @stack('js')

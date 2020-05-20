@@ -141,6 +141,7 @@
     });
 
     $('#save-btn').on('click', function () {
+        $('#loaderSpin').fadeIn('slow');
         var data = $('#dataForm').serialize();
         $.ajax({
             url: "{{ url('admin/asignclass') }}",
@@ -150,22 +151,25 @@
             method: 'POST',
             data: data,
             success: function (response) {
+                $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
                         title: response.message,
                         text: response.notes,
                         icon: 'success'
+                    }).then((Confirm) => {
+                        $('#categoryModal').modal('hide');
+                        location.reload();
                     });
-                    $('#categoryModal').modal('hide');
-                    location.reload();
                 } else {
                     Swal.fire({
                         title: response.message,
                         text: response.notes,
                         icon: 'error'
+                    }).then((Confirm) => {
+                        $('#categoryModal').modal('hide');
+                        location.reload();
                     });
-                    $('#categoryModal').modal('hide');
-                    location.reload();
                 }
             }
         });
@@ -196,6 +200,7 @@
             confirmButtonText: 'Ya, Jadikan Admin / User',
 
         }).then((Confirm) => {
+            $('#loaderSpin').fadeIn('slow');
             if (Confirm.value) {
                 var id = $(this).data('id');
                 $.ajax({
@@ -208,6 +213,7 @@
                         id: id
                     },
                     success: function (response) {
+                        $('#loaderSpin').fadeOut('slow');
                         if (response.status) {
                             Swal.fire({
                                 title: response.message,
@@ -245,6 +251,7 @@
 
         }).then((Confirm) => {
             if (Confirm.value) {
+                $('#loaderSpin').fadeIn('slow');
                 $.ajax({
                     url: "{{ url('admin/category/delete') }}",
                     headers: {
@@ -255,22 +262,25 @@
                         id: id
                     },
                     success: function (response) {
+                        $('#loaderSpin').fadeOut('slow');
                         if (response.status) {
                             Swal.fire({
                                 title: response.message,
                                 text: response.notes,
                                 icon: 'success'
+                            }).then((Confirm) => {
+                                $('#categoryModal').modal('hide');
+                                location.reload();
                             });
-                            $('#categoryModal').modal('hide');
-                            location.reload();
                         } else {
                             Swal.fire({
                                 title: response.message,
                                 text: response.notes,
                                 icon: 'error'
+                            }).then((Confirm) => {
+                                $('#categoryModal').modal('hide');
+                                location.reload();
                             });
-                            $('#categoryModal').modal('hide');
-                            location.reload();
                         }
                     }
                 });

@@ -124,6 +124,7 @@
     });
 
     $('#save-btn').on('click', function () {
+        $('#loaderSpin').fadeIn('slow');
         var data = $('#dataForm').serialize();
         if ($('#id').val() == '') {
             var url = "{{ url('admin/category/add') }}";
@@ -138,22 +139,25 @@
             method: 'POST',
             data: data,
             success: function (response) {
+                $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
                         title: response.message,
                         text: response.notes,
                         icon: 'success'
+                    }).then((Confirm) => {
+                        $('#categoryModal').modal('hide');
+                        location.reload();
                     });
-                    $('#categoryModal').modal('hide');
-                    location.reload();
                 } else {
                     Swal.fire({
                         title: response.message,
                         text: response.notes,
                         icon: 'error'
+                    }).then((Confirm) => {
+                        $('#categoryModal').modal('hide');
+                        location.reload();
                     });
-                    $('#categoryModal').modal('hide');
-                    location.reload();
                 }
             }
         });
@@ -188,6 +192,7 @@
 
         }).then((Confirm) => {
             if (Confirm.value) {
+                $('#loaderSpin').fadeIn('slow');
                 $.ajax({
                     url: "{{ url('admin/category/delete') }}",
                     headers: {
@@ -198,22 +203,25 @@
                         id: id
                     },
                     success: function (response) {
+                        $('#loaderSpin').fadeOut('slow');
                         if (response.status) {
                             Swal.fire({
                                 title: response.message,
                                 text: response.notes,
                                 icon: 'success'
+                            }).then((Confirm) => {
+                                $('#categoryModal').modal('hide');
+                                location.reload();
                             });
-                            $('#categoryModal').modal('hide');
-                            location.reload();
                         } else {
                             Swal.fire({
                                 title: response.message,
                                 text: response.notes,
                                 icon: 'error'
+                            }).then((Confirm) => {
+                                $('#categoryModal').modal('hide');
+                                location.reload();
                             });
-                            $('#categoryModal').modal('hide');
-                            location.reload();
                         }
                     }
                 });

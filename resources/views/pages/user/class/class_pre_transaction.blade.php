@@ -148,6 +148,7 @@
 @push('js')
 <script>
     $('#buyClass').on('click', function () {
+        $('#loaderSpin').fadeIn('slow');
         $.ajax({
             url: "{{ url('user/buyclass') }}",
             headers: {
@@ -160,6 +161,7 @@
                 code: $('#coupon').val()
             },
             success: function (response) {
+                $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
                         title: response.message,
@@ -182,6 +184,7 @@
     });
 
     $('#joinClass').on('click', function () {
+        $('#loaderSpin').fadeIn('slow');
         $.ajax({
             url: "{{ url('user/joinclass') }}",
             headers: {
@@ -195,6 +198,7 @@
                 status: 'done'
             },
             success: function (response) {
+                $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
                         title: response.message,

@@ -189,6 +189,7 @@
     });
 
     $('#save-btn').on('click', function () {
+        $('#loaderSpin').fadeIn('slow');
         var data = $('#dataForm').serialize();
         if ($('#id').val() == '') {
             var url = "{{ url('admin/agenda/add') }}";
@@ -203,6 +204,7 @@
             method: 'POST',
             data: data,
             success: function (response) {
+                $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
                         title: response.message,
@@ -272,6 +274,7 @@
 
         }).then((Confirm) => {
             if (Confirm.value) {
+                $('#loaderSpin').fadeIn('slow');
                 $.ajax({
                     url: "{{ url('admin/agenda/delete') }}",
                     headers: {
@@ -282,6 +285,7 @@
                         id: id
                     },
                     success: function (response) {
+                        $('#loaderSpin').fadeOut('slow');
                         if (response.status) {
                             Swal.fire({
                                 title: response.message,
