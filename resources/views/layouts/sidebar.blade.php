@@ -42,6 +42,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" id="sidebar-statistic" href="{{ url('admin/statistic') }}">
+                            <i class="ni ni-sound-wave text-success"></i>
+                            <span class="nav-link-text">Statistic</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" id="sidebar-class" href="{{ url('admin/class') }}">
                             <i class="ni ni-collection text-orange"></i>
                             <span class="nav-link-text">Classes</span>
