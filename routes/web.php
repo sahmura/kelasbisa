@@ -113,6 +113,16 @@ Route::group(
             }
         );
 
+        Route::group(
+            ['prefix' => 'statistic'],
+            function () {
+                Route::get('/', 'StatisticController@index');
+                Route::post('getListData', 'StatisticController@getDataStatistic');
+                Route::post('getTransactionHistory', 'StatisticController@getTransactionHistory');
+                Route::get('/{id}', 'StatisticController@getDetailClass');
+            }
+        );
+
         Route::group(['prefix' => 'user'], function () {
 
             Route::get('/', 'AdminController@listUser');
