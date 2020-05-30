@@ -137,6 +137,7 @@
 </div>
 @endsection
 @push('js')
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>
 <script>
     $(document).ready(function () {
         $('#categoryList').DataTable({
@@ -313,4 +314,7 @@
     });
 
 </script>
+@endpush
+@push('css')
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">
 @endpush
