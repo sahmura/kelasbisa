@@ -102,7 +102,8 @@ class AdminController extends Controller
     {
         if ($request->json()) {
             $now = Carbon::now()->toDateString();
-            $listAgenda = Agendas::where('target', '>=', $now)->orderBy('target', 'asc')->get();
+            // $listAgenda = Agendas::where('target', '>=', $now)->orderBy('target', 'asc')->get();
+            $listAgenda = Agendas::orderBy('target', 'asc')->get();
             return DataTables::of($listAgenda)
                 ->addColumn(
                     'target',
