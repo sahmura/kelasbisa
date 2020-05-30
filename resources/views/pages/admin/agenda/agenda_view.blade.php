@@ -311,5 +311,9 @@
         });
     });
 
+    $(document).ready(function () {
+        $('#result').summernote();
+    });
+
 </script>
 @endpush
