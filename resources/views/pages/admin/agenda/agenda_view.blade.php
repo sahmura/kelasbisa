@@ -234,6 +234,7 @@
         var description = $(this).data('description');
         var target = $(this).data('target');
         var result = $(this).data('result');
+        $('#result').summernote();
 
         $('#resultAgenda').show();
         $('#dataForm')[0].reset();
@@ -309,10 +310,6 @@
                 });
             }
         });
-    });
-
-    $(document).ready(function () {
-        $('#result').summernote();
     });
 
 </script>
