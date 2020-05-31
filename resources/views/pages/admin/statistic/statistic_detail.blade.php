@@ -91,7 +91,7 @@
             destroy: true,
             order: [1, 'asc'],
             ajax: {
-                url: "{{ url('admin/statistic/getTransactionHistory') }}",
+                url: "{{ $urlAjax }}",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -109,7 +109,6 @@
                 },
                 {
                     data: 'transaction_code',
-                    orderable: true,
                 },
                 {
                     data: 'status',

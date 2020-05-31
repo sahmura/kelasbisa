@@ -120,14 +120,18 @@ Route::group(
                 Route::post('getListData', 'StatisticController@getDataStatistic');
                 Route::post('getTransactionHistory', 'StatisticController@getTransactionHistory');
                 Route::get('/{id}', 'StatisticController@getDetailClass');
+                Route::post('/asignMentor', 'StatisticController@asignMentor');
             }
         );
 
-        Route::group(['prefix' => 'user'], function () {
+        Route::group(
+            ['prefix' => 'user'],
+            function () {
 
-            Route::get('/', 'AdminController@listUser');
-            Route::post('getListUser', 'AdminController@getListUser');
-        });
+                Route::get('/', 'AdminController@listUser');
+                Route::post('getListUser', 'AdminController@getListUser');
+            }
+        );
 
         Route::group(['prefix' => 'transaction'], function () {
             Route::get('/', 'TransactionsController@index');
@@ -160,9 +164,22 @@ Route::group(
         Route::get('checkout/{id}/{coupon?}', 'DashboardController@preTrasaction');
         Route::post('batalkanTransaksi', 'TransactionsController@deleteTransaction');
 
-        Route::group(['prefix' => 'sertificate'], function () {
-            Route::get('get', 'SertificateController@download');
-        });
+        Route::group(
+            ['prefix' => 'sertificate'],
+            function () {
+                Route::get('get', 'SertificateController@download');
+            }
+        );
+
+        Route::group(
+            ['prefix' => 'statistic', 'middleware' => 'App\Http\Middleware\UserStatistic'],
+            function () {
+                Route::get('/', 'StatisticController@index');
+                Route::post('getListData', 'StatisticController@getDataStatisticByUser');
+                Route::post('getTransactionHistory', 'StatisticController@getTransactionHistoryByUser');
+                Route::get('/{id}', 'StatisticController@getDetailClass');
+            }
+        );
     }
 );
 

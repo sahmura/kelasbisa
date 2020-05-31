@@ -9,6 +9,7 @@ use App\LogRoll;
 use App\LogClasses;
 use App\Validations;
 use App\Coupons;
+use App\MentorStatistic;
 use Illuminate\Support\Facades\Hash;
 use File;
 use Illuminate\Support\Facades\Mail;
@@ -25,10 +26,11 @@ class DashboardController extends Controller
      */
     public function indexuser()
     {
+        $isMentor = MentorStatistic::where('user_id', '=', Auth()->user()->id)->count();
         $lastClass = LogRoll::where('user_id', '=', Auth()->user()->id)->with('class')->orderBy('updated_at', 'desc')->first();
         $totalClass = LogClasses::where('user_id', '=', Auth()->user()->id)->count();
         $dataEmail = User::where('id', '=', Auth()->user()->id)->first('email_verified_at');
-        return view('pages.user.user_dashboard', compact('lastClass', 'totalClass', 'dataEmail'));
+        return view('pages.user.user_dashboard', compact('lastClass', 'totalClass', 'dataEmail', 'isMentor'));
     }
 
     /**

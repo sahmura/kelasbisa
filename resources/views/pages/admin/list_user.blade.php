@@ -80,6 +80,56 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="asignMentorModal" tabindex="-1" role="dialog" aria-labelledby="asignMentorModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="asignMentorModalLabel">Asign Mentor</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" id="asignMentorData">
+                    @csrf
+                    <input type="hidden" name="user_id" id="userIdMentor">
+                    <div class="form-group">
+                        <label for="name">Nama user</label>
+                        <input type="text" id="userNameMentor" class="form-control" placeholder="Nama user"
+                            readonly='readonly'>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Pilih Mentor</label>
+                        <div class="select2-wrapper">
+                            <select name="speaker_id" id="speaker_id" class="custom-select">
+                                <option value="0">Pilih Nama yang Sesuai</option>
+                                @foreach($mentors as $mentor)
+                                <option value="{{$mentor->id}}">{{ $mentor->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Aksi</label>
+                        <div class="select2-wrapper">
+                            <select name="type" id="typeAction" class="custom-select">
+                                <option value="asign">Asign User</option>
+                                <option value="update">Update User</option>
+                                <option value="unasign">Unasign User</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="asignMentorButton">Tambah data</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @push('css')
 <link href="{{ url('assets/css/select2-bootstrap.css') }}" rel="stylesheet" />
@@ -235,6 +285,7 @@
 
                 })
             }
+            $('#loaderSpin').fadeOut('slow');
         })
     });
 
@@ -284,6 +335,50 @@
                         }
                     }
                 });
+            }
+        });
+    });
+
+    $(document).on('click', '.btn-asign-mentor', function () {
+        var id = $(this).data('id');
+        var name = $(this).data('name');
+
+        $('#userIdMentor').val(id);
+        $('#userNameMentor').val(name);
+        $('#asignMentorModal').modal('show');
+    });
+
+    $('#asignMentorButton').on('click', function () {
+        $('#loaderSpin').fadeIn('slow');
+        var data = $('#asignMentorData').serialize();
+        $.ajax({
+            url: "{{ url('admin/statistic/asignMentor') }}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'POST',
+            data: data,
+            success: function (response) {
+                $('#loaderSpin').fadeOut('slow');
+                if (response.status) {
+                    Swal.fire({
+                        title: response.message,
+                        text: response.notes,
+                        icon: 'success'
+                    }).then((Confirm) => {
+                        $('#asignMentorModal').modal('hide');
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        title: response.message,
+                        text: response.notes,
+                        icon: 'error'
+                    }).then((Confirm) => {
+                        $('#asignMentorModal').modal('hide');
+                        location.reload();
+                    });
+                }
             }
         });
     });

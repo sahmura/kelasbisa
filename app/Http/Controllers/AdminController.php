@@ -10,6 +10,8 @@ use App\LogClasses;
 use App\Transactions;
 use App\User;
 use App\Agendas;
+use App\MentorStatistic;
+use App\Speakers;
 use Yajra\DataTables\DataTables;
 use Carbon\Carbon;
 use DB;
@@ -46,7 +48,8 @@ class AdminController extends Controller
     public function listUser()
     {
         $classes = Classes::where('deleted_at', '=', null)->where('type', '=', 'premium')->get();
-        return view('pages.admin.list_user', compact('classes'));
+        $mentors = Speakers::where('deleted_at', '=', null)->get();
+        return view('pages.admin.list_user', compact('classes', 'mentors'));
     }
 
     /**
@@ -82,6 +85,10 @@ class AdminController extends Controller
                                     <button class="btn btn-sm btn-change-permission btn-danger"
                                         data-id="' . $listUser->id . '"
                                     ><i class="ni ni-badge"></i></button>
+                                    <button class="btn btn-sm btn-asign-mentor btn-primary"
+                                        data-id="' . $listUser->id . '"
+                                        data-name="' . $listUser->name . '"
+                                    ><i class="ni ni-notification-70"></i></button>
                                 </div>';
                     }
                 )
