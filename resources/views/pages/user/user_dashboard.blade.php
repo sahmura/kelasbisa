@@ -12,6 +12,11 @@
             </ol>
         </nav>
     </div>
+    @if($isMentor != 0)
+    <div class="col-lg-6 col-5 text-right">
+        <a class="btn btn-md btn-neutral" href="{{ url('user/statistic') }}">Statistik Kelas Saya</a>
+    </div>
+    @endif
 </div>
 @section('content')
 <div class="row mt-3">

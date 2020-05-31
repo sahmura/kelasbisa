@@ -47,7 +47,7 @@
             serverSide: true,
             order: [1, 'asc'],
             ajax: {
-                url: "{{ url('admin/statistic/getListData') }}",
+                url: "{{ $urlAjax }}",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
