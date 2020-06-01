@@ -14,8 +14,10 @@ use Illuminate\Support\Facades\Hash;
 use File;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ConfirmRegistration;
+use App\Mail\ForgotPassword;
 use App\Transactions;
 use Illuminate\Support\Str;
+use DB;
 
 class DashboardController extends Controller
 {
@@ -373,6 +375,107 @@ class DashboardController extends Controller
             }
 
             return view('pages.user.class.class_pre_transaction', compact('class', 'discount', 'coupon'));
+        }
+    }
+
+    /**
+     * Send email when forgot password
+     * 
+     * @param $request menerima data request
+     * 
+     * @return redirect
+     */
+    public function sendEmailForgotPassword(Request $request)
+    {
+        $email = $request->email;
+        $dataUser = User::where('email', '=', $email)->first();
+
+        if (!$dataUser) {
+            $response = [
+                'status' => false,
+                'message' => 'Email belum terdaftar'
+            ];
+        } else {
+            $token = md5($dataUser->id . $email . now());
+            Validations::updateOrCreate(
+                ['user_id' => $dataUser->id, 'type' => 'FORGOT PASSWORD', 'status' => 'Ready'],
+                [
+                    'user_id' => $dataUser->id,
+                    'tokens' => $token,
+                    'status' => 'Ready',
+                    'type' => 'FORGOT PASSWORD'
+                ]
+            );
+
+            $sendMail = Mail::to($dataUser->email)->send(
+                new ForgotPassword($dataUser, $token)
+            );
+
+            if (count(Mail::failures()) > 0) {
+                $response = [
+                    'status' => false,
+                    'message' => 'Ada masalah mengirim link reset password, ulangi beberapa menit lagi'
+                ];
+            } else {
+                $response = [
+                    'status' => true,
+                    'message' => 'Link untuk mereset password sudah dikirim ke ' . $email
+                ];
+            }
+        }
+
+        if ($response['status']) {
+            return redirect('resetpassword')->with('success', $response['message']);
+        } else {
+            return redirect('resetpassword')->with('error', $response['message']);
+        }
+    }
+
+    /**
+     * Change new password
+     * 
+     * @param $request menerima data
+     * 
+     * @return mixed
+     */
+    public function setNewPassword(Request $request)
+    {
+        $dataUser = User::where('id', '=', $request->user_id)->first();
+        $token = $request->token;
+
+        try {
+            DB::beginTransaction();
+            Validations::where('user_id', '=', $dataUser->id)
+                ->where('tokens', '=', $token)
+                ->where('status', '=', 'Ready')
+                ->where('type', '=', 'FORGOT PASSWORD')
+                ->update(
+                    [
+                        'status' => 'Done'
+                    ]
+                );
+            User::where('id', '=', $dataUser->id)->update(
+                [
+                    'password' => Hash::make($request->password)
+                ]
+            );
+            DB::commit();
+            $response = [
+                'status' => true,
+                'message' => 'Password berhasil dirubah'
+            ];
+        } catch (\Exception $e) {
+            DB::rollback();
+            $response = [
+                'status' => false,
+                'message' => 'Password gagal dirubah. Hubungi admin jika ada kendala'
+            ];
+        }
+
+        if ($response['status']) {
+            return redirect('login')->with('success', $response['message']);
+        } else {
+            return redirect('login')->with('error', $response['message']);
         }
     }
 }

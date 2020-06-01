@@ -63,11 +63,9 @@
                                     {{ __('Login') }}
                                 </button>
 
-                                <!-- @if (Route::has('password.request'))
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                <a class="btn btn-link" href="{{ url('resetpassword') }}">
                                     {{ __('Forgot Your Password?') }}
                                 </a>
-                                @endif -->
                             </div>
                         </div>
                     </form>
@@ -77,3 +75,21 @@
     </div>
 </div>
 @endsection
+@push('js')
+<script>
+    @if(session('success'))
+    Swal.fire({
+        title: "{{ session('success') }}",
+        icon: 'success'
+    });
+    @endif
+
+    @if(session('error'))
+    Swal.fire({
+        title: "{{ session('error') }}",
+        icon: 'error'
+    });
+    @endif
+
+</script>
+@endpush
