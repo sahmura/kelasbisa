@@ -129,7 +129,7 @@
                                                                     <tr>
                                                                         <td style="width:138px;">
                                                                             <img height="auto"
-                                                                                src="https://kelasbisa.my.id/logo/fullcolor.svg?"
+                                                                                src="https://kelasbisa.my.id/assets/icons/emaillogo.png"
                                                                                 style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;"
                                                                                 width="138" />
                                                                         </td>
@@ -200,7 +200,7 @@
                                                                     <tr>
                                                                         <td style="width:89px;">
                                                                             <img height="auto"
-                                                                                src="https://kelasbisa.my.id/assets/icons/multimedia.svg"
+                                                                                src="https://kelasbisa.my.id/assets/icons/group.png"
                                                                                 style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;"
                                                                                 width="89" />
                                                                         </td>

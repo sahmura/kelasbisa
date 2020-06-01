@@ -42,6 +42,7 @@
             display: block;
             margin: 13px 0;
         }
+
     </style>
     <!--[if mso]>
         <xml>
@@ -60,6 +61,7 @@
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet" type="text/css">
     <style type="text/css">
         @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
+
     </style>
     <!--<![endif]-->
     <style type="text/css">
@@ -69,6 +71,7 @@
                 max-width: 100%;
             }
         }
+
     </style>
     <style type="text/css">
         @media only screen and (max-width:480px) {
@@ -80,6 +83,7 @@
                 width: auto !important;
             }
         }
+
     </style>
 </head>
 
@@ -125,7 +129,7 @@
                                                                     <tr>
                                                                         <td style="width:138px;">
                                                                             <img height="auto"
-                                                                                src="https://kelasbisa.my.id/logo/fullcolor.svg?"
+                                                                                src="https://kelasbisa.my.id/assets/icons/emaillogo.png"
                                                                                 style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;"
                                                                                 width="138" />
                                                                         </td>
@@ -196,7 +200,7 @@
                                                                     <tr>
                                                                         <td style="width:89px;">
                                                                             <img height="auto"
-                                                                                src="https://kelasbisa.my.id/assets/icons/multimedia.svg"
+                                                                                src="https://kelasbisa.my.id/assets/icons/multimedia.png"
                                                                                 style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;"
                                                                                 width="89" />
                                                                         </td>
