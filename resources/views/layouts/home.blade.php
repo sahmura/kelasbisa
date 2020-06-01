@@ -115,6 +115,7 @@
     <script src="{{ url('assets/home/js/plugins/datetimepicker.js') }}" type="text/javascript"></script>
     <script src="{{ url('assets/home/js/plugins/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ url('assets/home/js/argon-design-system.min.js?v=1.2.0') }}" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script>
         if ('serviceWorker' in navigator && 'PushManager' in window) {
             window.addEventListener('load', function () {

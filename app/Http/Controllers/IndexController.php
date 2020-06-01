@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Classes;
 use App\Categories;
 use App\LogClasses;
+use App\Validations;
+use App\User;
 use App\Repositories\SubChapterRepository;
 use App\Repositories\ChapterRepository;
 
@@ -103,5 +105,33 @@ class IndexController extends Controller
     public function contact()
     {
         return view('contact');
+    }
+
+    /**
+     * Halaman forgot password
+     * 
+     * @return view
+     */
+    public function forgotPassword()
+    {
+        return view('forgotpassword');
+    }
+
+    /**
+     * Halaman forgot password
+     * 
+     * @param $email email user
+     * @param $token token user
+     * 
+     * @return view
+     */
+    public function setNewPassword($email, $token)
+    {
+        $dataUser = User::where('email', '=', $email)->first();
+        if (Validations::where('user_id', '=', $dataUser->id)->where('tokens', '=', $token)->where('status', '=', 'Ready')->where('type', '=', 'FORGOT PASSWORD')->count() == 0) {
+            abort('404');
+        } else {
+            return view('newPassword', compact('dataUser', 'token'));
+        }
     }
 }

@@ -23,6 +23,10 @@ Route::get('privacy', 'IndexController@privacy');
 Route::get('howto', 'IndexController@howto');
 Route::get('about', 'IndexController@about');
 Route::get('contact', 'IndexController@contact');
+Route::get('resetpassword', 'IndexController@forgotpassword');
+Route::post('sendResetPassword', 'DashboardController@sendEmailForgotPassword');
+Route::get('newpassword/{email}/{token}', 'IndexController@setNewPassword');
+Route::post('setNewPassword', 'DashboardController@setNewPassword');
 
 Auth::routes();
 
