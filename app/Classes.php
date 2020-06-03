@@ -20,7 +20,8 @@ class Classes extends Model
         'prices',
         'modul_url',
         'is_draft',
-        'speaker_id'
+        'speaker_id',
+        'group_discussion'
     ];
 
     public function category()
@@ -41,5 +42,10 @@ class Classes extends Model
     public function speaker()
     {
         return $this->belongsTo('App\Speakers', 'speaker_id', 'id');
+    }
+
+    public function getTotalChapterAttribute()
+    {
+        return $this->chapters->count();
     }
 }

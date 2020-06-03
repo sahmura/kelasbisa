@@ -42,6 +42,7 @@ class ClassRepository
                 'prices' => $request->prices,
                 'modul_url' => $request->modul_url,
                 'is_draft' => $request->is_draft,
+                'group_discussion' => $request->group_url,
             ]
         );
     }
@@ -67,6 +68,7 @@ class ClassRepository
                 'prices' => $request->prices,
                 'modul_url' => $request->modul_url,
                 'is_draft' => $request->is_draft,
+                'group_discussion' => $request->group_url,
             ]
         );
     }

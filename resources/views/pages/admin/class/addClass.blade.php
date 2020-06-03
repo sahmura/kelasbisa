@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title', '- Tambah Kelas')
-@section('bg-header', 'primary')
+@section('bg-header', 'bg-primary')
 @section('header-body')
 <div class="row align-items-center py-4">
     <div class="col-lg-6 col-7">
@@ -15,7 +15,7 @@
         </nav>
     </div>
     <div class="col-lg-6 col-5 text-right">
-        <button class="btn btn-md btn-neutral" id="addNewButton">Back</button>
+        <a class="btn btn-md btn-neutral" href="{{ url('admin/class') }}">Back</a>
     </div>
 </div>
 @endsection
@@ -90,7 +90,12 @@
                         <div class="form-group">
                             <label for="modul_url">Modul</label>
                             <input type="text" name="modul_url" id="modul_url" class="form-control"
-                                placeholder="Link untuk Modul" required>
+                                placeholder="Link untuk Modul" required value="-">
+                        </div>
+                        <div class="form-group">
+                            <label for="group_url">Group Link</label>
+                            <input type="text" name="group_url" id="group_url" class="form-control"
+                                placeholder="Link untuk Group" required value="-">
                         </div>
                         <div class="form-group">
                             <label for="is_draft">Aksi</label>
