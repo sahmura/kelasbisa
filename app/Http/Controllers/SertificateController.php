@@ -32,7 +32,7 @@ class SertificateController extends Controller
             return response()->json($response);
         }
 
-        $filename = 'Sertificate ' . $data['data']->user->name . ' Kelas ' . $data['data']->class->name . '.pdf';
+        $filename = 'Sertifikat ' . $data['data']->user->name . ' Kelas ' . $data['data']->class->name . '.pdf';
         $template = $request->template;
 
         $data['data']->nomor = $data['data']->user_id . '/' . $data['data']->class_id . '/' . Carbon::parse($data['data']->created_at)->format('dmY');
@@ -61,7 +61,7 @@ class SertificateController extends Controller
         ob_end_clean();
         $pdf->addFont('helvetica', 'BI', '');
         $pdf->writeHTML($content);
-        $pdf->output($filename);
+        $pdf->output($filename, 'D');
     }
 
     /**
@@ -89,7 +89,7 @@ class SertificateController extends Controller
         }
 
         for ($classDoneIteration = 0; $classDoneIteration < count($classDone); $classDoneIteration++) {
-            if ($classDone[$classDoneIteration]['total_chapter_done'] >= ($classDone[$classDoneIteration]['total_chapter'] * 0.5)) {
+            if ($classDone[$classDoneIteration]['total_chapter_done'] >= ($classDone[$classDoneIteration]['total_chapter'] * 1)) {
                 $classDone[$classDoneIteration]['status'] = 'Sudah selesai';
             } else {
                 $classDone[$classDoneIteration]['status'] = 'Belum selesai';
