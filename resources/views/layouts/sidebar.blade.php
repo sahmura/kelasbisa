@@ -32,6 +32,12 @@
                             <span class="nav-link-text">Daftar Kelas</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="sidebar-certificate" href="{{ url('user/certificate') }}">
+                            <i class="ni ni-paper-diploma text-warning"></i>
+                            <span class="nav-link-text">Sertifikat</span>
+                        </a>
+                    </li>
                     @endif
 
                     @if(Auth()->user()->role == 'admin')

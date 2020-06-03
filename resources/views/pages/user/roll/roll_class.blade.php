@@ -6,18 +6,13 @@
     <div class="scrollbar-inner">
         <!-- Brand -->
         <div class="sidenav-header  align-items-center">
-            <a class="navbar-brand" href="javascript:void(0)">
-                <!-- <img src="../assets/img/brand/blue.png" class="navbar-brand-img" alt="..."> -->
-                Kelasbisa
+            <a class="navbar-brand">
+                <img src="{{ url('logo/fullcolor.svg?') }}" class="navbar-brand-img" alt="Logo">
             </a>
         </div>
         <div class="navbar-inner">
             <!-- Collapse -->
             <div class="collapse navbar-collapse" id="sidenav-collapse-main">
-                <h6 class="navbar-heading p-0 text-muted">
-                    <span class="docs-normal">Beranda</span>
-                </h6>
-                <hr class="my-2">
                 <ul class="navbar-nav mb-5">
                     <li class="nav-item">
                         <a href="{{ url('user/myclass') }}" class="ml-4 btn btn-danger btn-sm">Kembali</a>
@@ -34,6 +29,18 @@
                     </li>
                 </ul>
                 @endif
+                @if($class->group_discussion != '-')
+                <h6 class="navbar-heading p-0 text-muted">
+                    <span class="docs-normal">Grup Diskusi</span>
+                </h6>
+                <hr class="my-2">
+                <ul class="navbar-nav mb-5">
+                    <li class="nav-item">
+                        <a href="{{ $class->group_discussion }}" class="ml-4 btn btn-success btn-sm">Gabung Grup</a>
+                    </li>
+                </ul>
+                @endif
+
                 <!-- Nav items -->
                 @foreach($listSubChapters as $subchapter)
                 <h6 class="navbar-heading p-0 text-muted">
@@ -46,7 +53,11 @@
                     <li class="nav-item ">
                         <a class="nav-link @if($chid == $chapter->id) active @endif"
                             href="{{ url('user/roll/' . $class->id . '/' . $chapter->id) }}">
+                            @if(in_array($chapter->id, $getListChapterDone))
+                            <i class="ni ni-check-bold text-success"></i>
+                            @else
                             <i class="ni ni-bold-right text-primary"></i>
+                            @endif
                             <span class="nav-link-text">{{ $chapter->title }}</span>
                         </a>
                     </li>
@@ -88,10 +99,17 @@
                 <p>{!! $class->terms !!}</p>
                 <h4 class="mt-5">Mulai kelas</h4>
                 <hr class="my-2">
-                <p>Silahkan pilih materi sesuai yang disediakan di sidebar di sebelah kanan</p>
+                <p>Silahkan pilih materi sesuai yang disediakan di sidebar di sebelah kiri</p>
             </div>
             @else
             <div class="card-body">
+                <div class="text-right">
+                    @if(in_array($chid, $getListChapterDone))
+                    <button class="btn btn-warning mb-5" id="uncheck-button">Tandai Belum Selesai</button>
+                    @else
+                    <button class="btn btn-primary mb-5" id="check-button">Tandai Selesai</button>
+                    @endif
+                </div>
                 <div id="chapterPlayback"></div>
                 <script>
                     new Playerjs({
@@ -108,4 +126,80 @@
 @endsection
 @push('css')
 <script src="{{ url('js/playerjs.js') }}"></script>
+@endpush
+@push('js')
+<script>
+    $('#check-button').on('click', function () {
+        $.ajax({
+            url: "{{ url('user/class/chapter/checkChapter') }}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'POST',
+            data: {
+                class_id: "{{ $class->id }}",
+                chapter_id: "{{ $chid }}",
+            },
+            success: function (response) {
+                $('#loaderSpin').fadeOut('slow');
+                if (response.status) {
+                    Swal.fire({
+                        title: response.message,
+                        text: response.notes,
+                        icon: 'success'
+                    }).then((Confirm) => {
+                        $('#categoryModal').modal('hide');
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        title: response.message,
+                        text: response.notes,
+                        icon: 'error'
+                    }).then((Confirm) => {
+                        $('#categoryModal').modal('hide');
+                        location.reload();
+                    });
+                }
+            }
+        });
+    });
+
+    $('#uncheck-button').on('click', function () {
+        $.ajax({
+            url: "{{ url('user/class/chapter/uncheckChapter') }}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'POST',
+            data: {
+                class_id: "{{ $class->id }}",
+                chapter_id: "{{ $chid }}",
+            },
+            success: function (response) {
+                $('#loaderSpin').fadeOut('slow');
+                if (response.status) {
+                    Swal.fire({
+                        title: response.message,
+                        text: response.notes,
+                        icon: 'success'
+                    }).then((Confirm) => {
+                        $('#categoryModal').modal('hide');
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        title: response.message,
+                        text: response.notes,
+                        icon: 'error'
+                    }).then((Confirm) => {
+                        $('#categoryModal').modal('hide');
+                        location.reload();
+                    });
+                }
+            }
+        });
+    });
+
+</script>
 @endpush

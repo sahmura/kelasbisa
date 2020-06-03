@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\DoneChapter;
 use Illuminate\Http\Request;
 use Spipu\Html2Pdf\Html2Pdf;
 use App\LogClasses;
 use Carbon\Carbon;
+use Yajra\DataTables\DataTables;
 
 class SertificateController extends Controller
 {
@@ -60,5 +62,58 @@ class SertificateController extends Controller
         $pdf->addFont('helvetica', 'BI', '');
         $pdf->writeHTML($content);
         $pdf->output($filename);
+    }
+
+    /**
+     * Halaman untuk cetak sertifikat
+     * 
+     * @return view
+     */
+    public function printSertificatePage()
+    {
+        return view('pages.user.sertificate.sertificate_page');
+    }
+
+    /**
+     * List sertifikat
+     * 
+     * @return datatable
+     */
+    public function getListData()
+    {
+        $classDone = [];
+        $classDoneIteration = 0;
+        $myclass = LogClasses::where('user_id', '=', Auth()->user()->id)->with('class')->get();
+        foreach ($myclass as $class) {
+            $classDone[] = ['class_id' => $class->class_id, 'class_name' => $class->class->name, 'total_chapter' => $class->total_chapter, 'total_chapter_done' => DoneChapter::where('user_id', '=', Auth()->user()->id)->where('class_id', '=', $class->class_id)->count('chapter_id'), 'status' => '', 'type' => $class->class->type];
+        }
+
+        for ($classDoneIteration = 0; $classDoneIteration < count($classDone); $classDoneIteration++) {
+            if ($classDone[$classDoneIteration]['total_chapter_done'] >= ($classDone[$classDoneIteration]['total_chapter'] * 0.5)) {
+                $classDone[$classDoneIteration]['status'] = 'Sudah selesai';
+            } else {
+                $classDone[$classDoneIteration]['status'] = 'Belum selesai';
+            }
+        }
+
+        for ($unsetDataIteration = 0; $unsetDataIteration < count($classDone); $unsetDataIteration++) {
+            if ($classDone[$unsetDataIteration]['type'] == 'free') {
+                unset($classDone[$unsetDataIteration]);
+            }
+        }
+
+        return DataTables::of($classDone)
+            ->addColumn(
+                'action',
+                function ($classDone) {
+                    if ($classDone['status'] == 'Sudah selesai') {
+                        return '<button class="btn btn-primary btn-sm downloadSertificate" data-classid="' . $classDone['class_id'] . '">Cetak</button>';
+                    } else {
+                        return '<button class="btn btn-danger btn-sm disabled">Cetak</button>';
+                    }
+                }
+            )
+            ->addIndexColumn()
+            ->make(true);
     }
 }

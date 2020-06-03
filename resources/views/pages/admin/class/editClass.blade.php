@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title', '- Edit Kelas')
-@section('bg-header', 'primary')
+@section('bg-header', 'bg-primary')
 @section('header-body')
 <div class="row align-items-center py-4">
     <div class="col-lg-6 col-7">
@@ -17,7 +17,7 @@
         </nav>
     </div>
     <div class="col-lg-6 col-5 text-right">
-        <button class="btn btn-md btn-neutral" id="addNewButton">Back</button>
+        <a class="btn btn-md btn-neutral" href="{{ url('admin/class') }}">Back</a>
     </div>
 </div>
 @endsection
@@ -44,7 +44,8 @@
                             <select name="speakers" id="speakers" class="custom-select" required>
                                 <option value="0">Pilih pembicara</option>
                                 @foreach($listSpeakers as $speaker)
-                                <option value="{{ $speaker->id }}" @if($class->speaker_id == $speaker->id) selected='seleced' @endif>{{$speaker->name}}</option>
+                                <option value="{{ $speaker->id }}" @if($class->speaker_id == $speaker->id)
+                                    selected='seleced' @endif>{{$speaker->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -70,8 +71,8 @@
                                     <select name="type" id="type" class="custom-select" required>
                                         <option value="premium" @if($class->type == 'premium') selected='selected'
                                             @endif>Premium</option>
-                                            <option value="free" @if($class->type == 'free') selected='selected'
-                                                @endif>Free</option>
+                                        <option value="free" @if($class->type == 'free') selected='selected'
+                                            @endif>Free</option>
                                     </select>
                                 </div>
                             </div>
@@ -92,6 +93,11 @@
                             <label for="modul_url">Modul</label>
                             <input type="text" name="modul_url" id="modul_url" class="form-control"
                                 placeholder="Link modul" required value="{{ $class->modul_url }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="group_url">Group Link</label>
+                            <input type="text" name="group_url" id="group_url" class="form-control"
+                                placeholder="Link untuk Group" required value="{{ $class->group_discussion }}">
                         </div>
                         <div class="form-group">
                             <label for="is_draft">Aksi</label>

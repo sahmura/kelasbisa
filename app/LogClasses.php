@@ -16,6 +16,7 @@ class LogClasses extends Model
         'class_id',
         'transaction_code'
     ];
+    protected $appends = ['total_chapter'];
 
     public function transaction()
     {
@@ -30,5 +31,10 @@ class LogClasses extends Model
     public function class()
     {
         return $this->belongsTo('App\Classes', 'class_id', 'id');
+    }
+
+    public function getTotalChapterAttribute()
+    {
+        return $this->class->chapters->count();
     }
 }

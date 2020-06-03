@@ -169,9 +169,11 @@ Route::group(
         Route::post('batalkanTransaksi', 'TransactionsController@deleteTransaction');
 
         Route::group(
-            ['prefix' => 'sertificate'],
+            ['prefix' => 'certificate'],
             function () {
+                Route::get('', 'SertificateController@printSertificatePage');
                 Route::get('get', 'SertificateController@download');
+                Route::post('getListData', 'SertificateController@getListData');
             }
         );
 
@@ -184,6 +186,9 @@ Route::group(
                 Route::get('/{id}', 'StatisticController@getDetailClass');
             }
         );
+
+        Route::post('class/chapter/checkChapter', 'RollController@checkChapterDone');
+        Route::post('class/chapter/uncheckChapter', 'RollController@uncheckChapterDone');
     }
 );
 
