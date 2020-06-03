@@ -82,6 +82,7 @@ class SertificateController extends Controller
     public function getListData()
     {
         $classDone = [];
+        $classDonePremium = [];
         $classDoneIteration = 0;
         $myclass = LogClasses::where('user_id', '=', Auth()->user()->id)->with('class')->get();
         foreach ($myclass as $class) {
@@ -97,17 +98,17 @@ class SertificateController extends Controller
         }
 
         for ($unsetDataIteration = 0; $unsetDataIteration < count($classDone); $unsetDataIteration++) {
-            if ($classDone[$unsetDataIteration]['type'] == 'free') {
-                unset($classDone[$unsetDataIteration]);
+            if ($classDone[$unsetDataIteration]['type'] == 'premium') {
+                $classDonePremium[$unsetDataIteration] = $classDone[$unsetDataIteration];
             }
         }
 
-        return DataTables::of($classDone)
+        return DataTables::of($classDonePremium)
             ->addColumn(
                 'action',
-                function ($classDone) {
-                    if ($classDone['status'] == 'Sudah selesai') {
-                        return '<button class="btn btn-primary btn-sm downloadSertificate" data-classid="' . $classDone['class_id'] . '">Cetak</button>';
+                function ($classDonePremium) {
+                    if ($classDonePremium['status'] == 'Sudah selesai') {
+                        return '<button class="btn btn-primary btn-sm downloadSertificate" data-classid="' . $classDonePremium['class_id'] . '">Cetak</button>';
                     } else {
                         return '<button class="btn btn-danger btn-sm disabled">Cetak</button>';
                     }
