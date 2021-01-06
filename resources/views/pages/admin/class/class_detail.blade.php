@@ -15,15 +15,13 @@
         </nav>
     </div>
     <div class="col-lg-6 col-5 text-right">
-        <a href="{{ url('admin/class/' . $data->id .'/edit') }}" class="btn btn-md btn-neutral"
-            id="editClassBtn">Edit</a>
+        <a href="{{ url('admin/class/' . $data->id .'/edit') }}" class="btn btn-md btn-neutral" id="editClassBtn">Edit</a>
     </div>
 </div>
 @endsection
 @section('content')
 <div class="row">
-    <x-classdetail class="col-md-8" :cover="$data->cover" :name="$data->name" :speakers="$data->speaker->name"
-        :description="$data->description" />
+    <x-classdetail class="col-md-8" :cover="$data->cover" :name="$data->name" :speakers="$data->speaker->name" :description="$data->description" />
     <div class="col-md-4 sticky-top">
         <div class="card card-profile">
             <div class="card-header text-center">
@@ -44,15 +42,13 @@
                             </div>
                             <div>
                                 <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                                    <i
-                                        class="ni @if($data->type != 'free') ni-check-bold @else ni-fat-remove @endif"></i>
+                                    <i class="ni @if($data->type != 'free') ni-check-bold @else ni-fat-remove @endif"></i>
                                 </div>
                                 <span class="description" style="font-weight: 600;">Konsultasi</span>
                             </div>
                             <div>
                                 <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                                    <i
-                                        class="ni @if($data->type != 'free') ni-check-bold @else ni-fat-remove @endif"></i>
+                                    <i class="ni @if($data->type != 'free') ni-check-bold @else ni-fat-remove @endif"></i>
                                 </div>
                                 <span class="description" style="font-weight: 600;">Sertifikat</span>
                             </div>
@@ -90,28 +86,17 @@
             </div>
             <div class="card-body">
                 @foreach($listSubChapters as $subchapter)
-                <h3 class="mt-5">{{ $subchapter->name }} <button data-id="{{ $subchapter->id }}"
-                        data-name="{{ $subchapter->name }}"
-                        class="btn btn-sm btn-danger float-right mx-1 btn-delete-subchapter"><i
-                            class="fas fa-trash-alt"></i></button>
-                    <button class="btn btn-sm btn-warning float-right btn-edit-subchapter"
-                        data-id="{{ $subchapter->id }}" data-name="{{ $subchapter->name }}"><i
-                            class="fas fa-pencil-alt"></i></button></h3>
+                <h3 class="mt-5">{{ $subchapter->name }} <button data-id="{{ $subchapter->id }}" data-name="{{ $subchapter->name }}" class="btn btn-sm btn-danger float-right mx-1 btn-delete-subchapter"><i class="fas fa-trash-alt"></i></button>
+                    <button class="btn btn-sm btn-warning float-right btn-edit-subchapter" data-id="{{ $subchapter->id }}" data-name="{{ $subchapter->name }}"><i class="fas fa-pencil-alt"></i></button>
+                </h3>
                 <hr style="margin: 1em 0;">
                 <ul class="list-group">
                     @foreach($listChapters as $chapter)
                     @if($chapter->sub_chapter_id == $subchapter->id)
                     <li class="list-group-item">{{$chapter->title}}
-                        <button data-id="{{ $chapter->id }}" data-title="{{ $chapter->title }}"
-                            class="btn btn-sm btn-danger float-right btn-delete-chapter"><i
-                                class="fas fa-trash-alt"></i></button>
-                        <button class="btn btn-sm btn-warning float-right btn-edit-chapter mx-1"
-                            data-id="{{ $chapter->id }}" data-title="{{ $chapter->title }}"
-                            data-video="{{ $chapter->video_url }}" data-desc="{{ $chapter->description }}"
-                            data-subchapter="{{ $chapter->sub_chapter_id }}"> <i class="fas fa-pencil-alt"></i></button>
-                        <button class="btn btn-sm btn-primary float-right btn-detail-chapter"
-                            data-title="{{ $chapter->title }}" data-video="{{ $chapter->video_url }}"
-                            data-desc="{{ $chapter->description }}"> <i class="fas fa-search"></i></button>
+                        <button data-id="{{ $chapter->id }}" data-title="{{ $chapter->title }}" class="btn btn-sm btn-danger float-right btn-delete-chapter"><i class="fas fa-trash-alt"></i></button>
+                        <button class="btn btn-sm btn-warning float-right btn-edit-chapter mx-1" data-id="{{ $chapter->id }}" data-title="{{ $chapter->title }}" data-video="{{ $chapter->video_url }}" data-desc="{{ $chapter->description }}" data-subchapter="{{ $chapter->sub_chapter_id }}"> <i class="fas fa-pencil-alt"></i></button>
+                        <button class="btn btn-sm btn-primary float-right btn-detail-chapter" data-title="{{ $chapter->title }}" data-video="{{ $chapter->video_url }}" data-desc="{{ $chapter->description }}"> <i class="fas fa-search"></i></button>
                     </li>
                     @endif
                     @endforeach
@@ -129,31 +114,26 @@
             <div class="card-body">
                 <ul class="nav nav-tabs" id="materiTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="chaptertab-tab" data-toggle="tab" href="#chaptertab" role="tab"
-                            aria-controls="chaptertab" aria-selected="true">Chapter</a>
+                        <a class="nav-link active" id="chaptertab-tab" data-toggle="tab" href="#chaptertab" role="tab" aria-controls="chaptertab" aria-selected="true">Chapter</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="subchaptertab-tab" data-toggle="tab" href="#subchaptertab" role="tab"
-                            aria-controls="subchaptertab" aria-selected="false">Sub Chapter</a>
+                        <a class="nav-link" id="subchaptertab-tab" data-toggle="tab" href="#subchaptertab" role="tab" aria-controls="subchaptertab" aria-selected="false">Sub Chapter</a>
                     </li>
                 </ul>
 
                 <div class="tab-content mt-5" id="myTabContent">
-                    <div class="tab-pane fade show active" id="chaptertab" role="tabpanel"
-                        aria-labelledby="chaptertab-tab">
+                    <div class="tab-pane fade show active" id="chaptertab" role="tabpanel" aria-labelledby="chaptertab-tab">
                         <form action="" method="POST" id="chapterform">
                             @csrf
                             <input type="hidden" name="class_id" id="" value="{{ $data->id }}">
                             <input type="hidden" name="id" id="chapter_id" value="{{ $data->id }}">
                             <div class="form-group">
                                 <label for="title">Nama chapter</label>
-                                <input type="text" name="title" id="title" class="form-control"
-                                    placeholder="Judul chapter" required>
+                                <input type="text" name="title" id="title" class="form-control" placeholder="Judul chapter" required>
                             </div>
                             <div class="form-group">
                                 <label for="video_url">Url Video</label>
-                                <input type="text" name="video_url" id="video_url" class="form-control"
-                                    placeholder="Url Video" required>
+                                <input type="text" name="video_url" id="video_url" class="form-control" placeholder="Url Video" required>
                             </div>
                             <div class="form-group">
                                 <label for="subchapter">Sub chapter</label>
@@ -166,18 +146,14 @@
                             </div>
                             <div class="form-group">
                                 <label for="description">Deskripsi</label>
-                                <textarea class="form-control" name="description" id="description"
-                                    placeholder="Deskripsi chapter" required></textarea>
+                                <textarea class="form-control" name="description" id="description" placeholder="Deskripsi chapter" required></textarea>
                             </div>
                             <div class="form-group">
-                                <button id="add-chapter" class="btn btn-success btn-md" type="button"><i
-                                        class="fas fa-plus"></i>
+                                <button id="add-chapter" class="btn btn-success btn-md" type="button"><i class="fas fa-plus"></i>
                                     Tambah</button>
-                                <button id="edit-chapter" class="btn btn-warning btn-md" type="button"><i
-                                        class="fas fa-pencil-alt"></i>
+                                <button id="edit-chapter" class="btn btn-warning btn-md" type="button"><i class="fas fa-pencil-alt"></i>
                                     Sunting</button>
-                                <button id="batal-edit-chapter" class="btn btn-danger btn-md"
-                                    type="button">Batal</button>
+                                <button id="batal-edit-chapter" class="btn btn-danger btn-md" type="button">Batal</button>
                             </div>
                         </form>
                     </div>
@@ -188,13 +164,11 @@
                             <input type="hidden" value="" name="id" id="subchapter_id">
                             <div class="form-group">
                                 <label for="subname">Sub chapter</label>
-                                <input type="text" name="name" id="subname" class="form-control"
-                                    placeholder="Sub chapter" required>
+                                <input type="text" name="name" id="subname" class="form-control" placeholder="Sub chapter" required>
                             </div>
                             <div class="form-group">
                                 <label for="subdescription">Deskripsi</label>
-                                <textarea name="description" id="subdescription" class="form-control" required
-                                    placeholder="Deskripsi sub chapter"></textarea>
+                                <textarea name="description" id="subdescription" class="form-control" required placeholder="Deskripsi sub chapter"></textarea>
                             </div>
                             <button class="btn btn-md btn-success" id="add-sub-chapter" type="button">Tambah</button>
                             <button class="btn btn-md btn-warning" id="edit-sub-chapter" type="button">Sunting</button>
@@ -207,8 +181,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="detailchaptermodal" tabindex="-1" role="dialog" aria-labelledby="detailchaptermodalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="detailchaptermodal" tabindex="-1" role="dialog" aria-labelledby="detailchaptermodalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -235,7 +208,7 @@
 @endpush
 @push('js')
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         @if(session('success'))
         Swal.fire({
             title: "{{ session('success') }}",
@@ -260,21 +233,21 @@
         $('#subchapterform')[0].reset();
     });
 
-    $('#batal-edit-chapter').on('click', function () {
+    $('#batal-edit-chapter').on('click', function() {
         $('#edit-chapter').hide();
         $('#batal-edit-chapter').hide();
         $('#add-chapter').show();
         $('#chapterform')[0].reset();
     });
 
-    $('#batal-sub-chapter').on('click', function () {
+    $('#batal-sub-chapter').on('click', function() {
         $('#edit-sub-chapter').hide();
         $('#batal-sub-chapter').hide();
         $('#add-sub-chapter').show();
         $('#subchapterform')[0].reset();
     });
 
-    $('.btn-detail-chapter').on('click', function () {
+    $('.btn-detail-chapter').on('click', function() {
         var title = $(this).data('title');
         var video = $(this).data('video');
         var desc = $(this).data('desc');
@@ -289,7 +262,7 @@
         $('#detailchaptermodal').modal('show');
     });
 
-    $('#add-chapter').on('click', function () {
+    $('#add-chapter').on('click', function() {
         $('#loaderSpin').fadeIn('slow');
         var data = $('#chapterform').serialize();
         $.ajax({
@@ -299,7 +272,7 @@
             },
             method: 'post',
             data: data,
-            success: function (response) {
+            success: function(response) {
                 $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
@@ -322,7 +295,7 @@
         });
     });
 
-    $('#add-sub-chapter').on('click', function () {
+    $('#add-sub-chapter').on('click', function() {
         $('#loaderSpin').fadeIn('slow');
         var data = $('#subchapterform').serialize();
         $.ajax({
@@ -332,7 +305,7 @@
             },
             method: 'POST',
             data: data,
-            success: function (response) {
+            success: function(response) {
                 $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
@@ -355,7 +328,7 @@
         });
     });
 
-    $('#edit-sub-chapter').on('click', function () {
+    $('#edit-sub-chapter').on('click', function() {
         $('#loaderSpin').fadeIn('slow');
         var data = $('#subchapterform').serialize();
         $.ajax({
@@ -365,7 +338,7 @@
             },
             method: 'post',
             data: data,
-            success: function (response) {
+            success: function(response) {
                 $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
@@ -388,7 +361,7 @@
         });
     });
 
-    $('#edit-chapter').on('click', function () {
+    $('#edit-chapter').on('click', function() {
         $('#loaderSpin').fadeIn('slow');
         var data = $('#chapterform').serialize();
         $.ajax({
@@ -398,7 +371,7 @@
             },
             method: 'post',
             data: data,
-            success: function (response) {
+            success: function(response) {
                 $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
@@ -421,7 +394,7 @@
         });
     });
 
-    $('.btn-edit-chapter').on('click', function () {
+    $('.btn-edit-chapter').on('click', function() {
         var id = $(this).data('id');
         var title = $(this).data('title');
         var video = $(this).data('video');
@@ -445,7 +418,7 @@
         $('#description').val(desc);
     });
 
-    $('.btn-edit-subchapter').on('click', function () {
+    $('.btn-edit-subchapter').on('click', function() {
         var id = $(this).data('id');
         var name = $(this).data('name');
         var desc = $(this).data('desc');
@@ -465,7 +438,7 @@
         $('#subdescription').val(desc);
     });
 
-    $('.btn-delete-chapter').on('click', function () {
+    $('.btn-delete-chapter').on('click', function() {
         Swal.fire({
             title: 'Apakah kamu yakin hapus chapter?',
             text: 'Chapter "' + $(this).data('title') + '" akan dihapus',
@@ -485,7 +458,7 @@
                     data: {
                         id: $(this).data('id'),
                     },
-                    success: function (response) {
+                    success: function(response) {
                         $('#loaderSpin').fadeOut('slow');
                         if (response.status) {
                             Swal.fire({
@@ -511,7 +484,7 @@
         });
     });
 
-    $('.btn-delete-subchapter').on('click', function () {
+    $('.btn-delete-subchapter').on('click', function() {
         Swal.fire({
             title: 'Apakah kamu yakin hapus sub chapter?',
             text: 'Semua chapter dalam sub ini akan dihapus',
@@ -531,7 +504,7 @@
                     data: {
                         id: $(this).data('id'),
                     },
-                    success: function (response) {
+                    success: function(response) {
                         $('#loaderSpin').fadeOut('slow');
                         if (response.status) {
                             Swal.fire({
@@ -556,6 +529,5 @@
             }
         });
     });
-
 </script>
 @endpush

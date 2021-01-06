@@ -2,17 +2,19 @@
 @section('title', '- Proses Pembelian')
 @section('bg-header', 'bg-primary')
 @section('header-body')
-<div class="row align-items-center py-4">
-    <div class="col-lg-8 col-7">
-        <h6 class="h2 text-white d-inline-block mb-0">Checkout Transaksi</h6>
-        <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
-                <li class="breadcrumb-item"><a href="{{ url('admin') }}">Beranda</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('admin/class') }}">Kelas</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Transaksi Kelas</li>
-            </ol>
-        </nav>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <h4 class="page-title mb-2"><i class="mdi mdi-google-pages mr-2"></i>Checkout</h4>
+            <div class="">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('admin') }}">Beranda</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('admin/class') }}">Kelas</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Transaksi Kelas</li>
+                </ol>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
@@ -21,10 +23,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card pb-5 default">
-                <div class="card-header">
-                    <h3 class="mb-0">Checkout Pembelian Kelas</h3>
-                </div>
                 <div class="card-body">
+                    <h5 class="card-title">Checkout Pembelian Kelas</h5>
                     <ul class="list-group">
                         <li class="list-group-item">
                             <div class="row">
@@ -42,7 +42,7 @@
                                     Kategori
                                 </div>
                                 <div class="col-8">
-                                    {{ $class->category->name}}
+                                    {{ $class->category->name ?? 'Tidak berkategori'}}
                                 </div>
                             </div>
                         </li>
@@ -65,8 +65,7 @@
                                     @if($coupon == null)
                                     Rp{{number_format($class->prices)}}
                                     @else
-                                    <span
-                                        style="text-decoration: line-through;">Rp{{number_format($class->prices)}}</span>
+                                    <span style="text-decoration: line-through;">Rp{{number_format($class->prices)}}</span>
                                     @endif
                                 </div>
                             </div>
@@ -106,24 +105,22 @@
     </div>
 </div>
 
-<div class="modal fade" id="buyClassModal" tabindex="-1" role="dialog" aria-labelledby="buyClassModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="buyClassModal" tabindex="-1" role="dialog" aria-labelledby="buyClassModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header bg-primary">
-                <h5 class="modal-title  text-white" id="buyClassModalLabel">Beli Kelas</h5>
+            <div class="modal-header">
+                <h5 class="modal-title" id="buyClassModalLabel">Panduan pembelian kelas</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <h3>Panduan pembelian kelas</h3>
-                <hr>
                 <ul class="list-group">
                     <li class="list-group-item">Selamat, kamu berhasil membeli kelas, namun masih belum bisa diakses
                     </li>
                     <li class="list-group-item">Silahkan transfer sebesar nominal akhir ke <br>
-                        <b>0108901610018527 BTN a/n Khoerul Umam</b></li>
+                        <b>0108901610018527 BTN a/n Khoerul Umam</b>
+                    </li>
                     <li class="list-group-item">Setelah itu kirim bukti transfer ke No <b>085156257710</b> melalui
                         Whatsapp
                         disertai dengan data
@@ -147,7 +144,7 @@
 @endsection
 @push('js')
 <script>
-    $('#buyClass').on('click', function () {
+    $('#buyClass').on('click', function() {
         $('#loaderSpin').fadeIn('slow');
         $.ajax({
             url: "{{ url('user/buyclass') }}",
@@ -160,7 +157,7 @@
                 user_id: "{{ Auth()->user()->id }}",
                 code: $('#coupon').val()
             },
-            success: function (response) {
+            success: function(response) {
                 $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
@@ -183,7 +180,7 @@
         });
     });
 
-    $('#joinClass').on('click', function () {
+    $('#joinClass').on('click', function() {
         $('#loaderSpin').fadeIn('slow');
         $.ajax({
             url: "{{ url('user/joinclass') }}",
@@ -197,7 +194,7 @@
                 user_id: "{{ Auth()->user()->id }}",
                 status: 'done'
             },
-            success: function (response) {
+            success: function(response) {
                 $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
@@ -219,6 +216,5 @@
             }
         })
     });
-
 </script>
 @endpush

@@ -2,28 +2,30 @@
 @section('title', '- Daftar Kelas')
 @section('bg-header', 'bg-primary')
 @section('header-body')
-<div class="row align-items-center py-4">
-    <div class="col-lg-6 col-7">
-        <h6 class="h2 text-white d-inline-block mb-0">Cetak Sertifikat</h6>
-        <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
-                <li class="breadcrumb-item"><a href="{{ url('user') }}">Beranda</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Cetak Sertifikat</li>
-            </ol>
-        </nav>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <h4 class="page-title mb-2"><i class="mdi mdi-google-pages mr-2"></i>Cetak Sertifikat</h4>
+            <div class="">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('user') }}">Beranda</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Cetak Sertifikat</li>
+                </ol>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <div class="card shadow">
-            <div class="card-header border-0">
-                <h3 class="mb-0">Cetak Sertifikat</h3>
-                <p>Pastikan kamu sudah menyelesaikan semua materi</p>
-            </div>
+        <div class="card">
             <div class="card-body">
+                <div class="col-8 align-self-center">
+                    <h4 class="mt-0 header-title">Cetak Sertifikat</h4>
+                    <p>Pastikan kamu sudah menyelesaikan semua materi</p>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-light table-flush" id="certificateList">
                         <thead class="text-center thead-light">
@@ -42,7 +44,7 @@
 @endsection
 @push('js')
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#certificateList').DataTable({
             processing: true,
             serverSide: true,
@@ -84,11 +86,10 @@
         });
     });
 
-    $(document).on('click', '.downloadSertificate', function () {
+    $(document).on('click', '.downloadSertificate', function() {
         var class_id = $(this).data('classid');
         window.location.href = "{{ url('user/certificate/get') }}" + "?class_id=" + class_id +
             '&template=basic_template';
     });
-
 </script>
 @endpush

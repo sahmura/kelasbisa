@@ -1,142 +1,141 @@
 @extends('layouts.master')
 @section('title', '- Detail Kelas')
 @section('bg-header', 'bg-primary')
+@push('css')
+<style>
+    @media (min-width: 768px) {
+        .img-fluid {
+            max-width: 60%;
+            height: auto;
+        }
+    }
+</style>
+@endpush
 @section('header-body')
-<div class="row align-items-center py-4">
-    <div class="col-lg-6 col-7">
-        <h6 class="h2 text-white d-inline-block mb-0">Detail Kelas</h6>
-        <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
-                <li class="breadcrumb-item"><a href="{{ url('user') }}">Beranda</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('user/class') }}">Kelas</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ $data->name }}</li>
-            </ol>
-        </nav>
-    </div>
-</div>
-@endsection
-@section('content')
 <div class="row">
-    <div class="col-md-8">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card shadow">
-                    <img class="card-img-top" src="{{ url('cover/' . $data->cover) }}?" loading="lazy"
-                        alt="{{ $data->name }}">
-                    <div class="card-body">
-                        <h2>{{ $data->name }}</h2>
-                        <p>{{ $data->speaker->name }}</p>
-                        <p>{!! $data->description !!}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Materi</h3>
-                    </div>
-                    <div class="card-body">
-                        @foreach($listSubChapters as $subchapter)
-                        <h3 class="mt-3">{{ $subchapter->name }}</h3>
-                        <hr style="margin: 1em 0;">
-                        <ul class="list-group">
-                            @foreach($listChapters as $chapter)
-                            @if($chapter->sub_chapter_id == $subchapter->id)
-                            <li class="list-group-item">{{$chapter->title}}
-                            </li>
-                            @endif
-                            @endforeach
-                        </ul>
-
-                        @endforeach
-                    </div>
-                </div>
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <h4 class="page-title mb-2"><i class="mdi mdi-google-pages mr-2"></i>Detail Kelas</h4>
+            <div class="">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('user') }}">Beranda</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('user/class') }}">Kelas</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ Str::limit($data->name, 20) }}</li>
+                </ol>
             </div>
         </div>
     </div>
-    <div class="col-md-4 sticky-top">
-        <div class="card card-profile">
-            <div class="card-header">
-                <h3 class="display-4 text-center">Kelas {{ ucfirst($data->type) }}</h3>
-            </div>
-            <div class="card-body pt-0">
+</div>
+
+@endsection
+@section('content')
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body py-4">
                 <div class="row">
-                    <div class="col">
-                        <div class="card-profile-stats d-flex justify-content-center">
-                            <div>
-                                <div class="icon icon-shape bg-success text-white rounded-circle shadow">
-                                    <span class="heading">{{ $totalChapters }}</span>
-                                </div>
-                                <span class="description" style="font-weight: 600;">Video</span>
+                    <div class="col-lg-6">
+                        <img class="mx-auto d-block img-fluid" src="{{ url('cover/' . $data->cover) }}?" alt="{{ $data->name }}" height="400">
+                    </div>
+                    <div class="col-lg-6 align-self-top">
+                        <div class="single-pro-detail">
+                            <p class="mb-1">{{ $data->category->name ?? 'Tidak berkategori' }}</p>
+                            <div class="custom-border"></div>
+                            <h3 class="pro-title">{{ $data->name }}</h3>
+                            <p style='font-size: 1em'>{{ $data->speaker->name }}
+                                <br><span class="text-muted">{{ $data->speaker->skill }}</span>
+                            </p>
+                            <div id="price-nocoupon">
+                                <h2 class="pro-price">Rp{{ number_format($data->prices) }}</h2>
                             </div>
-                            <div>
-                                <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                                    <i
-                                        class="ni @if($data->type != 'free') ni-check-bold @else ni-fat-remove @endif"></i>
-                                </div>
-                                <span class="description" style="font-weight: 600;">Konsultasi</span>
+                            <div id="price-coupon" style="display: none;">
+                                <h2 class="pro-price" id="discountPrices"></h2>
                             </div>
-                            <div>
-                                <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                                    <i
-                                        class="ni @if($data->type != 'free') ni-check-bold @else ni-fat-remove @endif"></i>
+                            <h6 class="text-muted font-13">Fitur :</h6>
+                            <ul class="list-unstyled pro-features border-0">
+                                <li>Akses video selamanya</li>
+                                <li>Dapat diakses di mana saja</li>
+                                <li>Dapat diakses kapan saja</li>
+                                @if($data->type != 'free')
+                                <li>Sertifikat jika sudah menyelesaikan kelas</li>
+                                <li>Group diskusi kelas</li>
+                                @endif
+                            </ul>
+                            <div class="quantity mt-3 ">
+                                @if($data->is_draft == 0)
+                                @if($isOnList == 0)
+                                @if($data->type == 'free')
+                                <button class="btn btn-primary text-white px-5" id="addClassBtn">Ikuti kelas</button>
+                                @else
+                                <div class="form-group">
+                                    <input type="text" name="coupon" id="coupon" placeholder="Masukan kode voucher" class='form-control' style="width: 200px;">
+                                    <p id="errorCode"></p>
                                 </div>
-                                <span class="description" style="font-weight: 600;">Sertifikat</span>
+                                <button class="btn btn-primary text-white px-5" id="buyClassBtn">Beli kelas</button>
+                                @endif
+                                @else
+                                <button class="btn btn-primary text-white px-5" id="playClassBtn">Play</button>
+                                @endif
+                                @else
+                                <span class="btn btn-danger disabled">Diarsipkan</span>
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <div class="col">
-                        <span style="font-weight: 600;">Ketentuan</span>
-                        <hr style="margin-top: 1em;">
-                        <p>{!! $data->terms !!}</p>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col">
-                        <span style="font-weight: 600;">Harga</span>
-                        <hr style="margin-top: 1em;">
-                        <p id="hargaAwal">Rp{{ $data->prices }}</p>
-                        <p id="hargaDiskon"></p>
-                    </div>
-                </div>
-                @if($isOnList == 0)
-                @if($data->type == 'premium')
-                <div class="row">
-                    <div class="col">
-                        <label for="coupon">Kupon</label>
-                        <input type="text" name="coupon" id="coupon" class="form-control" placeholder="Kode kupon">
-                        <p id="errorCode" class="text-danger"></p>
-                    </div>
-                </div>
-                @endif
-                @endif
             </div>
-            <div class="card-footer bg-primary text-center">
-                @if($data->is_draft == 0)
-                @if($isOnList == 0)
-                @if($data->type == 'free')
-                <button class="btn btn-primary text-white" id="addClassBtn" style="box-shadow: none;">Ikuti
-                    kelas</button>
-                @else
-                <button class="btn btn-primary text-white" id="buyClassBtn" style="box-shadow: none;">Beli
-                    kelas</button>
-                @endif
-                @else
-                <button class="btn btn-primary text-white" id="playClassBtn" style="box-shadow: none;">Play</button>
-                @endif
-                @else
-                <span class="btn btn-danger disabled">Diarsipkan</span>
-                @endif
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="single-pro-info-tab">
+                    <ul class="nav nav-pills mb-0 nav-justified" id="list-keterangan" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="pills-materi-tab" data-toggle="pill" href="#pills-materi" aria-selected="true">Materi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-description-tab" data-toggle="pill" href="#pills-description" aria-selected="false">Deskripsi</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="tab-content mt-4" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-materi">
+                            <div class="row">
+                                <div class="col-12">
+                                    @foreach($listSubChapters as $subchapter)
+                                    <h4 class="mt-3">{{ $subchapter->name }}</h4>
+                                    <hr style="margin: 1em 0;">
+                                    <ul class="list-group">
+                                        @foreach($listChapters as $chapter)
+                                        @if($chapter->sub_chapter_id == $subchapter->id)
+                                        <li class="list-group-item">{{$chapter->title}}
+                                        </li>
+                                        @endif
+                                        @endforeach
+                                    </ul>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-description">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h4 class="mt-3">Deskripsi</h4>
+                                    <p class="lead">{!! $data->description !!}</p>
+                                    <h4>Ketentuan</h4>
+                                    <p class="lead">{!! $data->terms !!}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="buyClassModal" tabindex="-1" role="dialog" aria-labelledby="buyClassModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="buyClassModal" tabindex="-1" role="dialog" aria-labelledby="buyClassModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-primary">
@@ -152,7 +151,8 @@
                     <li class="list-group-item">Selamat, kamu berhasil membeli kelas, namun masih belum bisa diakses
                     </li>
                     <li class="list-group-item">Silahkan transfer sebesar nominal akhir ke <br>
-                        <b>0108901610018527 BTN a/n Khoerul Umam</b></li>
+                        <b>0108901610018527 BTN a/n Khoerul Umam</b>
+                    </li>
                     <li class="list-group-item">Setelah itu kirim bukti transfer ke No <b>085156257710</b> melalui
                         Whatsapp
                         disertai dengan data
@@ -180,7 +180,7 @@
 @endpush
 @push('js')
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         @if(session('success'))
         Swal.fire({
             title: "{{ session('success') }}",
@@ -201,7 +201,7 @@
         });
     });
 
-    $('#buyClassBtn').on('click', function () {
+    $('#buyClassBtn').on('click', function() {
 
         var coupon = $('#coupon').val()
         if (coupon == '') {
@@ -211,16 +211,16 @@
         }
     });
 
-    $('#playClassBtn').on('click', function () {
+    $('#playClassBtn').on('click', function() {
         window.location.href = "{{ url('user/roll/' . $data->id) }}";
     });
 
-    $('#addClassBtn').on('click', function () {
+    $('#addClassBtn').on('click', function() {
 
         window.location.href = "{{ url('user/checkout/' . $data->id) }}"
     });
 
-    $('#coupon').on('keyup', function () {
+    $('#coupon').on('keyup', function() {
         $.ajax({
             url: "{{ url('user/checkCoupon')}}",
             headers: {
@@ -231,28 +231,25 @@
                 code: $(this).val(),
                 idclass: "{{ $data->id }}"
             },
-            success: function (response) {
+            success: function(response) {
                 if (response.status) {
-                    $('#hargaAwal').css('text-decoration', 'line-through');
-                    $('#hargaAwal').css('color', '#FA441B');
-                    $('#hargaDiskon').css('font-weight', '600');
-                    $('#hargaDiskon').show();
-                    $('#hargaDiskon').html(response.newPrices);
+                    $('#price-nocoupon').hide();
+                    $('#price-coupon').show();
+                    $('#discountPrices').html(response.newPrices + ' <span><del>Rp{{ number_format($data->prices) }}</del></span><small class="text-danger font-weight-bold ml-2">' + response.percent + '% Off</small>');
                     $('#errorCode').html(response.message);
                     $('#errorCode').removeClass('text-danger');
                     $('#errorCode').addClass('text-success');
                 } else {
-                    $('#hargaAwal').css('text-decoration', 'none');
-                    $('#hargaAwal').css('color', '#757F99');
+                    $('#price-nocoupon').show();
+                    $('#price-coupon').hide();
+                    $('#discountPrices').html("Rp{{ $data->prices }}")
                     $('#errorCode').html(response.message);
                     $('#errorCode').removeClass('text-success');
                     $('#errorCode').addClass('text-danger');
-                    $('#hargaDiskon').hide();
 
                 }
             }
         })
     })
-
 </script>
 @endpush

@@ -28,13 +28,11 @@
                     <h3 class="mb-0">Tambah kelas</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ url('admin/class/create') }}" method="POST" enctype="multipart/form-data"
-                        id="newClassForm">
+                    <form action="{{ url('admin/class/create') }}" method="POST" enctype="multipart/form-data" id="newClassForm">
                         @csrf
                         <div class="form-group">
                             <label for="name">Nama kelas</label>
-                            <input type="text" name="name" id="name" class="form-control p-2" placeholder="Nama kelas"
-                                required>
+                            <input type="text" name="name" id="name" class="form-control p-2" placeholder="Nama kelas" required>
                         </div>
                         <div class="form-group">
                             <label for="speakers">Pembawa materi</label>
@@ -47,15 +45,14 @@
                         </div>
                         <div class="form-group">
                             <label for="description">Deskripsi</label>
-                            <textarea name="description" id="description" class="form-control"
-                                placeholder="Deskripsi kelas" required></textarea>
+                            <textarea name="description" id="description" class="form-control" placeholder="Deskripsi kelas" required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="category_id">Kategori kelas</label>
                             <select name="category_id" id="category_id" class="custom-select" required>
                                 <option value="0">Tak berkategori</option>
                                 @foreach($listCategories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                <option value="{{ $category->id }}">{{ $category->name ?? 'Tidak berkategori' }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -72,30 +69,25 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="prices">Harga</label>
-                                    <input type="number" name="prices" id="prices" class="form-control" min="0" required
-                                        placeholder="Harga kelas" value="0">
+                                    <input type="number" name="prices" id="prices" class="form-control" min="0" required placeholder="Harga kelas" value="0">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="terms">Ketentuan kelas</label>
-                            <textarea name="terms" id="terms" class="form-control" placeholder="Ketentuan kelas"
-                                required></textarea>
+                            <textarea name="terms" id="terms" class="form-control" placeholder="Ketentuan kelas" required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="cover">Cover</label>
-                            <input type="file" name="cover" id="cover" class="form-control" placeholder="Cover"
-                                required>
+                            <input type="file" name="cover" id="cover" class="form-control" placeholder="Cover" required>
                         </div>
                         <div class="form-group">
                             <label for="modul_url">Modul</label>
-                            <input type="text" name="modul_url" id="modul_url" class="form-control"
-                                placeholder="Link untuk Modul" required value="-">
+                            <input type="text" name="modul_url" id="modul_url" class="form-control" placeholder="Link untuk Modul" required value="-">
                         </div>
                         <div class="form-group">
                             <label for="group_url">Group Link</label>
-                            <input type="text" name="group_url" id="group_url" class="form-control"
-                                placeholder="Link untuk Group" required value="-">
+                            <input type="text" name="group_url" id="group_url" class="form-control" placeholder="Link untuk Group" required value="-">
                         </div>
                         <div class="form-group">
                             <label for="is_draft">Aksi</label>
@@ -119,11 +111,11 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#terms').summernote();
         $('#description').summernote();
     });
-    $('#type').on('change', function () {
+    $('#type').on('change', function() {
         if ($(this).val() == 'free') {
             $('#prices').val(0);
             $('#prices').attr('readonly', 'readonly');
@@ -131,7 +123,6 @@
             $('#prices').removeAttr('readonly');
         }
     });
-
 </script>
 @endpush
 @push('css')

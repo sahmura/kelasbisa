@@ -22,8 +22,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card shadow">
-                            <img class="card-img-top" src="{{ url('cover/' . $data->cover) }}?" loading="lazy"
-                                alt="{{ $data->name }}">
+                            <img class="card-img-top" src="{{ url('cover/' . $data->cover) }}?" loading="lazy" alt="{{ $data->name }}">
                             <div class="card-body">
                                 <h5>{{ $data->name }}</h5>
                                 <p>{{ $data->speaker->name }}</p>
@@ -71,15 +70,13 @@
                                     </div>
                                     <div class="col-4  mt-3">
                                         <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                                            <i
-                                                class="ni @if($data->type != 'free') ni-check-bold @else ni-fat-remove @endif"></i>
+                                            <i class="ni @if($data->type != 'free') ni-check-bold @else ni-fat-remove @endif"></i>
                                         </div>
                                         <span class="description" style="font-weight: 300;">Konsultasi</span>
                                     </div>
                                     <div class="col-4  mt-3">
                                         <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                                            <i
-                                                class="ni @if($data->type != 'free') ni-check-bold @else ni-fat-remove @endif"></i>
+                                            <i class="ni @if($data->type != 'free') ni-check-bold @else ni-fat-remove @endif"></i>
                                         </div>
                                         <span class="description" style="font-weight: 300;">Sertifikat</span>
                                     </div>
@@ -106,8 +103,7 @@
                         <div class="row">
                             <div class="col">
                                 <label for="coupon">Kupon</label>
-                                <input type="text" name="coupon" id="coupon" class="form-control"
-                                    placeholder="Kode kupon">
+                                <input type="text" name="coupon" id="coupon" class="form-control" placeholder="Kode kupon">
                                 <p id="errorCode" class="text-danger"></p>
                             </div>
                         </div>
@@ -135,11 +131,11 @@
 @endsection
 @push('js')
 <script>
-    @if(Auth()->user())
-    $('#addClassBtn').on('click', function () {
+    @if(Auth() - > user())
+    $('#addClassBtn').on('click', function() {
         window.location.href = "{{ url('user/checkout/' . $data->id) }}"
     });
-    $('#buyClassBtn').on('click', function () {
+    $('#buyClassBtn').on('click', function() {
         var coupon = $('#coupon').val()
         if (coupon == '') {
             window.location.href = "{{ url('user/checkout/' . $data->id) }}"
@@ -148,15 +144,15 @@
         }
     });
     @else
-    $('#addClassBtn').on('click', function () {
+    $('#addClassBtn').on('click', function() {
         window.location.href = "{{ url('login') }}";
     });
-    $('#buyClassBtn').on('click', function () {
+    $('#buyClassBtn').on('click', function() {
         window.location.href = "{{ url('login') }}";
     });
     @endif
 
-    $('#coupon').on('keyup', function () {
+    $('#coupon').on('keyup', function() {
         $.ajax({
             url: "{{ url('user/checkCoupon')}}",
             headers: {
@@ -167,7 +163,7 @@
                 code: $(this).val(),
                 idclass: "{{ $data->id }}"
             },
-            success: function (response) {
+            success: function(response) {
                 if (response.status) {
                     $('#hargaAwal').css('text-decoration', 'line-through');
                     $('#hargaAwal').css('color', '#FA441B');
@@ -189,6 +185,5 @@
             }
         })
     })
-
 </script>
 @endpush

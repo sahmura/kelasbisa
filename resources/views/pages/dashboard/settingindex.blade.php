@@ -2,54 +2,52 @@
 @section('title', "- Setting")
 @section('bg-header', 'bg-primary')
 @section('header-body')
-<div class="row align-items-center py-4">
-    <div class="col-lg-6 col-7">
-        <h6 class="h2 text-white d-inline-block mb-0">Pengaturan</h6>
-        <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
-                <li class="breadcrumb-item"><a href="{{ url('user') }}">Beranda</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Pengaturan</li>
-            </ol>
-        </nav>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <h4 class="page-title mb-2"><i class="mdi mdi-google-pages mr-2"></i>Pengaturan</h4>
+            <div class="">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('user') }}">Beranda</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Pengaturan</li>
+                </ol>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
 @section('content')
 <div class="row">
     <div class="col-md-4">
-        <div class="card card-profile">
-            <img src="{{ url('assets/image/usersetting.jpg') }}" alt="Image placeholder" class="card-img-top">
-            <div class="row justify-content-center mb-2">
-                <div class="col-lg-3 order-lg-2">
-                    <div class="card-profile-image">
+        <div class="card">
+            <div class="row justify-content-center mt-5">
+                <div class="col-12">
+                    <div class="card-profile-image text-center">
                         <a href="#">
                             @if($data->profilpic == '')
-                            <img src="{{ url('assets/image/userpic.svg') }}" class="rounded-circle" width="100"
-                                height="auto">
+                            <img src="{{ url('assets/image/userpic.svg') }}" class="rounded-circle" width="100" height="auto">
                             @else
-                            <img src="{{ url('assets/profilpic/' . $data->profilpic) }}" class="rounded-circle"
-                                width="100" height="auto">
+                            <img src="{{ url('assets/profilpic/' . $data->profilpic) }}" class="rounded-circle" width="100" height="auto">
                             @endif
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="card-body pt-5">
+            <div class="card-body pt-3">
                 <div class="text-center">
-                    <h5 class="h3">
+                    <h5>
                         {{ $data->name }}<span class="font-weight-light"></span>
                     </h5>
-                    <div>
-                        <i class="ni education_hat mr-2"></i>{{ $data->email }}
+                    <div>{{ $data->email }}
                     </div>
                 </div>
             </div>
         </div>
         <div class="card shadow mt-3">
             <div class="card-body">
-                <form action="{{ url('setting/updatepic') }}" method="POST" id="profilpicform"
-                    enctype="multipart/form-data">
+                <h5 class="card-title">Perbaharui gambar profil</h5>
+                <form action="{{ url('setting/updatepic') }}" method="POST" id="profilpicform" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="profil">Gambar Profil</label>
@@ -65,64 +63,45 @@
     </div>
     <div class="col-md-8">
         <div class="card shadow">
-            <div class="card-header">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <h3 class="mb-0">Sunting profil</h3>
-                    </div>
-                </div>
-            </div>
             <div class="card-body">
+                <h5 class="card-title">Sunting profil</h5>
                 <form action="" method="POST" id="settingform">
                     @csrf
                     <div class="form-group">
                         <label for="name">Nama lengkap</label>
-                        <input type="text" name="name" id="name" value="{{ $data->name }}" class="form-control"
-                            placeholder="Nama lengkap" required>
+                        <input type="text" name="name" id="name" value="{{ $data->name }}" class="form-control" placeholder="Nama lengkap" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" name="email" id="email" value="{{ $data->email }}" class="form-control"
-                            placeholder="email@kamu.com" required>
+                        <input type="email" name="email" id="email" value="{{ $data->email }}" class="form-control" placeholder="email@kamu.com" required>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-md btn-primary btn-block" id="settingformbtn" type="button"><i
-                                class="ni ni-send"></i>
+                        <button class="btn btn-md btn-primary px-5 float-right" id="settingformbtn" type="button"><i class="ni ni-send"></i>
                             Perbarui</button>
                     </div>
                 </form>
             </div>
         </div>
         <div class="card shadow mt-3">
-            <div class="card-header">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <h3 class="mb-0">Sunting password</h3>
-                    </div>
-                </div>
-            </div>
             <div class="card-body">
+                <h5 class="card-title">Sunting password</h5>
                 <form action="" method="POST" id="passwordform">
                     @csrf
                     <div class="form-group">
                         <label for="oldpassword">Password lama</label>
-                        <input type="password" name="oldpassword" id="oldpassword" class="form-control" required
-                            placeholder="Password lama">
+                        <input type="password" name="oldpassword" id="oldpassword" class="form-control" required placeholder="Password lama">
                     </div>
                     <div class="form-group">
                         <label for="newpassword">Password baru</label>
-                        <input type="password" name="newpassword" id="newpassword" class="form-control" required
-                            placeholder="Password baru">
+                        <input type="password" name="newpassword" id="newpassword" class="form-control" required placeholder="Password baru">
                     </div>
                     <div class="form-group">
                         <label for="confirmpassword">Konfirmasi password baru</label>
-                        <input type="password" name="confirmpassword" id="confirmpassword" class="form-control" required
-                            placeholder="Konfirmasi password baru">
+                        <input type="password" name="confirmpassword" id="confirmpassword" class="form-control" required placeholder="Konfirmasi password baru">
                         <span id="errorpass" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-md btn-primary btn-block" id="passwordformbtn" type="button"><i
-                                class="ni ni-send"></i>
+                        <button class="btn btn-md btn-primary px-5 float-right" id="passwordformbtn" type="button"><i class="ni ni-send"></i>
                             Perbarui</button>
                     </div>
                 </form>
@@ -133,7 +112,7 @@
 @endsection
 @push('js')
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         @if(session('success'))
         Swal.fire({
             title: "{{ session('success') }}",
@@ -149,7 +128,7 @@
         @endif
     });
 
-    $('#settingformbtn').on('click', function () {
+    $('#settingformbtn').on('click', function() {
         $('#loaderSpin').fadeIn('slow');
         var data = $('#settingform').serialize();
         $.ajax({
@@ -159,7 +138,7 @@
             },
             method: 'POST',
             data: data,
-            success: function (response) {
+            success: function(response) {
                 $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
@@ -181,7 +160,7 @@
             }
         })
     });
-    $('#passwordformbtn').on('click', function () {
+    $('#passwordformbtn').on('click', function() {
         $('#loaderSpin').fadeIn('slow');
         var data = $('#passwordform').serialize();
         $.ajax({
@@ -191,7 +170,7 @@
             },
             method: 'POST',
             data: data,
-            success: function (response) {
+            success: function(response) {
                 $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
@@ -213,7 +192,7 @@
             }
         })
     });
-    $('#profilpicbtn').on('click', function () {
+    $('#profilpicbtn').on('click', function() {
         $('#loaderSpin').fadeIn('slow');
         var data = $('#profilpicform').serialize();
         $.ajax({
@@ -223,7 +202,7 @@
             },
             method: 'POST',
             data: data,
-            success: function (response) {
+            success: function(response) {
                 $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
@@ -246,13 +225,12 @@
         })
     });
 
-    $('#confirmpassword').on('keyup', function () {
+    $('#confirmpassword').on('keyup', function() {
         if ($('#newpassword').val() != $('#confirmpassword').val()) {
             $('#errorpass').text('Password tidak sesuai');
         } else {
             $('#errorpass').text('');
         }
     })
-
 </script>
 @endpush

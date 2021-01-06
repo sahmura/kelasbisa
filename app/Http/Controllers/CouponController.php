@@ -179,7 +179,8 @@ class CouponController extends Controller
                 'status' => true,
                 'message' => 'Kode kupon berhasil digunakan',
                 'notes' => '',
-                'newPrices' => 'Rp' . ($dataClass->prices - $checkCoupon->first()->discount)
+                'newPrices' => 'Rp' . (number_format($dataClass->prices - $checkCoupon->first()->discount)),
+                'percent' => (($checkCoupon->first()->discount / $dataClass->prices) / (1 / 100))
             ];
         }
 

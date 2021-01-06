@@ -2,19 +2,21 @@
 @section('title', '- Pengelolaan Kategori')
 @section('bg-header', 'bg-primary')
 @section('header-body')
-<div class="row align-items-center py-4">
-    <div class="col-lg-6 col-7">
-        <h6 class="h2 text-white d-inline-block mb-0">Speaker</h6>
-        <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
-                <li class="breadcrumb-item"><a href="{{ url('admin') }}">Dashboards</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Speaker</li>
-            </ol>
-        </nav>
-    </div>
-    <div class="col-lg-6 col-5 text-right">
-        <button class="btn btn-md btn-neutral" id="addNewButton">New</button>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <div class="float-right align-item-center mt-2">
+                <button class="btn btn-md btn-info px-5" id="addNewButton">Tambah data</button>
+            </div>
+            <h4 class="page-title mb-2"><i class="mdi mdi-google-pages mr-2"></i>Beranda</h4>
+            <div class="">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('admin') }}">Dashboards</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Speaker</li>
+                </ol>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
@@ -42,8 +44,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="speakerModal" tabindex="-1" role="dialog" aria-labelledby="speakerModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="speakerModal" tabindex="-1" role="dialog" aria-labelledby="speakerModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -58,13 +59,11 @@
                     <input type="hidden" name="id" value="" id="id">
                     <div class="form-group">
                         <label for="name">Nama pembicara</label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Nama agenda"
-                            required>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Nama agenda" required>
                     </div>
                     <div class="form-group">
                         <label for="skill">Skill</label>
-                        <input type="text" name="skill" id="skill" class="form-control" placeholder="Keahlian pembicara"
-                            required>
+                        <input type="text" name="skill" id="skill" class="form-control" placeholder="Keahlian pembicara" required>
                     </div>
                 </form>
             </div>
@@ -75,8 +74,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="signatureModal" tabindex="-1" role="dialog" aria-labelledby="signatureModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="signatureModal" tabindex="-1" role="dialog" aria-labelledby="signatureModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -86,8 +84,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ url('admin/speaker/addSignature') }}" method="post" id="signatureForm"
-                    enctype="multipart/form-data">
+                <form action="{{ url('admin/speaker/addSignature') }}" method="post" id="signatureForm" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" value="" id="idSignature">
                     <input type="hidden" name="name" value="" id="nameSignature">
@@ -96,8 +93,7 @@
                             <img src="" alt="" id="signatureImg" class="img-fluid">
                         </div>
                         <label for="signature">Signature</label>
-                        <input type="file" name="signature" id="signature" class="form-control"
-                            placeholder="Upload tanda tangan">
+                        <input type="file" name="signature" id="signature" class="form-control" placeholder="Upload tanda tangan">
                     </div>
                 </form>
             </div>
@@ -111,7 +107,7 @@
 @endsection
 @push('js')
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         @if(session('success'))
         Swal.fire({
             title: "{{ session('success') }}",
@@ -127,7 +123,7 @@
         @endif
     });
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#speakerList').DataTable({
             processing: true,
             serverSide: true,
@@ -168,7 +164,7 @@
         });
     });
 
-    $('#addNewButton').on('click', function () {
+    $('#addNewButton').on('click', function() {
         $('#dataForm')[0].reset();
         $('.modal-title').html('Tambah Pembicara baru');
         $('#save-btn').addClass('btn-success');
@@ -177,7 +173,7 @@
         $('#speakerModal').modal('show');
     });
 
-    $('#save-btn').on('click', function () {
+    $('#save-btn').on('click', function() {
         var data = $('#dataForm').serialize();
         console.log(data);
         if ($('#id').val() == '') {
@@ -192,7 +188,7 @@
             },
             method: 'POST',
             data: data,
-            success: function (response) {
+            success: function(response) {
                 if (response.status) {
                     Swal.fire({
                         title: response.message,
@@ -216,7 +212,7 @@
         });
     });
 
-    $(document).on('click', '.btn-edit', function () {
+    $(document).on('click', '.btn-edit', function() {
         var id = $(this).data('id');
         var name = $(this).data('name');
         var skill = $(this).data('skill');
@@ -234,7 +230,7 @@
         $('#speakerModal').modal('show');
     });
 
-    $(document).on('click', '.btn-signature', function () {
+    $(document).on('click', '.btn-signature', function() {
         $('#signatureImg').removeAttr('src');
         $('#signatureForm')[0].reset();
         var id = $(this).data('id');
@@ -249,6 +245,5 @@
         $('#nameSignature').val(name);
         $('#signatureModal').modal('show');
     });
-
 </script>
 @endpush

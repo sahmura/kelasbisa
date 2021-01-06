@@ -2,19 +2,21 @@
 @section('title', '- Pengelolaan Kelas')
 @section('bg-header', 'bg-primary')
 @section('header-body')
-<div class="row align-items-center py-4">
-    <div class="col-lg-6 col-7">
-        <h6 class="h2 text-white d-inline-block mb-0">Class</h6>
-        <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
-                <li class="breadcrumb-item"><a href="{{ url('admin') }}">Dashboards</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Class</li>
-            </ol>
-        </nav>
-    </div>
-    <div class="col-lg-6 col-5 text-right">
-        <button class="btn btn-md btn-neutral" id="addNewButton">New</button>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <div class="float-right align-item-center mt-2">
+                <button class="btn btn-md btn-info px-5" id="addNewButton">Tambah kelas</button>
+            </div>
+            <h4 class="page-title mb-2"><i class="mdi mdi-google-pages mr-2"></i>Kelas</h4>
+            <div class="">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('admin') }}">Dashboards</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Class</li>
+                </ol>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
@@ -47,7 +49,7 @@
 @endsection
 @push('js')
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         @if(session('success'))
         Swal.fire({
             title: "{{ session('success') }}",
@@ -84,6 +86,7 @@
                 },
                 {
                     data: 'category.name',
+                    defaultContent: 'Tidak berkategori'
                 },
                 {
                     data: 'type_class',
@@ -108,11 +111,11 @@
         });
     });
 
-    $('#addNewButton').on('click', function () {
+    $('#addNewButton').on('click', function() {
         window.location.href = "{{ url('admin/class/new') }}";
     });
 
-    $('#save-btn').on('click', function () {
+    $('#save-btn').on('click', function() {
         $('#loaderSpin').fadeIn('slow');
         var data = $('#dataForm').serialize();
         if ($('#id').val() == '') {
@@ -127,7 +130,7 @@
             },
             method: 'POST',
             data: data,
-            success: function (response) {
+            success: function(response) {
                 $('#loaderSpin').fadeOut('slow');
                 if (response.status) {
                     Swal.fire({
@@ -152,12 +155,12 @@
         });
     });
 
-    $(document).on('click', '.btn-edit', function () {
+    $(document).on('click', '.btn-edit', function() {
         var id = $(this).data('id');
         window.location.href = "{{ url('admin/class/') }}" + '/' + id + '/edit';
     });
 
-    $(document).on('click', '.btn-delete', function () {
+    $(document).on('click', '.btn-delete', function() {
         var id = $(this).data('id');
         Swal.fire({
             title: 'Apakah anda yakin?',
@@ -180,7 +183,7 @@
                     data: {
                         id: id
                     },
-                    success: function (response) {
+                    success: function(response) {
                         $('#loaderSpin').fadeOut('slow');
                         if (response.status) {
                             Swal.fire({
@@ -206,6 +209,5 @@
             }
         });
     });
-
 </script>
 @endpush

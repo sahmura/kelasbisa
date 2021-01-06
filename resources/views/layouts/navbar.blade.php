@@ -1,64 +1,86 @@
-<nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute sticky-top">
-    <div class="container-fluid">
-        <div class="navbar-wrapper">
-            <div class="navbar-toggle">
-                <button type="button" class="navbar-toggler">
-                    <span class="navbar-toggler-bar bar1"></span>
-                    <span class="navbar-toggler-bar bar2"></span>
-                    <span class="navbar-toggler-bar bar3"></span>
-                </button>
-            </div>
-            <a class="navbar-brand" href="#pablo">Dashboard</a>
-        </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-            aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <form>
-                <div class="input-group no-border">
-                    <input type="text" value="" class="form-control" placeholder="Search...">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <i class="now-ui-icons ui-1_zoom-bold"></i>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="#pablo">
-                        <i class="now-ui-icons media-2_sound-wave"></i>
-                        <p>
-                            <span class="d-lg-none d-md-block">Stats</span>
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="now-ui-icons location_world"></i>
-                        <p>
-                            <span class="d-lg-none d-md-block">Some Actions</span>
-                        </p>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#pablo">
-                        <i class="now-ui-icons users_single-02"></i>
-                        <p>
-                            <span class="d-lg-none d-md-block">Account</span>
-                        </p>
-                    </a>
-                </li>
-            </ul>
-        </div>
+<nav class="navbar-custom">
+    <div class="topbar-left">
+        <a href="{{ url('') }}" class="logo">
+            <span>
+                <img src="{{ url('logo/logocolor.svg?') }}" alt="logo-small" class="logo-sm" style="height:40px">
+            </span>
+            <span>
+                <img src="{{ url('logo/textcolor.svg?') }}" alt="logo-large" class="logo-lg" style="height:20px">
+            </span>
+        </a>
     </div>
+
+    <ul class="list-unstyled topbar-nav float-right mb-0">
+
+        <!-- <li class="dropdown">
+            <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                <i class="mdi mdi-bell-outline nav-icon"></i>
+                <span class="badge badge-danger badge-pill noti-icon-badge">2</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-lg">
+                <h6 class="dropdown-item-text">
+                    Notifications (258)
+                </h6>
+                <div class="slimscroll notification-list">
+                    <a href="javascript:void(0);" class="dropdown-item notify-item active">
+                        <div class="notify-icon bg-success"><i class="mdi mdi-cart-outline"></i></div>
+                        <p class="notify-details">Your order is placed<small class="text-muted">Dummy text of the printing and typesetting industry.</small></p>
+                    </a>
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <div class="notify-icon bg-warning"><i class="mdi mdi-message"></i></div>
+                        <p class="notify-details">New Message received<small class="text-muted">You have 87 unread messages</small></p>
+                    </a>
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <div class="notify-icon bg-info"><i class="mdi mdi-glass-cocktail"></i></div>
+                        <p class="notify-details">Your item is shipped<small class="text-muted">It is a long established fact that a reader will</small></p>
+                    </a>
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <div class="notify-icon bg-primary"><i class="mdi mdi-cart-outline"></i></div>
+                        <p class="notify-details">Your order is placed<small class="text-muted">Dummy text of the printing and typesetting industry.</small></p>
+                    </a>
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <div class="notify-icon bg-danger"><i class="mdi mdi-message"></i></div>
+                        <p class="notify-details">New Message received<small class="text-muted">You have 87 unread messages</small></p>
+                    </a>
+                </div>
+                <a href="javascript:void(0);" class="dropdown-item text-center text-primary">
+                    View all <i class="fi-arrow-right"></i>
+                </a>
+            </div>
+        </li> -->
+
+        <li class="dropdown">
+            <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                @if(Auth()->user()->profilpic != '')
+                <img alt="Profil pic {{ Auth()->user()->name }}" src="{{ url('assets/profilpic/' . Auth()->user()->profilpic )}}" class="rounded-circle">
+                @else
+                <img alt="Profil pic {{ Auth()->user()->name }}" src="{{ url('assets/image/userpic.svg')}}" class="rounded-circle">
+                @endif
+                <span class="ml-1 nav-user-name hidden-sm"> <i class="mdi mdi-chevron-down"></i> </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="dripicons-exit text-muted mr-2"></i> Logout</a>
+            </div>
+        </li>
+    </ul>
+
+    <ul class="list-unstyled topbar-nav mb-0">
+        <li>
+            <button class="button-menu-mobile nav-link waves-effect waves-light">
+                <i class="mdi mdi-menu nav-icon"></i>
+            </button>
+        </li>
+
+        <!-- <li class="hide-phone app-search">
+            <form role="search" class="">
+                <input type="text" placeholder="Search..." class="form-control">
+                <a href=""><i class="fas fa-search"></i></a>
+            </form>
+        </li> -->
+    </ul>
+
 </nav>
+
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    @csrf
+</form>

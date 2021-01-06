@@ -30,8 +30,7 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col">
-                            <input type="text" name="classname" id="classname" class="form-control"
-                                placeholder="Ketikan nama kelas">
+                            <input type="text" name="classname" id="classname" class="form-control" placeholder="Ketikan nama kelas">
                         </div>
                     </div>
                 </div>
@@ -49,12 +48,10 @@
             @foreach($classes as $class)
             <div class="col-md-4 mt-3">
                 <div class="card shadow">
-                    <img class="card-img-top" src="{{ url('cover/' . $class->cover) }}" loading="lazy"
-                        alt="{{ $class->name }}">
+                    <img class="card-img-top" src="{{ url('cover/' . $class->cover) }}" loading="lazy" alt="{{ $class->name }}">
                     <div class="card-body">
-                        <h6 class="card-title" style="margin-bottom: 10px;">{{ $class->name }} <span
-                                class="badge badge-warning float-right">{{ ucfirst($class->type) }}</span></h6>
-                        {{ $class->category->name }}
+                        <h6 class="card-title" style="margin-bottom: 10px;">{{ $class->name }} <span class="badge badge-warning float-right">{{ ucfirst($class->type) }}</span></h6>
+                        {{ $class->category->name ?? 'Tidak berkategori' }}
                     </div>
                     <div class="card-footer">
                         <div class="row">
@@ -62,8 +59,7 @@
                                 <span class="badge badge-default">{{ ucfirst($class->speaker->name) }}</span>
                             </div>
                             <div class="col-8">
-                                <a href="{{ url('detail/' . $class->id) }}"
-                                    class="btn btn-sm btn-primary float-right"><i class="fas fa-search"></i>
+                                <a href="{{ url('detail/' . $class->id) }}" class="btn btn-sm btn-primary float-right"><i class="fas fa-search"></i>
                                     Detail</a>
                             </div>
                         </div>
@@ -93,7 +89,7 @@
 @endsection
 @push('js')
 <script>
-    $('#category_id').on('change', function () {
+    $('#category_id').on('change', function() {
         var category = $('#category_id').val();
         var type = $('#type').val();
         if (category == 'all' && type == 'all') {
@@ -102,7 +98,7 @@
             window.location.href = "{{ url('class')}}" + '/' + category + '/' + type;
         }
     });
-    $('#type').on('change', function () {
+    $('#type').on('change', function() {
         var category = $('#category_id').val();
         var type = $('#type').val();
         if (category == 'all' && type == 'all') {
@@ -112,10 +108,9 @@
         }
     });
 
-    $('#classname').on('change', function () {
+    $('#classname').on('change', function() {
         var name = $('#classname').val();
         window.location.href = "{{ url('class')}}" + '/search/' + name;
     });
-
 </script>
 @endpush
